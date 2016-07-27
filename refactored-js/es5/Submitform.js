@@ -3,28 +3,27 @@ function Submitform(type, url, datastring, cache) {
     this.dataString = datastring;
     this.url = url;
     this.cache = cache;
-    this.success = '';
-    this.error = '';
+    this.feedback = null;
+    this.error = null;
+    this.handshake = false;
     this.response = '';
 }
-Submitform.prototype.ajaxSubmit = function() {
+
+Submitform.prototype.ajaxSubmit = function(callback) {
+  var that = this;
   $.ajax({
     type: this.type,
     url: this.url,
     cache: this.cache,
-    success: function(success) {
-      this.response = 'success';
-      this.success = success;
+    data: this.dataString,
+    success: function(response) {
+      callback.submitResponse(JSON.parse(response));
+      that.handshake = true;
     },
     error: function(error) {
-      this.response = 'error';
-      this.error = error;
+      callback.submitResponse(JSON.parse(response));
+      this.handshake = false;
     }
   });
-  if (this.response == 'success') {
-    return this.success;
-  }
-  else if (this.response == 'error') {
-    return this.error;
-  }
+  return false;
 }

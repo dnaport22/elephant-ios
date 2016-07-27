@@ -62,14 +62,18 @@ Register.prototype.validateTC = function() {
 Register.prototype.submit = function() {
   var dataString = 'name=' + this._name + '&email=' + this._email + '&pass=' + this._pass;
   var request = new Submitform('POST', this._url, dataString, false);
-  if (request.ajaxSubmit() == 0) {
-    alert("Email is already in use.","Registration Error");
-  }
-  else {
-    alert("We have emailed you the verification link.","Registered Successfully");
-    this.reloadForm();
-  }
+  request.ajaxSubmit(this);
   return false;
+}
+
+Register.prototype.submitResponse = function(response) {
+  console.log(response)
+  if (response.status == 1) {
+    alert("Successfully registred");
+  }
+  else if(response.status == 0) {
+    alert("Email already registred");
+  }
 }
 
 Register.prototype.reloadForm = function() {
