@@ -1,0 +1,17 @@
+////
+/// Breakpoint variables
+/// @group Layout
+////
+
+/// Get a breakpoint value for a max width query.
+///
+/// This assumes that your are developing in a mobile first mindset, where most
+/// of your media queries will be min-width. If you need to reverse and use a
+/// max-width media query, you will need to remove 1px from the breakpoint value.
+///
+/// @param {Length} $breakpoint
+/// @return {Length}
+///  The breakpoint value suitable for a max width query.
+@function get-max-width-breakpoint-value($breakpoint) {
+  @return $breakpoint - 1px;
+}
