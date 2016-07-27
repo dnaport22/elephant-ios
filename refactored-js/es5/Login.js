@@ -49,6 +49,7 @@ class Login {
     }
     return false;
   }
+
   reloadForm() {
     inputVal.setValue(this.EmailId, '');
     inputVal.setValue(this.PassId, '');

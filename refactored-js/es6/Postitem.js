@@ -33,7 +33,7 @@ class Postitem {
   }
   uploadImage() {
     ajaxindicatorstart('');
-    var fileURL = imageToUpload;
+    var fileURL = this.imageToUpload;
     var serverURL = "http://maddna.xyz/testup.php";
     var itemName = document.getElementById("itmnm").value;
     var itemDesc = document.getElementById("desc").value;
