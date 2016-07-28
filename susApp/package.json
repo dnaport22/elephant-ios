@@ -1,7 +1,7 @@
 {
   "name": "susapp",
-  "version": "1.1.1",
-  "description": "susApp: An Ionic project",
+  "version": "1.0.0",
+  "description": "susApp: Test build",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",

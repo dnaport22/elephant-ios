@@ -36,7 +36,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     url: '/main',
     views: {
       'menuContent': {
-        templateUrl: 'templates/main.html'
+        templateUrl: 'templates/main.html',
+        controller: 'PlaylistsCtrl'
       }
     }
   })
@@ -59,6 +60,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
 
+  .state('app.getitem', {
+    url: '/getitem',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/getitem.html'
+      }
+    }
+  })
+
   .state('app.postitem', {
     url: '/postitem',
     views: {
@@ -66,44 +76,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         templateUrl: 'templates/postitem.html'
       }
     }
-  })
-
-  .state('app.search', {
-    url: '/search',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html'
-      }
-    }
-  })
-
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
-      }
-    })
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
-        }
-      }
-    })
-
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
-      }
-    }
   });
+
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/login');
+  $urlRouterProvider.otherwise('/app/main');
 });

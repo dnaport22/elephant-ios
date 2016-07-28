@@ -13,9 +13,10 @@
       <label class="item item-input">
         <input type="password" placeholder="Re-type Password" id="set_pass2">
       </label>
+      <ion-checkbox ng-model="filter.red">Agree terms and condition</ion-checkbox>
     </div>
   </ion-content>
   <div class="bar bar-footer bar-calm">
-    <div class="title">Register</div>
+    <div class="title" onclick="registerUser.processInput()">Register</div>
   </div>
 </ion-view>
