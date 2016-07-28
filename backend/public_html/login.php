@@ -31,6 +31,9 @@ class userLogin
 }
 
 try {
-$user_login = new userLogin($mysql_db, @$_POST['email'], @$_POST['pass']);
-$user_login->userAuth();
-
+	$user_login = new userLogin($mysql_db, @$_POST['email'], @$_POST['pass']);
+	$user_login->userAuth();
+}
+catch (Exception $exception) {
+	Response::flush(0, $exception->getMessage());
+}

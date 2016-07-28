@@ -1,55 +1,82 @@
 <?php
 require "db_connect.php";
+require "item.php";
+require "response.php";
 
+/**
+ * Class postItem implements a post item manager.
+ */
 class postItem
 {
-	private $useremail = NULL;
-	private $itemname = NULL;
-	private $description = NULL;
-	private $imagesrc = NULL;
+	/**
+	 * Database connection.
+	 *
+	 * @var dbConnect
+	 */
 	private $my_query = NULL;
-	private $postimage = NULL;
-	private $savefolder = "images/";
-	private $target_file = NULL;
-	public function __construct(dbConnect $my_query, $imagesrc, $description, $useremail, $itemname, $postimage)
-	{
+
+	/**
+	 * Folder where the images will be saved.
+	 *
+	 * @var string
+	 */
+	private $savefolder = 'images/';
+
+	/**
+	 * postItem constructor.
+	 *
+	 * @param dbConnect $my_query
+	 */
+	public function __construct(dbConnect $my_query) {
 		$this->my_query = $my_query;
-		$this->imagesrc = $imagesrc;
-		$this->description = $description;
-		$this->useremail = $useremail;
-		$this->itemname = $itemname;
-		$this->postimage = $postimage;
 	}
 
-	public function uploadImage() 
-	{
-		$this->target_file = $this->savefolder . basename($this->imagesrc);
-		if (move_uploaded_file($this->postimage, $this->target_file) == True) {
-			$this->insertInfo();
-		} else {
-			die('0');
+	/**
+	 * Uploads the image received where it belongs.
+	 *
+	 * @return string
+	 *   Path to the uploaded image.
+	 */
+	public function uploadImage() {
+		$imagesrc = $_FILES["file"]["name"];
+		$postimage = $_FILES["file"]["tmp_name"];
+
+		$target_file = $this->savefolder . basename($imagesrc);
+		if (move_uploaded_file($postimage, $target_file) == True) {
+			return $target_file;
 		}
+		Response::flush(0, 'Unable to upload the image. Please try again in few minutes or contact an administrator.');
 	}
 
-	public function insertInfo()
+	/**
+	 * Insert the item info.
+	 *
+	 * @param User $user
+	 *   User performing the action.
+	 *
+	 * @param $image_source
+	 *   Source image generated.
+	 */
+	public function insertInfo(User $user, $image_source)
 	{
 		$this->target_file = $this->savefolder . basename($this->imagesrc);
-		$query = $this->my_query->query('INSERT INTO items (user_id,item_name,description,image_src,post_date) 
-				VALUES (:email, :item_name, :item_description, :targetfile, CURDATE())', [
-			':email' => $this->useremail,
-			':item_name' => $this->itemname,
-			':item_description' => $this->description,
-			':targetfile' => $this-$this->target_file,
-		]);
 
-		if ($query->rowCount()) {
+		$item = new Item($this->my_query);
+		$item->setUid($user->getUid());
+		$item->setName($_POST['itemName']);
+		$item->setDescription($_POST['desc']);
+		$item->setImage($image_source);
+		$item->setStatus(1);
+		if ($item->save()) {
 			$this->sendEmail();
 		}
 		Response::flush(0, 'An error ocurred while trying to post your item. Please try again in few minutes or contact an administrator.');
 	}
 
-	public function sendEmail()
-	{
+	/**
+	 * Sends an email notifying of the addition of the object.
+	 */
+	public function sendEmail() {
 		$to = $this->useremail;
 		$subject= "Thank you for Wombling!";
 		$message = <<<HTML
@@ -67,14 +94,14 @@ HTML;
 	}
 }
 
-$imagesrc = $_FILES["file"]["name"];
-$postimage = $_FILES["file"]["tmp_name"];
-
-$useremail = $_POST['useremail'];
-$itemname = $_POST['itemName'];
-$description = $_POST['desc'];
-
-$post_item = new postItem($mysql_db, $imagesrc, $description, $useremail, $itemname, $postimage);
-$post_item->uploadImage();
+try {
+	$user = User::authorize();
+	$post_item = new postItem($mysql_db);
+	$image_source = $post_item->uploadImage();
+	$post_item->insertInfo($user, $image_source);
+}
+catch (Exception $exception) {
+	Response::flush(0, $exception->getMessage());
+}
 
 
