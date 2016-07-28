@@ -62,10 +62,11 @@ class Item {
   }
 
   public static function getList($offset = 0, $limit = 10) {
+    global $mysql_db;
     /** @var PDOStatement $results */
-    $results = $mysql_db->query('SELECT * FROM items ORDER BY post_date OFFSET :offset LIMIT :limit', [
-      ':offset' => $offset,
-      ':limit' => $limit,
+    $results = $mysql_db->queryInt('SELECT * FROM items ORDER BY post_date LIMIT :limit OFFSET :offset', [
+      ':offset' => (int) $offset,
+      ':limit' => (int) $limit,
     ]);
     $list = [];
     while ($data = $results->fetch(PDO::FETCH_ASSOC)) {

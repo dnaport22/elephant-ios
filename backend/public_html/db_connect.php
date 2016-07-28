@@ -71,6 +71,15 @@ class dbConnect
 		$stmt->execute($parameters);
 		return $stmt;
 	}
+
+	public function queryInt($query, $parameters) {
+		$stmt = $this->connection->prepare($query);
+		foreach ($parameters as $key => $value) {
+			$stmt->bindValue($key, (int) $value, PDO::PARAM_INT);
+		}
+		$stmt->execute();
+		return $stmt;
+	}
 }
 
 $mysql_db = new dbConnect();

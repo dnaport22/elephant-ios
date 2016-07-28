@@ -17,7 +17,7 @@ class Response implements JsonSerializable {
 
   function jsonSerialize() {
     foreach (get_object_vars($this) as $key => $value) {
-      if (!$value && !is_integer($value)) {
+      if (!$value && !is_integer($value) && !is_array($value)) {
         unset($this->{$key});
       }
     }

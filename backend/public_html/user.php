@@ -55,13 +55,22 @@ class User implements JsonSerializable {
   }
 
   public function save($password = '') {
-    $result = $this->db->query('INSERT INTO 
-				user_profiles (uid, name, email, password, activation, status) 
-				VALUES (:uid, :name, :email, :password, :activation, :status)', [
+    $query = <<<SQL
+      INSERT INTO user_profiles (uid, name, email, password, activation, status) 
+				VALUES (:uid, :name, :email, :password, :activation, :status)
+			ON DUPLICATE KEY UPDATE
+			  name = VALUES(name),
+			  email = VALUES(email),
+			  password = VALUES(password),
+			  activation = VALUES(activation),
+			  status = VALUES(status)			  
+SQL;
+
+    $result = $this->db->query($query, [
       ':uid' => $this->getUid(),
       ':name' => $this->getName(),
       ':email' => $this->getEmail(),
-      ':password' => $this->getPassword() ?: Password::getInstance()->getHash($password),
+      ':password' => ($password) ? Password::getInstance()->getHash($password) : $this->getPassword(),
       ':activation' => $this->getActivation(),
       ':status' => $this->getStatus(),
     ]);
@@ -98,6 +107,7 @@ class User implements JsonSerializable {
   }
 
   public static function authorize() {
+    global $mysql_db;
     $user = new static($mysql_db);
     if (!$user->loadByCode($_GET['code'])) {
       Response::flush(0, 'You are not authorized to perform this action.');
