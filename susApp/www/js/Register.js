@@ -44,7 +44,7 @@ Register.prototype.validatePassword = function() {
     alert("Password Doesn't Match",'Alert');
   }
   else {
-    return this.validateTC();
+    return this.submit();
   }
 }
 

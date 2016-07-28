@@ -4,32 +4,24 @@ function SessionCheck() {
 }
 
 SessionCheck.prototype.postCheck = function() {
-  ajaxindicatorstart('');
   if (localStorage.getItem('loggedID') == '1') {
     activate_page('#post-items');
-    ajaxindicatorstop();
   }
   else {
     activate_page('#login-page');
-    ajaxindicatorstop();
   }
 }
 
 SessionCheck.prototype.getCheck = function() {
-  ajaxindicatorstart('');
   activate_page('#get-items');
-  ajaxindicatorstop();
 }
 
 SessionCheck.prototype.checkLogin = function(){
-  ajaxindicatorstart('');
   if (localStorage.getItem('loggedID') == '1') {
     activate_page('#get-items');
-    ajaxindicatorstop();
   }
   else {
     activate_page('#login-page');
-    ajaxindicatorstop();
   }
 }
 

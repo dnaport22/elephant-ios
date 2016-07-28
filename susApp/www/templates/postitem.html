@@ -1,20 +1,20 @@
 <ion-view view-title="Post Item">
   <ion-content>
     <div class="list card">
-      <div class="item item-body" onclick="Postitem.takePicture()">
-        <img class="full-image" src="./../img/ionic.png">
+      <div class="item item-body" onclick="item.selectPicture()">
+        <img class="full-image" src="./../img/ionic.png" id="upImage">
       </div>
     </div>
     <div class="list list-inset">
       <label class="item item-input">
-        <input type="text" placeholder="Name of your item">
+        <input type="text" placeholder="Name of your item" id="itmnm">
       </label>
       <label class="item item-input">
-        <textarea placeholder="Describe you item in few words"></textarea>
+        <textarea placeholder="Describe you item in few words" id="desc"></textarea>
       </label>
     </div>
   </ion-content>
   <div class="bar bar-footer bar-calm">
-    <div class="title">Upload</div>
+    <div class="title" onclick="item.uploadImage()">Upload</div>
   </div>
 </ion-view>

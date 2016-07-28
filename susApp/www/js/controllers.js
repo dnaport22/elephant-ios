@@ -1,14 +1,25 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicActionSheet) {
 
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
+  $scope.show = function() {
+    var hideSheet = $ionicActionSheet.show({
+      buttons: [
+        { text: 'Capture using Camera',
+          buttonClicked: alert('triggered')},
+        { text: 'Select from gallery' }
+      ],
+      destructiveText: 'Delete',
+      titleText: 'How would you like to select a picture?',
+      cancelText: 'Cancel',
+      cancel: function() {
+           // add cancel code..
+         },
+      buttonClicked: function(index) {
+        return true;
+      }
+    });
+  }
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -58,7 +69,5 @@ angular.module('starter.controllers', [])
       console.log(response);
       $scope.allItems = response.data;
     });
-})
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+ });
