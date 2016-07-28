@@ -96,7 +96,7 @@ SQL;
       ':itemid' => $this->getId(),
       ':name' => $this->getName(),
       ':description' => $this->getDescription(),
-      ':image_src' => $this->getImage(),
+      ':image' => $this->getImage(),
       ':postdate' => $this->getPostDate() ?: date('Y-m-d'),
       ':status' => $this->getStatus(),
     ]);

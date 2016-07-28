@@ -2,6 +2,7 @@
 require "db_connect.php";
 require "item.php";
 require "response.php";
+require "user.php";
 
 /**
  * Class postItem implements a post item manager.
@@ -31,6 +32,12 @@ class postItem
 		$this->my_query = $my_query;
 	}
 
+	private function createFolderIfNecessary() {
+		if (!file_exists($this->savefolder)) {
+			mkdir($this->savefolder, 0755, TRUE);
+		}
+	}
+
 	/**
 	 * Uploads the image received where it belongs.
 	 *
@@ -41,7 +48,9 @@ class postItem
 		$imagesrc = $_FILES["file"]["name"];
 		$postimage = $_FILES["file"]["tmp_name"];
 
-		$target_file = $this->savefolder . basename($imagesrc);
+		$this->createFolderIfNecessary();
+
+		$target_file = $this->savefolder . time() . '_' . basename($imagesrc);
 		if (move_uploaded_file($postimage, $target_file) == True) {
 			return $target_file;
 		}
@@ -59,8 +68,6 @@ class postItem
 	 */
 	public function insertInfo(User $user, $image_source)
 	{
-		$this->target_file = $this->savefolder . basename($this->imagesrc);
-
 		$item = new Item($this->my_query);
 		$item->setUid($user->getUid());
 		$item->setName($_POST['itemName']);
@@ -68,7 +75,8 @@ class postItem
 		$item->setImage($image_source);
 		$item->setStatus(1);
 		if ($item->save()) {
-			$this->sendEmail();
+			$this->sendEmail($user);
+			Response::flush(1, 'The email could not be sent.');
 		}
 		Response::flush(0, 'An error ocurred while trying to post your item. Please try again in few minutes or contact an administrator.');
 	}
@@ -76,19 +84,20 @@ class postItem
 	/**
 	 * Sends an email notifying of the addition of the object.
 	 */
-	public function sendEmail() {
-		$to = $this->useremail;
+	public function sendEmail(User $user) {
+		$name = $user->getName();
 		$subject= "Thank you for Wombling!";
 		$message = <<<HTML
-Post request by: {$this->useremail}<br/> 
+Post request by: {$name}<br/> 
 Your item will be posted within our Womble app soon after approval.<br/>
 Thank you.<br/>
 Regards, Womble Team.
 HTML;
+
 		$header  = "From:noreply@maddna.xyz \r\n";
 		$header .= "MIME-Version: 1.0\r\n";
 		$header .= "Content-type: text/html\r\n";
-		if (mail($to,$subject,$message,$header) == True) {
+		if (mail($user->getEmail(), $subject, $message, $header) == True) {
 			Response::flush(1, 'Item posted successfully');
 		}
 	}

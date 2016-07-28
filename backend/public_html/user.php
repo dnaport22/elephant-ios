@@ -95,7 +95,7 @@ SQL;
 
   public function loadByCode($code) {
     return $this->loadFromPDO($this->db->query('SELECT * FROM user_profiles WHERE activation = :code', [
-      ':$code' => $code,
+      ':code' => $code,
     ]));
   }
 
@@ -109,7 +109,7 @@ SQL;
   public static function authorize() {
     global $mysql_db;
     $user = new static($mysql_db);
-    if (!$user->loadByCode($_GET['code'])) {
+    if (!$user->loadByCode($_REQUEST['code'])) {
       Response::flush(0, 'You are not authorized to perform this action.');
     }
     return $user;
