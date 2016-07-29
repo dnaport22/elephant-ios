@@ -69,11 +69,20 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
 
-  .state('app.forgotpassword', {
-    url: '/forgotpassword',
+  .state('app.resetpassword', {
+    url: '/resetpassword',
     views: {
       'menuContent': {
-        templateUrl: 'templates/forgotpassword.html'
+        templateUrl: 'templates/resetpassword.html'
+      }
+    }
+  })
+
+  .state('app.requestreset', {
+    url: '/requestreset',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/requestreset.html'
       }
     }
   })
