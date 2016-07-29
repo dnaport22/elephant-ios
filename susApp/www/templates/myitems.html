@@ -1,0 +1,15 @@
+<ion-view view-title="My items">
+  <ion-content>
+    <ion-list ng-repeat="item in myitems">
+      <ion-item>
+        Test
+      </ion-item>
+    <ion-list>
+    <ion-infinite-scroll
+      ng-if="check()"
+      on-infinite="loadMore()"
+      distance="1%"
+      spinner='ionSpinner'>
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

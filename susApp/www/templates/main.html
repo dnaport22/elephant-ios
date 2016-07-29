@@ -3,17 +3,23 @@
     <div class="list list-inset">
       <label class="item item-input">
         <i class="icon ion-search placeholder-icon"></i>
-        <input type="text" placeholder="Search" ng-modal="searchText">
+        <input id="search" type="text" placeholder="Search for items" ng-change="search()" ng-model="searchValue">
       </label>
     </div>
-    <div class="list card" ng-repeat="item in allItems | filter:searchText">
+    <div class="list card" ng-repeat="item in items" href="#/app/getitem/{{item.name}}">
       <div class="item item-image">
-        <img src="http://maddna.xyz/images/1469722640_image%3A1301">
+        <img ng-src="http://maddna.xyz/{{ item.image }}" />
       </div>
-      <div class="item item-body">
-        <h2>{{item.name}}</h2>
+      <div class="item item-body" href="#/app/getitem/{{item.name}}">
+        {{ item.name }}
       </div>
     </div>
+    <ion-infinite-scroll
+      ng-if="check()"
+      on-infinite="loadMore()"
+      distance="1%"
+      spinner='ionSpinner'>
+    </ion-infinite-scroll>
   </ion-content>
   <div class="bar bar-footer bar-calm">
     <div class="title">Post Item</div>
