@@ -1,6 +1,7 @@
 <?php
 
 require_once 'db_connect.php';
+require_once 'user.php';
 
 /**
  * Class Item implements a item manager.
@@ -137,11 +138,29 @@ SQL;
    */
   public static function getListFiltered($offset, $limit, $filter) {
     global $mysql_db;
+    $query = <<<SQL
+      SELECT * FROM items WHERE 
+        CONCAT(' ', LOWER(item_name), ' ') LIKE LOWER(:filter) OR 
+        CONCAT(' ', LOWER(description), ' ') LIKE LOWER(:filter)
+      ORDER BY post_date LIMIT :limit OFFSET :offset
+SQL;
+
     /** @var PDOStatement $results */
-    $results = $mysql_db->queryCast('SELECT * FROM items WHERE item_name LIKE BINARY :filter OR description LIKE BINARY :filter ORDER BY post_date LIMIT :limit OFFSET :offset', [
+    $results = $mysql_db->queryCast($query, [
       ':offset' => (int) $offset ?: 0,
       ':limit' => (int) $limit ?: 10,
       ':filter' => '%' . $filter . '%',
+    ]);
+    return self::loadList($results);
+  }
+
+  public static function getUserList(User $user, $offset, $limit) {
+    global $mysql_db;
+    /** @var PDOStatement $results */
+    $results = $mysql_db->queryCast('SELECT * FROM items WHERE user_id = :uid LIMIT :limit OFFSET :offset', [
+      ':uid' => $user->getUid(),
+      ':offset' => (int) $offset ?: 0,
+      ':limit' => (int) $limit ?: 10,
     ]);
     return self::loadList($results);
   }
