@@ -66,8 +66,7 @@ angular.module('starter.controllers', [])
 .controller('MainpageCtrl', function($scope, $http) {
   $http.get("http://maddna.xyz/getitems.php")
     .then(function(response) {
-      console.log(response);
-      $scope.allItems = response.data;
+      $scope.allItems = response.data.items;
     });
 
  });

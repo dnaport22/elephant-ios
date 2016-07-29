@@ -37,7 +37,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     views: {
       'menuContent': {
         templateUrl: 'templates/main.html',
-        controller: 'PlaylistsCtrl'
+        controller: 'MainpageCtrl'
       }
     }
   })
@@ -65,6 +65,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     views: {
       'menuContent': {
         templateUrl: 'templates/getitem.html'
+      }
+    }
+  })
+
+  .state('app.forgotpassword', {
+    url: '/forgotpassword',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/forgotpassword.html'
       }
     }
   })

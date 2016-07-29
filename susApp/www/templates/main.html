@@ -1,14 +1,17 @@
 <ion-view view-title="Main">
   <ion-content>
-    <div class="row">
-      <div class="col col-50">
-        <div class="list card">
-          <div class="item item-image">
-            <img src="cover.jpg">
-          </div>
-          <a class="item item-icon-left assertive" href="#">
-          </a>
-        </div>
+    <div class="list list-inset">
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="Search" ng-modal="searchText">
+      </label>
+    </div>
+    <div class="list card" ng-repeat="item in allItems | filter:searchText">
+      <div class="item item-image">
+        <img src="http://maddna.xyz/images/1469722640_image%3A1301">
+      </div>
+      <div class="item item-body">
+        <h2>{{item.name}}</h2>
       </div>
     </div>
   </ion-content>
