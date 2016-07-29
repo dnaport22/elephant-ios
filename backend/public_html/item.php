@@ -117,10 +117,37 @@ SQL;
   public static function getList($offset, $limit) {
     global $mysql_db;
     /** @var PDOStatement $results */
-    $results = $mysql_db->queryInt('SELECT * FROM items ORDER BY post_date LIMIT :limit OFFSET :offset', [
+    $results = $mysql_db->queryCast('SELECT * FROM items ORDER BY post_date LIMIT :limit OFFSET :offset', [
       ':offset' => (int) $offset ?: 0,
       ':limit' => (int) $limit ?: 10,
     ]);
+    return self::loadList($results);
+  }
+
+  /**
+   * Gets a list of items.
+   *
+   * @param int $offset
+   *   Offset to apply to the list.
+   *
+   * @param int $limit
+   *   Number of items to return.
+   *
+   * @return Item[]
+   */
+  public static function getListFiltered($offset, $limit, $filter) {
+    global $mysql_db;
+    /** @var PDOStatement $results */
+    $results = $mysql_db->queryCast('SELECT * FROM items WHERE item_name LIKE BINARY :filter OR description LIKE BINARY :filter ORDER BY post_date LIMIT :limit OFFSET :offset', [
+      ':offset' => (int) $offset ?: 0,
+      ':limit' => (int) $limit ?: 10,
+      ':filter' => '%' . $filter . '%',
+    ]);
+    return self::loadList($results);
+  }
+
+  protected static function loadList(PDOStatement $results) {
+    global $mysql_db;
     $list = [];
     while ($data = $results->fetch(PDO::FETCH_ASSOC)) {
       $item = new static($mysql_db);

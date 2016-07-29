@@ -72,10 +72,15 @@ class dbConnect
 		return $stmt;
 	}
 
-	public function queryInt($query, $parameters) {
+	public function queryCast($query, $parameters) {
 		$stmt = $this->connection->prepare($query);
 		foreach ($parameters as $key => $value) {
-			$stmt->bindValue($key, (int) $value, PDO::PARAM_INT);
+	    if (is_integer($value)) {
+				$stmt->bindValue($key, $value, PDO::PARAM_INT);
+			}
+			if (is_string($value)) {
+				$stmt->bindValue($key, $value, PDO::PARAM_STR);
+			}
 		}
 		$stmt->execute();
 		return $stmt;
