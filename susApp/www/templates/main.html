@@ -1,5 +1,9 @@
 <ion-view view-title="Main">
   <ion-content>
+    <ion-refresher
+    pulling-text="Pull to refresh..."
+    on-refresh="pullloadMore()">
+  </ion-refresher>
     <div class="list list-inset">
       <label class="item item-input">
         <i class="icon ion-search placeholder-icon"></i>

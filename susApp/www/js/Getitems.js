@@ -6,6 +6,23 @@ angular.module('Getitems', [])
   $scope.offset = 0;
   $scope.limit = 10;
 
+  $scope.pullloadMore = function() {
+    $http({
+      url: 'http://maddna.xyz/getitems.php',
+      method: 'GET',
+      params: {
+        offset: $scope.offset,
+        limit: $scope.limit,
+        filter: document.getElementById('search').value
+      }}).success(function(response) {
+      var x = response.items
+      $scope.items = $scope.items.concat(response.items)
+      $scope.retrieved = response.items.length
+      $scope.offset += $scope.retrieved
+      $scope.$broadcast('scroll.refreshComplete');
+    });
+  };
+
 
   $scope.loadMore = function() {
     $http({
@@ -20,6 +37,7 @@ angular.module('Getitems', [])
       $scope.items = $scope.items.concat(response.items)
       $scope.retrieved = response.items.length
       $scope.offset += $scope.retrieved
+      $scope.$broadcast('scroll.refreshComplete');
       $scope.$broadcast('scroll.infiniteScrollComplete');
     });
   };
