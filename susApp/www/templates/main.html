@@ -6,7 +6,7 @@
         <input id="search" type="text" placeholder="Search for items" ng-change="search()" ng-model="searchValue">
       </label>
     </div>
-    <div class="list card" ng-repeat="item in items" >
+    <div class="list card" ng-repeat="item in items">
       <div class="item item-image">
         <img ng-src="http://maddna.xyz/{{ item.image }}" />
       </div>
@@ -14,7 +14,7 @@
            ng-click="trafficLight('getitem',item.name,item.description,item.image,item.postDate,item.uid)">
         {{ item.name }}
       </div>
-    </div>
+  </div>
     <ion-infinite-scroll
       ng-if="check()"
       on-infinite="loadMore()"

@@ -14,14 +14,15 @@ angular.module('Myitems', [])
       url: 'http://maddna.xyz/myitems.php',
       method: 'GET',
       params: {
-        code: localStrorage.getItem('user_activation'),
+        code: localStorage.getItem('user_activation'),
         offset: $scope.offset,
         limit: $scope.limit
       }}).success(function(response) {
-      $scope.myitems = $scope.myitems.concat(response.items)
-      $scope.retrieved = response.items.length
-      $scope.offset += $scope.retrieved
-      $scope.$broadcast('scroll.infiniteScrollComplete');
+        console.log(response)
+        $scope.myitems = $scope.myitems.concat(response.items)
+        $scope.retrieved = response.items.length
+        $scope.offset += $scope.retrieved
+        $scope.$broadcast('scroll.infiniteScrollComplete');
     });
   };
 

@@ -15,7 +15,8 @@ angular.module('DrawerLinks', [])
       {title: 'Home', class: 'icon ion-home', href: '#/app/main'},
       {title: 'My items', class: 'icon ion-folder', href: '#/app/myitems'},
       {title: 'About us', class: 'icon ion-information-circled', href: '#/app/aboutus'},
-      {title: 'Terms and conditions', class: 'icon ion-document-text', href: '#/app/terms'}
+      {title: 'Terms and conditions', class: 'icon ion-document-text', href: '#/app/terms'},
+      {title: 'Login temp*', class: 'icon ion-document-text', href: '#/app/login'}
     );
   }
   else {
