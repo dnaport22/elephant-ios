@@ -1,33 +1,35 @@
-// Class to perform small auth checks
+angular.module('DrawerLinks', [])
 
-function DrawerLinks() {
-  this._url = 'http://www.maddna.xyz/session_1.php';
-  this._userStatus = localStorage.getItem('loggedID');
-  this._userEmail = localStorage.getItem('loggeduser');
-}
+.controller('DrawerController', function($scope, $location) {
 
-DrawerLinks.prototype.updateLinks = function() {
-  if (this._userStatus == '1'){
-    this.hideLink('#loginLink');
-    this.getUsername();
+  $scope.username = '';
+  $scope.auth = [];
+  $scope.authStatus = null;
+  $scope.links = [];
+  $scope.changecolor = 'positive';
+
+  if (localStorage.getItem('user_status') == 1) {
+    $scope.auth.push({title: 'Logout', status: 1});
+    $scope.username = 'Logged in as ' + localStorage.getItem('user_username');
+    $scope.links.push(
+      {title: 'Home', class: 'icon ion-home', href: '#/app/main'},
+      {title: 'My items', class: 'icon ion-folder', href: '#/app/myitems'},
+      {title: 'About us', class: 'icon ion-information-circled', href: '#/app/aboutus'},
+      {title: 'Terms and conditions', class: 'icon ion-document-text', href: '#/app/terms'}
+    );
   }
   else {
-    this.hideLink('#logoutLink');
-    this.hideLink('#myitemsLink');
-    this.hideLink('#feedbackLink');
-    this.hideLink('#userName');
+    $scope.authStatus = 0;
+    $scope.auth.push({title: 'Login', status: 0});
+    $scope.links.push({title: 'About us'})
   }
-}
 
-DrawerLinks.prototype.getUsername = function() {
-  var dataString = 'loggeduser='+ this._userEmail;
-  var request = new Submitform('POST', 'http://www.maddna.xyz/session_1.php', dataString, false);
-  if (request.ajaxSubmit() == 1) {
-    $('#userName').html(data);
-    localStorage.setItem('loggedusername', request.ajaxSubmit());
+  $scope.authAction = function(action) {
+    if (action == 'Login') {
+      $location.path('#/app/login')
+    }
+    else if (action == 'Logout') {
+      localStorage.clear()
+    }
   }
-}
-
-DrawerLinks.prototype.hideLink = function(link) {
-  return $(link).hide();
-}
+});

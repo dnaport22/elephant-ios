@@ -1,5 +1,5 @@
 
-angular.module('susapp', ['ionic', 'Getitems', 'susapp.config', 'Viewitem', 'Myitems'])
+angular.module('susapp', ['ionic', 'Getitems', 'susapp.config', 'Viewitem', 'Myitems', 'DrawerLinks'])
 
 
 .run(function($ionicPlatform) {
@@ -25,6 +25,7 @@ angular.module('susapp', ['ionic', 'Getitems', 'susapp.config', 'Viewitem', 'Myi
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
+    controller: 'DrawerController'
   })
 
   .state('app.main', {
@@ -89,6 +90,24 @@ angular.module('susapp', ['ionic', 'Getitems', 'susapp.config', 'Viewitem', 'Myi
       'menuContent': {
         templateUrl: 'templates/myitems.html',
         controller: 'MyitemsController'
+      }
+    }
+  })
+
+  .state('app.aboutus', {
+    url: '/aboutus',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/aboutus.html'
+      }
+    }
+  })
+
+  .state('app.terms', {
+    url: '/terms',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/terms.html'
       }
     }
   })
