@@ -56,10 +56,11 @@ angular.module('susapp', ['ionic', 'Getitems', 'susapp.config', 'Viewitem', 'Myi
   })
 
   .state('app.getitem', {
-    url: '/getitem:itemId',
+    url: '/getitem/:itemName/:itemDesc/:itemDate/:imgDir/:imgLink',
     views: {
       'menuContent': {
-        templateUrl: 'templates/getitem.html'
+        templateUrl: 'templates/getitem.html',
+        controller: 'ViewitemController'
       }
     }
   })

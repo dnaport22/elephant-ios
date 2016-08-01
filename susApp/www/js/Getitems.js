@@ -1,6 +1,6 @@
-angular.module('Getitems', ['susapp.config'])
+angular.module('Getitems', [])
 
-.controller('MainpageCtrl', function($scope, $http) {
+.controller('MainpageCtrl', function($scope, $http, $location) {
 
   $scope.items = [];
   $scope.offset = 0;
@@ -17,6 +17,7 @@ angular.module('Getitems', ['susapp.config'])
         filter: document.getElementById('search').value
       }}).success(function(response) {
       var x = response.items
+      console.log(response.items)
       $scope.items = $scope.items.concat(response.items)
       $scope.retrieved = response.items.length
       $scope.offset += $scope.retrieved
@@ -37,5 +38,15 @@ angular.module('Getitems', ['susapp.config'])
   $scope.$on('$stateChangeSuccess', function() {
     $scope.loadMore();
   });
+
+  $scope.trafficLight = function(route, item_name, item_desc, item_img, item_date) {
+    if (route == 'postitem') {
+      $location.path("/app/postitem")
+    }
+    else if (route == 'getitem') {
+      $location.path("/app/getitem/" + item_name + "/" + item_desc + "/" + item_date + "/" + item_img)
+    }
+
+  }
 
  });

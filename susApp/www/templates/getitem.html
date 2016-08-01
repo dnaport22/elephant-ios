@@ -1,8 +1,14 @@
 <ion-view view-title="Get Item">
   <ion-content>
     <div class="list card">
-      <div class="item item-body" onclick="Postitem.takePicture()">
+      <div class="item item-body">
         <img class="full-image" src="./../img/ionic.png">
+      </div>
+      <div class="item item-body">
+        {{ item_name }} <br> Posted on: {{ item_date }}
+      </div>
+      <div class="item item-body">
+        Description: <br> {{ item_description }}
       </div>
     </div>
     <div class="list list-inset">
