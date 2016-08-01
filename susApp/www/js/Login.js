@@ -8,7 +8,6 @@ function Login() {
 }
 
 Login.prototype.processInput = function() {
-  console.log('processing input')
    this._email = inputVal.getValue(this.EmailId);
    this._pass = inputVal.getValue(this.PassId);
    if (this._email == ''  || this._pass == '') {
@@ -20,7 +19,6 @@ Login.prototype.processInput = function() {
 }
 
 Login.prototype.validateEmail = function() {
-  console.log('validating email')
   var validate = new Validation(this._email);
   if (validate.emailValidate() == 'formatError') {
     alert('Plase enter valid lsbu email', "Alert");
@@ -34,7 +32,6 @@ Login.prototype.validateEmail = function() {
 }
 
 Login.prototype.submit = function() {
-  console.log('submmiting form data')
   var dataString = 'email=' + this._email + '&pass=' + this._pass;
   var request = new Submitform('POST', this._url, dataString, false);
   request.ajaxSubmit(this);
@@ -42,7 +39,6 @@ Login.prototype.submit = function() {
 }
 
 Login.prototype.submitResponse = function(response) {
-  console.log('callback')
   if (response.status == 0) {
     alert("Invalid account","Alert");
   }

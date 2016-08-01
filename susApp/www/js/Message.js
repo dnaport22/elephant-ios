@@ -21,17 +21,21 @@ Message.prototype.sendMessage = function() {
   var dataString = 'msg='+this.msg+'&toUser='+this.toUserId+'&fromUser='+this.fromUser+'&itemName='+this.item_name+'&fromUsername='+this.fromUsername;
   console.log(dataString)
   var request = new Submitform('POST', this._url, dataString, false);
-  if (request.ajaxSubmit() == '1') {
+  request.ajaxSubmit(this);
+  return false;
+}
+
+Message.prototype.submitResponse = function(response) {
+  if (response == '1') {
     alert('Please keep an eye on your LSBU email account','Message Sent');
     this.reloadForm();
   }
   else {
     alert('Check if you internet is working','Error occurred');
   }
-  return false;
 }
 
 Message.prototype.reloadForm = function() {
-  inputVal.setValue('userMessage', '');
+  inputVal.setValue('user_message', 'Hey, I am interested in your item.');
   return false;
 }
