@@ -17,7 +17,6 @@ angular.module('Getitems', [])
         filter: document.getElementById('search').value
       }}).success(function(response) {
       var x = response.items
-      console.log(response.items)
       $scope.items = $scope.items.concat(response.items)
       $scope.retrieved = response.items.length
       $scope.offset += $scope.retrieved
@@ -39,12 +38,17 @@ angular.module('Getitems', [])
     $scope.loadMore();
   });
 
-  $scope.trafficLight = function(route, item_name, item_desc, item_img, item_date) {
+  $scope.trafficLight = function(route, item_name, item_desc, item_img, item_date, item_uid) {
     if (route == 'postitem') {
-      $location.path("/app/postitem")
+      if (localStorage.getItem('user_status') == 1) {
+        $location.path("/app/postitem")
+      }
+      else {
+        $location.path("/app/login")
+      }
     }
     else if (route == 'getitem') {
-      $location.path("/app/getitem/" + item_name + "/" + item_desc + "/" + item_date + "/" + item_img)
+      $location.path("/app/getitem/" + item_name + "/" + item_desc + "/" + item_date + "/" + item_uid + "/" + item_img)
     }
 
   }

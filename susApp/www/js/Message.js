@@ -1,20 +1,16 @@
-function Message(itemid) {
-    this._msg = '';
-    this.itemName = '';
-    this._toUser = '';
-    this._fromUser = '';
-    this._fromUsername = '';
-    this._itemid = '';
-    this._url = 'http://www.maddna.xyz/message.php';
+function Message(to_user, item_name) {
+  console.log(to_user, item_name)
+  this.msg = inputVal.getValue("user_message");
+  this.item_name = item_name;
+  this.toUserId = to_user;
+  this.fromUser = localStorage.getItem('user_email');
+  this.fromUsername = localStorage.getItem('user_username');
+  this.itemid = '';
+  this._url = 'http://www.maddna.xyz/message.php';
 }
 
 Message.prototype.processInput = function() {
-  var msg = inputVal.getValue("userMessage");
-	var itemName = inputVal.getValue("itemName");
-	var toUser = inputVal.getValue(this._itemid);
-	var fromUser = localStorage.getItem('loggeduser');
-	var fromUsername = localStorage.getItem('loggedusername');
-  if (msg == '') {
+  if (this.msg == '') {
     alert('Please enter you message','Alert');
   } else {
     return this.sendMessage();
@@ -22,7 +18,8 @@ Message.prototype.processInput = function() {
 }
 
 Message.prototype.sendMessage = function() {
-  var dataString = 'msg='+msg+'&toUser='+toUser+'&fromUser='+fromUser+'&itemName='+itemName+'&fromUsername='+fromUsername;
+  var dataString = 'msg='+this.msg+'&toUser='+this.toUserId+'&fromUser='+this.fromUser+'&itemName='+this.item_name+'&fromUsername='+this.fromUsername;
+  console.log(dataString)
   var request = new Submitform('POST', this._url, dataString, false);
   if (request.ajaxSubmit() == '1') {
     alert('Please keep an eye on your LSBU email account','Message Sent');
