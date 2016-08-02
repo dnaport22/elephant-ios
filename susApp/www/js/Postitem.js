@@ -1,3 +1,36 @@
+angular.module('Postitem', [])
+
+.controller('PostitemController', function($scope, $ionicActionSheet, $timeout) {
+
+$scope.imageOptions = function() {
+
+  var hideSheet = $ionicActionSheet.show({
+    buttons: [
+      { text: 'Capture using camera' },
+      { text: 'Select from gallery' }
+    ],
+    titleText: 'How would you like to select picture?',
+    buttonClicked: function(index) {
+      if (index == 0) {
+        itemImage.takePicture();
+      }
+      else if (index == 1) {
+        itemImage.selectPicture();
+      }
+      else if (index == 2) {
+        hideSheet();
+      }
+    }
+  });
+
+  // For example's sake, hide the sheet after two seconds
+  $timeout(function() {
+    hideSheet();
+  }, 9000);
+
+};
+});
+
 function Postitem() {
     this.imageToUpload = '';
 }
@@ -75,4 +108,4 @@ Postitem.prototype.onUploadError = function(data){
     alert('Error','Go Green');
 }
 
-item = new Postitem();
+itemImage = new Postitem();

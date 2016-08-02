@@ -1,5 +1,5 @@
 
-angular.module('susapp', ['ionic', 'Getitems', 'susapp.config', 'Viewitem', 'Myitems', 'DrawerLinks'])
+angular.module('susapp', ['ionic', 'Getitems', 'susapp.config', 'Viewitem', 'Myitems', 'DrawerLinks', 'Postitem'])
 
 
 .run(function($ionicPlatform) {
@@ -116,7 +116,8 @@ angular.module('susapp', ['ionic', 'Getitems', 'susapp.config', 'Viewitem', 'Myi
     url: '/postitem',
     views: {
       'menuContent': {
-        templateUrl: 'templates/postitem.html'
+        templateUrl: 'templates/postitem.html',
+        controller: 'PostitemController'
       }
     }
   });
