@@ -5,8 +5,7 @@ angular.module('Viewitem', [])
   $scope.item_description = $stateParams.itemDesc;
   $scope.item_date = $stateParams.itemDate;
   $scope.item_uid = $stateParams.itemUid;
-  $scope.img_dir = $stateParams.imgDir;
-  $scope.img_link = $stateParams.imgLink;
+  $scope.item_img = $stateParams.itemImg;
 
   $scope.messageCheck = function() {
     if (localStorage.getItem('user_status') == 1) {

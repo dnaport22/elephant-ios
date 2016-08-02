@@ -11,9 +11,7 @@ angular.module('Getitems', [])
       url: 'http://maddna.xyz/getitems.php',
       method: 'GET',
       params: {
-        offset: $scope.offset,
-        limit: $scope.limit,
-        filter: document.getElementById('search').value
+        limit: $scope.limit
       }}).success(function(response) {
       var x = response.items
       $scope.items = $scope.items.concat(response.items)
@@ -33,7 +31,6 @@ angular.module('Getitems', [])
         limit: $scope.limit,
         filter: document.getElementById('search').value
       }}).success(function(response) {
-      var x = response.items
       $scope.items = $scope.items.concat(response.items)
       $scope.retrieved = response.items.length
       $scope.offset += $scope.retrieved
@@ -56,7 +53,7 @@ angular.module('Getitems', [])
     $scope.loadMore();
   });
 
-  $scope.trafficLight = function(route, item_name, item_desc, item_img, item_date, item_uid) {
+  $scope.trafficLight = function(route, item_name, item_desc, item_date, item_uid, item_img) {
     if (route == 'postitem') {
       if (localStorage.getItem('user_status') == 1) {
         $location.path("/app/postitem")
@@ -66,9 +63,8 @@ angular.module('Getitems', [])
       }
     }
     else if (route == 'getitem') {
-      $location.path("/app/getitem/" + item_name + "/" + item_desc + "/" + item_date + "/" + item_uid + "/" + item_img)
+      $location.path("/app/getitem/" + item_name + "/" + item_desc + "/" + item_date + "/" + item_uid + "/" + item_img )
     }
 
   }
-
  });

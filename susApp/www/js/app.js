@@ -57,7 +57,7 @@ angular.module('susapp', ['ionic', 'Getitems', 'susapp.config', 'Viewitem', 'Myi
   })
 
   .state('app.getitem', {
-    url: '/getitem/:itemName/:itemDesc/:itemDate/:itemUid/:imgDir/:imgLink',
+    url: '/getitem/:itemName/:itemDesc/:itemDate/:itemUid/:itemImg',
     views: {
       'menuContent': {
         templateUrl: 'templates/getitem.html',
