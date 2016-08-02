@@ -5,7 +5,7 @@ angular.module('Getitems', [])
   $scope.items = [];
   $scope.offset = 0;
   $scope.limit = 10;
-  
+
   $ionicLoading.show({
     content: 'Loading',
     animation: 'fade-in',
@@ -40,6 +40,7 @@ angular.module('Getitems', [])
         limit: $scope.limit,
         filter: document.getElementById('search').value
       }}).success(function(response) {
+        console.log(response)
       $scope.items = $scope.items.concat(response.items)
       $scope.retrieved = response.items.length
       $scope.offset += $scope.retrieved

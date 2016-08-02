@@ -2,7 +2,7 @@ angular.module('DrawerLinks', [])
 
 .controller('DrawerController', function($state, $scope, $location) {
 
-  $scope.username = '';
+  $scope.username = 'Login to view more options';
   $scope.authTitle = [];
   $scope.authStatus = null;
   $scope.links = [];
