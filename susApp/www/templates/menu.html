@@ -32,14 +32,14 @@
       </ion-list>
     </ion-content>
     <ion-footer-bar
-      ng-repeat = 'link in auth'
+      align-title="left"
       ng-class = "{
-        'bar-assertive': link.status === 1,
-        'bar-balanced': link.status === 0,
+        'bar-assertive': authStatus === 1,
+        'bar-balanced': authStatus === 0,
       }"
-      ng-click = "authAction(link.title)"
-      >
-      <h1 class="title" >{{ link.title }}</h1>
+      ng-click="authAction(authTitle)"
+      menu-close>
+      <h1 class="title">{{authTitle}}</h1>
     </ion-footer-bar>
   </ion-side-menu>
 </ion-side-menus>

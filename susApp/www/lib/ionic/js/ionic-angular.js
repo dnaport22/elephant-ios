@@ -1837,7 +1837,7 @@ IonicModule
     },
 
     spinner: {
-      icon: 'ios'
+      icon: 'ripple'
     },
 
     tabs: {
@@ -1886,7 +1886,7 @@ IonicModule
     },
 
     spinner: {
-      icon: 'android'
+      icon: 'ripple'
     },
 
     tabs: {
@@ -1906,7 +1906,7 @@ IonicModule
     //  jsScrolling: false
     //}
     spinner: {
-      icon: 'android'
+      icon: 'ripple'
     }
   });
 

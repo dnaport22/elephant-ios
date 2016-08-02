@@ -58,6 +58,7 @@ Login.prototype.userStorage = function(data) {
   localStorage.setItem('user_email', data.email);
   localStorage.setItem('user_status', data.status);
   localStorage.setItem('user_activation', data.activation);
+  this.reloadForm();
 }
 
 Login.prototype.reloadForm = function() {
