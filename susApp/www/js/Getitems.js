@@ -1,10 +1,18 @@
 angular.module('Getitems', [])
 
-.controller('MainpageCtrl', function($scope, $http, $location) {
+.controller('MainpageCtrl', function($scope, $http, $location, $ionicLoading, $timeout) {
 
   $scope.items = [];
   $scope.offset = 0;
   $scope.limit = 10;
+  
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
 
   $scope.pullloadMore = function() {
     $http({
@@ -18,6 +26,7 @@ angular.module('Getitems', [])
       $scope.retrieved = response.items.length
       $scope.offset += $scope.retrieved
       $scope.$broadcast('scroll.refreshComplete');
+      $ionicLoading.hide();
     });
   };
 
@@ -36,6 +45,7 @@ angular.module('Getitems', [])
       $scope.offset += $scope.retrieved
       $scope.$broadcast('scroll.refreshComplete');
       $scope.$broadcast('scroll.infiniteScrollComplete');
+      $ionicLoading.hide();
     });
   };
 

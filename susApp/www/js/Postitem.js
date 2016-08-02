@@ -22,8 +22,6 @@ $scope.imageOptions = function() {
       }
     }
   });
-
-  // For example's sake, hide the sheet after two seconds
   $timeout(function() {
     hideSheet();
   }, 9000);
@@ -67,8 +65,6 @@ Postitem.prototype.onFail = function() {
 }
 
 Postitem.prototype.uploadImage = function() {
-  console.log(this.imageToUpload)
-  alert('triggered')
   var fileURL = this.imageToUpload;
   var serverURL = "http://maddna.xyz/postitem.php";
   var itemName = document.getElementById("itmnm").value;

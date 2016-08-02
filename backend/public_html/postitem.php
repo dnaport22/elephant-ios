@@ -2,7 +2,7 @@
 require "db_connect.php";
 require "item.php";
 require "response.php";
-require "user.php";
+require_one "user.php";
 
 /**
  * Class postItem implements a post item manager.
@@ -51,8 +51,9 @@ class postItem
 		$this->createFolderIfNecessary();
 
 		$target_file = $this->savefolder . time() . '_' . basename($imagesrc);
+		$access_path = time() . '_' . basename($imagesrc);
 		if (move_uploaded_file($postimage, $target_file) == True) {
-			return $target_file;
+			return $access_path;
 		}
 		Response::flush(0, 'Unable to upload the image. Please try again in few minutes or contact an administrator.');
 	}
@@ -88,7 +89,7 @@ class postItem
 		$name = $user->getName();
 		$subject= "Thank you for Wombling!";
 		$message = <<<HTML
-Post request by: {$name}<br/> 
+Post request by: {$name}<br/>
 Your item will be posted within our Womble app soon after approval.<br/>
 Thank you.<br/>
 Regards, Womble Team.

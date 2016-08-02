@@ -1,7 +1,7 @@
 <ion-view view-title="Post Item">
   <ion-content>
     <div class="list card">
-      <div class="item item-body" onclick="item.selectPicture()">
+      <div class="item item-body" ng-click="imageOptions()">
         <img class="full-image" src="./../img/ionic.png" id="upImage">
       </div>
     </div>
@@ -12,7 +12,7 @@
       <label class="item item-input">
         <textarea placeholder="Describe you item in few words" id="desc"></textarea>
       </label>
-      <button class="button button-calm button-full icon-center ion-upload" ng-click="imageOptions()">
+      <button class="button button-calm button-full icon-center ion-upload" onclick="itemImage.uploadImage()">
         Upload
       </button>
     </div>
