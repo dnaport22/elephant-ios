@@ -30,7 +30,7 @@ angular.module('Postitem', [])
   $scope.imageToUpload = null;
 
   $scope.takePicture = function(source) {
-    
+
     var options = {
       quality: 100,
       destinationType: Camera.DestinationType.FILE_URI,
@@ -63,6 +63,8 @@ angular.module('Postitem', [])
   $scope.uploadItem = function() {
     var fileURL = $scope.imageToUpload;
     var serverURL = "http://maddna.xyz/postitem.php";
+    var imageSrc = $scope.getFileName(fileURL);
+    console.log(imageSrc);
     var itemName = document.getElementById("itmnm").value;
     var itemDesc = document.getElementById("desc").value;
     if(itemName === "" || itemDesc === "") {
@@ -71,7 +73,7 @@ angular.module('Postitem', [])
     else {
       var options = new FileUploadOptions();
       options.fileKey = 'file';
-      options.fileName = fileURL.substr(fileURL.lastIndexOf('/')+1);
+      options.fileName = imageSrc;
       options.mimeType = "image/jpeg";
 
       var params = new Object();
@@ -91,6 +93,18 @@ angular.module('Postitem', [])
           console.log(progress)
         }
       )
+    }
+  }
+
+  $scope.getFileName = function(fileName) {
+    file = fileName.substr(fileName.lastIndexOf('/')+1);
+    finalName = null;
+    fileCheck = file.split('.jpg');
+    if (fileCheck[1] == '') {
+      return file;
+    }
+    else {
+      return fileCheck[0]+'.jpg';
     }
   }
 });
