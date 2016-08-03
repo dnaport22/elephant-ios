@@ -1,5 +1,16 @@
 
-angular.module('susapp', ['ionic', 'Getitems', 'susapp.config', 'Viewitem', 'Myitems', 'DrawerLinks', 'Postitem'])
+angular.module('susapp',
+[
+  'ionic',
+  'Getitems',
+  'susapp.config',
+  'Viewitem',
+  'Myitems',
+  'DrawerLinks',
+  'Postitem',
+  'Services',
+  'ngCordova'
+])
 
 
 .run(function($ionicPlatform) {

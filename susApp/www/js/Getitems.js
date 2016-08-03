@@ -1,10 +1,10 @@
 angular.module('Getitems', [])
 
-.controller('MainpageCtrl', function($scope, $http, $location, $ionicLoading, $timeout) {
+.controller('MainpageCtrl', function($scope, $http, $location, $ionicLoading, $timeout, $state) {
 
   $scope.items = [];
-  $scope.offset = 0;
-  $scope.limit = 10;
+  var offset = 0;
+  var limit = 10;
 
   $ionicLoading.show({
     content: 'Loading',
@@ -14,46 +14,28 @@ angular.module('Getitems', [])
     showDelay: 0
   });
 
-  $scope.pullloadMore = function() {
-    $http({
-      url: 'http://maddna.xyz/getitems.php',
-      method: 'GET',
-      params: {
-        limit: $scope.limit
-      }}).success(function(response) {
-      var x = response.items
-      $scope.items = $scope.items.concat(response.items)
-      $scope.retrieved = response.items.length
-      $scope.offset += $scope.retrieved
-      $scope.$broadcast('scroll.refreshComplete');
-      $ionicLoading.hide();
-    });
-  };
-
-
   $scope.loadMore = function() {
     $http({
       url: 'http://maddna.xyz/getitems.php',
       method: 'GET',
       params: {
-        offset: $scope.offset,
-        limit: $scope.limit,
+        offset: offset,
+        limit: limit,
         filter: document.getElementById('search').value
       }}).success(function(response) {
-        console.log(response)
-      $scope.items = $scope.items.concat(response.items)
-      $scope.retrieved = response.items.length
-      $scope.offset += $scope.retrieved
-      $scope.$broadcast('scroll.refreshComplete');
-      $scope.$broadcast('scroll.infiniteScrollComplete');
-      $ionicLoading.hide();
+        $scope.items = $scope.items.concat(response.items)
+        $scope.retrieved = response.items.length
+        offset += $scope.retrieved
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+        $ionicLoading.hide();
     });
   };
 
   $scope.search = function(filter) {
     $scope.items = [];
-    $scope.offset = 0
-    $scope.loadMore()
+    offset = 0
+    $scope.loadMore();
   }
 
   $scope.check = function() {
@@ -76,6 +58,11 @@ angular.module('Getitems', [])
     else if (route == 'getitem') {
       $location.path("/app/getitem/" + item_name + "/" + item_desc + "/" + item_date + "/" + item_uid + "/" + item_img )
     }
-
   }
+
+  $scope.reloadData = function() {
+    $state.go($state.current, {reload: true, inherit: false})
+    $scope.$broadcast('scroll.refreshComplete');
+  }
+
  });

@@ -19,7 +19,6 @@ Message.prototype.processInput = function() {
 
 Message.prototype.sendMessage = function() {
   var dataString = 'msg='+this.msg+'&toUser='+this.toUserId+'&fromUser='+this.fromUser+'&itemName='+this.item_name+'&fromUsername='+this.fromUsername;
-  console.log(dataString)
   var request = new Submitform('POST', this._url, dataString, false);
   request.ajaxSubmit(this);
   return false;

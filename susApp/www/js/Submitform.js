@@ -10,7 +10,6 @@ function Submitform(type, url, datastring, cache) {
 }
 
 Submitform.prototype.ajaxSubmit = function(callback) {
-  console.log('starting ajax call')
   var that = this;
   $.ajax({
     type: this.type,
@@ -18,12 +17,10 @@ Submitform.prototype.ajaxSubmit = function(callback) {
     cache: this.cache,
     data: this.dataString,
     success: function(response) {
-      console.log(response);
       callback.submitResponse(response);
       that.handshake = true;
     },
     error: function(error) {
-      console.log(error)
       callback.submitResponse(response);
       this.handshake = false;
     }
