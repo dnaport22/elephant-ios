@@ -20,7 +20,9 @@ class requestItem
 	}
   public function findtoUserEmail() {
     $user = new User($this->my_query);
-    print_r($user->loadByUid('2'));
+    $user->loadByUid('2');
+    $x = $user->getEmail();
+    print_r($x);
   }
 	public function sendMsg()
 	{
@@ -45,5 +47,5 @@ class requestItem
 $msg = $_POST['msg'];
 $to = $_POST['toUser'];
 $from = $_POST['fromUser'];
-$item_request = new requestItem($msg, $to, $from);
+$item_request = new requestItem($mysql_db, $msg, $to, $from);
 $item_request->sendMsg();
