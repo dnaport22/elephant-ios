@@ -12,15 +12,30 @@
           ng-model="searchValue">
       </label>
     </div>
-    <div class="list card" ng-repeat="item in items">
-      <div class="item item-image">
-        <img ng-src="http://maddna.xyz/images/{{ item.image }}" />
+    <!--<div class="list card" ng-repeat="item in items">-->
+      <!--<div class="item item-image">-->
+        <!--<img ng-src="http://maddna.xyz/images/{{ item.image }}" />-->
+      <!--</div>-->
+      <!--<div class="item item-body"-->
+           <!--ng-click="trafficLight('getitem',item.name,item.description,item.postDate,item.uid,item.image)">-->
+        <!--{{ item.name }}-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <div ng-repeat="item in items">
+      <div class="row" ng-if="$even">
+        <div class="col col-50" ng-repeat="item in [items[$index],items[$index + 1]]" ng-if="item">
+          <div class="item item-image">
+            <img ng-src="http://maddna.xyz/images/{{ item.image }}" />
+          </div>
+          <div class="item item-body"
+               ng-click="trafficLight('getitem',item.name,item.description,item.postDate,item.uid,item.image)">
+            {{ item.name }}
+          </div>
+        </div>
       </div>
-      <div class="item item-body"
-           ng-click="trafficLight('getitem',item.name,item.description,item.postDate,item.uid,item.image)">
-        {{ item.name }}
-      </div>
-  </div>
+    </div>
+
     <ion-infinite-scroll
       ng-if="check()"
       on-infinite="loadMore()"
