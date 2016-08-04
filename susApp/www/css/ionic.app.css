@@ -9833,7 +9833,7 @@ img {
 
 .list.card .item-image {
   height: 180px;
-  background-color: #000;
+  background-color: #eee;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center; }
