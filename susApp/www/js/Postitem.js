@@ -51,6 +51,8 @@ angular.module('Postitem', [])
       var photo = 'data:image/jpeg;base64,' + imageURI;
       image.src = imageURI;
       $scope.imageToUpload = imageURI;
+      document.getElementById("upload-image-container").style.display = "block";
+      document.getElementById("select-image-button").innerHTML= "Reselect Image";
       console.log($scope.imageToUpload)
     }, function(err) {
       alert('Error while calling native components');

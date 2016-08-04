@@ -1,9 +1,10 @@
-<ion-view view-title="Post Item">
+<ion-view view-title="Post Item" class="post-item">
   <ion-content>
-    <div class="list card">
-      <div class="item item-body" ng-click="imageOptions()">
-        <img class="full-image" src="./../img/ionic.png" id="upImage">
-      </div>
+    <div class="list card" id="upload-image-container" style="display: none;">
+      <div class="item item-image" style="background-image: url('./../img/ionic.png')"></div>
+    </div>
+    <div class="list-inset">
+      <button ng-click="imageOptions()" id="select-image-button" class="button button-block icon-left ion-camera button-positive">Select Image</button>
     </div>
     <div class="list list-inset">
       <label class="item item-input">
@@ -12,7 +13,7 @@
       <label class="item item-input">
         <textarea placeholder="Describe you item in few words" id="desc"></textarea>
       </label>
-      <button class="button button-calm button-full icon-center ion-upload" ng-click="uploadItem()">
+      <button class="button button-calm button-block icon-center ion-upload" ng-click="uploadItem()">
         Upload
       </button>
     </div>

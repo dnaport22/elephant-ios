@@ -9849,3 +9849,7 @@ img {
 .get-item .list.card .item-image {
   height: 360px;
   padding: 10px; }
+
+.post-item .list.card .item-image {
+  height: 360px;
+  padding: 10px; }

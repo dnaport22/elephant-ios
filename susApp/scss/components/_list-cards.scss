@@ -28,4 +28,12 @@
       padding: 10px;
     }
   }
+
+  // Card on the 'Post Item' view
+  .post-item & {
+    .item-image {
+      height: 360px;
+      padding: 10px;
+    }
+  }
 }
