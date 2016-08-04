@@ -4,30 +4,18 @@
     pulling-text="Pull to load new items..."
     on-refresh="loadMore()">
     </ion-refresher>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <i class="icon ion-search placeholder-icon"></i>
-        <input id="search" type="text" placeholder="Search for items"
-          ng-change="search()"
-          ng-model="searchValue">
-      </label>
-    </div>
-    <!--<div class="list card" ng-repeat="item in items">-->
-      <!--<div class="item item-image">-->
-        <!--<img ng-src="http://maddna.xyz/images/{{ item.image }}" />-->
-      <!--</div>-->
-      <!--<div class="item item-body"-->
-           <!--ng-click="trafficLight('getitem',item.name,item.description,item.postDate,item.uid,item.image)">-->
-        <!--{{ item.name }}-->
-      <!--</div>-->
-    <!--</div>-->
-
-    <div ng-repeat="item in items">
-      <div class="row" ng-if="$even">
-        <div class="col col-50" ng-repeat="item in [items[$index],items[$index + 1]]" ng-if="item">
-          <div class="item item-image">
-            <img ng-src="http://maddna.xyz/images/{{ item.image }}" />
-          </div>
+    <div class="grid-container">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input id="search" type="text" placeholder="Search for items"
+                 ng-change="search()"
+                 ng-model="searchValue">
+        </label>
+      </div>
+      <div class="grid-two-to-three-to-four-col" ng-repeat="item in items">
+        <div class="list card">
+          <div class="item item-image" style="background-image: url('http://maddna.xyz/images/{{ item.image }}')"></div>
           <div class="item item-body"
                ng-click="trafficLight('getitem',item.name,item.description,item.postDate,item.uid,item.image)">
             {{ item.name }}
