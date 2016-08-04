@@ -1,14 +1,31 @@
 .list.card {
+  // Styles applying across multiple views
   .item-image {
-    height: 180px;
     background-color: $light-grey;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    background-origin: content-box;
   }
 
-  .item-body {
-    height: 80px;
-    overflow: scroll;
+  // Cards on the 'Main' view
+  .main & {
+    .item-image {
+      height: 180px;
+      padding: 5px;
+    }
+
+    .item-body {
+      height: 80px;
+      overflow: scroll;
+    }
+  }
+
+  // Card on the 'Get Item' view
+  .get-item & {
+    .item-image {
+      height: 360px;
+      padding: 10px;
+    }
   }
 }

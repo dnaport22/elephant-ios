@@ -9832,12 +9832,20 @@ img {
       float: left; } }
 
 .list.card .item-image {
-  height: 180px;
   background-color: #eee;
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: center; }
+  background-position: center;
+  background-origin: content-box; }
 
-.list.card .item-body {
+.main .list.card .item-image {
+  height: 180px;
+  padding: 5px; }
+
+.main .list.card .item-body {
   height: 80px;
   overflow: scroll; }
+
+.get-item .list.card .item-image {
+  height: 360px;
+  padding: 10px; }
