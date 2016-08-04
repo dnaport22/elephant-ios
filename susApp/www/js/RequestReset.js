@@ -2,11 +2,10 @@
 function RequestReset() {
     this.EmailId = 'reset_email';
     this._email = '';
-    this._url = 'http://maddna.xyz/forgotpassword_request.php';
+    this._url = 'http://maddna.xyz/forgotpass_request.php';
 }
 
 RequestReset.prototype.processInput = function() {
-  console.log('processing input')
    this._email = inputVal.getValue(this.EmailId);
    if (this._email == '') {
      alert("Please Fill All Fields",'Alert');
@@ -17,7 +16,6 @@ RequestReset.prototype.processInput = function() {
 }
 
 RequestReset.prototype.validateEmail = function() {
-  console.log('validating email')
   var validate = new Validation(this._email);
   if (validate.emailValidate() == 'formatError') {
     alert('Plase enter valid lsbu email', "Alert");
@@ -31,16 +29,13 @@ RequestReset.prototype.validateEmail = function() {
 }
 
 RequestReset.prototype.submit = function() {
-  console.log('submmiting form data')
   var dataString = 'email=' + this._email;
-  console.log()
   var request = new Submitform('POST', this._url, dataString, false);
   request.ajaxSubmit(this);
   return false;
 }
 
 RequestReset.prototype.submitResponse = function(response) {
-  console.log(response.status);
   if (response.status == 0) {
     alert("Error occured, please contant app administration team","Alert");
   }

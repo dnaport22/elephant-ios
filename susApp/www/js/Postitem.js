@@ -45,7 +45,8 @@ angular.module('Postitem', [])
       MediaType: 0
     };
 
-    $cordovaCamera.getPicture(options).then(function(imageURI){
+    $cordovaCamera.getPicture(options)
+    .then(function(imageURI){
       console.log(imageURI)
       var image = document.getElementById('upImage');
       var photo = 'data:image/jpeg;base64,' + imageURI;

@@ -9,7 +9,8 @@ angular.module('susapp',
   'DrawerLinks',
   'Postitem',
   'Services',
-  'ngCordova'
+  'ngCordova',
+  'ResetPass'
 ])
 
 
@@ -78,10 +79,11 @@ angular.module('susapp',
   })
 
   .state('app.resetpassword', {
-    url: '/resetpassword',
+    url: '/resetpassword/:key',
     views: {
       'menuContent': {
-        templateUrl: 'templates/resetpassword.html'
+        templateUrl: 'templates/resetpassword.html',
+        controller: 'ResetPassController'
       }
     }
   })

@@ -17,11 +17,13 @@ Submitform.prototype.ajaxSubmit = function(callback) {
     cache: this.cache,
     data: this.dataString,
     success: function(response) {
+      console.log(response)
       callback.submitResponse(response);
       that.handshake = true;
     },
     error: function(error) {
-      callback.submitResponse(response);
+      console.log(error)
+      callback.submitResponse(error);
       this.handshake = false;
     }
   });
