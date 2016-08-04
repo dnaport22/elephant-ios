@@ -53,9 +53,7 @@
    }
 
    protected function getResetPasswordUrl($key) {
-     return 'https://' . $_SERVER['HTTP_HOST'] . '/app/forgotpass-verify?' . http_build_query([
-       'key' => $key,
-     ]);
+     return 'http://' . $_SERVER['HTTP_HOST'] . '/app/#/app/resetpassword/' . $key;
    }
 
    public function sendEmail($email, $key) {
