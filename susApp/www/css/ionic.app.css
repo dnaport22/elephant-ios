@@ -9853,3 +9853,7 @@ img {
 .post-item .list.card .item-image {
   height: 360px;
   padding: 10px; }
+
+.list:last-child.card {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important; }

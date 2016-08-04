@@ -37,3 +37,9 @@
     }
   }
 }
+
+// Overriding unnecessary default
+.list:last-child.card {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
