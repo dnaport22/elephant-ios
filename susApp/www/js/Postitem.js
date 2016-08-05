@@ -1,6 +1,6 @@
 angular.module('Postitem', [])
 
-.controller('PostitemController', function($scope, $ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer) {
+.controller('PostitemController', function($scope, $ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $window) {
 
   $scope.imageOptions = function() {
 
@@ -109,5 +109,9 @@ angular.module('Postitem', [])
     else {
       return fileCheck[0]+'.jpg';
     }
+  }
+
+  $scope.goBack = function() {
+    $window.location.href = '#/app/main'
   }
 });

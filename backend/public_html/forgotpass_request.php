@@ -2,6 +2,7 @@
 
 require_once 'db_connect.php';
 require_once 'forgotpass.php';
+require_once 'response.php';
 
 $forgot_pass = new ForgotPassword($mysql_db);
 $email = @$_POST['email'];

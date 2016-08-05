@@ -1,3 +1,4 @@
+
 function Logout() {
   this._url = "http://maddna.xyz/logout.php";
 }

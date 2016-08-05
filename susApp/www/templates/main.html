@@ -1,4 +1,10 @@
 <ion-view view-title="Main" class="main">
+  <ion-nav-bar class="bar-calm">
+  </ion-nav-bar>
+  <ion-nav-buttons side="left">
+    <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+    </button>
+  </ion-nav-buttons>
   <ion-content>
     <ion-refresher
     pulling-text="Pull to load new items..."
@@ -14,12 +20,12 @@
         </label>
       </div>
       <div class="grid-two-to-three-to-four-col" ng-repeat="item in items">
-        <div class="list card">
+        <div href="#" class="list card" ng-click="trafficLight('getitem',item.name,item.description,item.postDate,item.uid,item.image)">
           <div class="item item-image" style="background-image: url('http://maddna.xyz/images/{{ item.image }}')"></div>
-          <div class="item item-body"
-               ng-click="trafficLight('getitem',item.name,item.description,item.postDate,item.uid,item.image)">
-            {{ item.name }}
-          </div>
+            <a class="item item-icon-right">
+              <i class="icon ion-ios-redo"></i>
+                {{ item.name }}
+            </a>
         </div>
       </div>
     </div>

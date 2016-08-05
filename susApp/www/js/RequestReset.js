@@ -42,6 +42,10 @@ RequestReset.prototype.submitResponse = function(response) {
   else if(response.status == 1) {
     alert("We have emailed you an activation link","Alert");
   }
+  else {
+    alert("Error occured, please contant app administration team","Alert");
+  }
+  return this.reloadForm();
 }
 
 RequestReset.prototype.reloadForm = function() {

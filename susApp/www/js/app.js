@@ -10,8 +10,11 @@ angular.module('susapp',
   'Postitem',
   'Services',
   'ngCordova',
-  'ResetPass'
+  'ResetPass',
+  'Login',
+  'Submitform'
 ])
+
 
 
 .run(function($ionicPlatform) {
@@ -31,9 +34,17 @@ angular.module('susapp',
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
+
   $stateProvider
 
     .state('app', {
+    url: '/app',
+    abstract: true,
+    templateUrl: 'templates/menu.html',
+    controller: 'DrawerController'
+  })
+
+    .state('app.menu', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
@@ -51,10 +62,11 @@ angular.module('susapp',
   })
 
   .state('app.login', {
-    url: '/login',
+    url: '/login/:path',
     views: {
       'menuContent': {
-        templateUrl: 'templates/login.html'
+        templateUrl: 'templates/login.html',
+        controller: 'LoginController'
       }
     }
   })

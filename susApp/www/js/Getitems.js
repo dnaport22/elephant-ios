@@ -6,14 +6,6 @@ angular.module('Getitems', [])
   var offset = 0;
   var limit = 10;
 
-  $ionicLoading.show({
-    content: 'Loading',
-    animation: 'fade-in',
-    showBackdrop: true,
-    maxWidth: 200,
-    showDelay: 0
-  });
-
   $scope.loadMore = function() {
     $http({
       url: 'http://maddna.xyz/getitems.php',
@@ -52,7 +44,7 @@ angular.module('Getitems', [])
         $location.path("/app/postitem")
       }
       else {
-        $location.path("/app/login")
+        $location.path("/app/login/postitem")
       }
     }
     else if (route == 'getitem') {

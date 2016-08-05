@@ -1,3 +1,34 @@
+angular.module('Submitform', [])
+
+.service('AjaxCallsService', function($http) {
+
+  this.constructor = function(type, url, datastring, cache) {
+    this.type = type;
+    this.dataString = datastring;
+    this.url = url;
+    this.cache = cache;
+    this.feedback = null;
+    this.error = null;
+    this.handshake = false;
+    this.response = '';
+  }
+
+  this.ajaxSubmit = function(callback) {
+    $http({
+      method: this.type,
+      url: this.url,
+      data: this.dataString
+    })
+      .then(function successCallback(response) {
+        console.log(response)
+        callback.submitResponse(response)
+      }, function errorCallback(response) {
+          callback.submitResponse(response)
+    });
+  }
+});
+
+//ES5 Class to perform ajax calls
 function Submitform(type, url, datastring, cache) {
     this.type = type;
     this.dataString = datastring;
@@ -17,15 +48,10 @@ Submitform.prototype.ajaxSubmit = function(callback) {
     cache: this.cache,
     data: this.dataString,
     success: function(response) {
-      console.log(response)
       callback.submitResponse(response);
-      that.handshake = true;
     },
     error: function(error) {
-      console.log(error)
       callback.submitResponse(error);
-      this.handshake = false;
     }
   });
-  return false;
 }

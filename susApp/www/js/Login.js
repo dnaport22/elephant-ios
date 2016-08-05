@@ -1,70 +1,113 @@
-// Class to login users
-function Login() {
-    this.EmailId = 'login_email';
-    this.PassId = 'login_pass';
-    this._email = '';
-    this._pass = '';
-    this._url = 'http://maddna.xyz/login.php';
-}
+angular.module('Login', [])
 
-Login.prototype.processInput = function() {
-   this._email = inputVal.getValue(this.EmailId);
-   this._pass = inputVal.getValue(this.PassId);
-   if (this._email == ''  || this._pass == '') {
-     alert("Please Fill All Fields",'Alert');
-   }
-   else {
-     return this.validateEmail();
-   }
-}
+.controller('LoginController', function($scope, $stateParams, $location, $window, $ionicHistory, $ionicSideMenuDelegate, $state, $ionicLoading, $timeout) {
 
-Login.prototype.validateEmail = function() {
-  var validate = new Validation(this._email);
-  if (validate.emailValidate() == 'formatError') {
-    alert('Plase enter valid lsbu email', "Alert");
-  }
-  else if (validate.emailValidate() == 'invalid') {
-    alert("Invalid Email",'Alert');
-  }
-  else {
-    this.submit();
-  }
-}
+  $scope.path = $stateParams.path;
+  $scope.EmailId = 'login_email';
+  $scope.PassId = 'login_pass';
+  $scope._email = '';
+  $scope._pass = '';
+  $scope._url = 'http://maddna.xyz/login.php';
 
-Login.prototype.submit = function() {
-  var dataString = 'email=' + this._email + '&pass=' + this._pass;
-  var request = new Submitform('POST', this._url, dataString, false);
-  request.ajaxSubmit(this);
-  return false;
-}
-
-Login.prototype.submitResponse = function(response) {
-  if (response.status == 0) {
-    alert("Invalid account","Alert");
-  }
-  else if(response.status == 1) {
-    if(response.user.status == 0) {
-      alert("Activate your account","Alert");
+  $scope.loginUser = function() {
+    this._email = inputVal.getValue(this.EmailId);
+    this._pass = inputVal.getValue(this.PassId);
+    if (this._email == ''  || this._pass == '') {
+      alert("Please Fill All Fields",'Alert');
     }
     else {
-      alert("You can now get or post items","You are now logged in");
-      this.userStorage(response.user);
+      return $scope.validateEmail();
     }
   }
-}
 
-Login.prototype.userStorage = function(data) {
-  localStorage.setItem('user_username', data.name);
-  localStorage.setItem('user_email', data.email);
-  localStorage.setItem('user_status', data.status);
-  localStorage.setItem('user_activation', data.activation);
-  this.reloadForm();
-}
+  $scope.validateEmail = function() {
+    var validate = new Validation(this._email);
+    if (validate.emailValidate() == 'formatError') {
+      alert('Plase enter valid lsbu email', "Alert");
+    }
+    else if (validate.emailValidate() == 'invalid') {
+      alert("Invalid Email",'Alert');
+    }
+    else {
+      return $scope.submit();
+    }
+  }
 
-Login.prototype.reloadForm = function() {
-  inputVal.setValue(this.EmailId, '');
-  inputVal.setValue(this.PassId, '');
-  return false;
-}
+  $scope.submit = function() {
+    var dataString = 'email=' + this._email + '&pass=' + this._pass;
+    var request = new Submitform('POST', this._url, dataString, false);
+    return request.ajaxSubmit(this);
+  }
 
-loginUser = new Login();
+  $scope.submitResponse = function(response) {
+    if (response.status == 0) {
+      alert("Invalid account","Alert");
+    }
+    else if(response.status == 1) {
+      if(response.user.status == 0) {
+        alert("Activate your account","Alert");
+      }
+      else {
+        alert("You can now get or post items","You are now logged in");
+        $scope.userStorage(response.user);
+      }
+    }
+  }
+
+  $scope.userStorage = function(data) {
+    localStorage.setItem('user_username', data.name);
+    localStorage.setItem('user_email', data.email);
+    localStorage.setItem('user_status', data.status);
+    localStorage.setItem('user_activation', data.activation);
+    return $scope.reloadForm();
+  }
+
+  $scope.reloadForm = function() {
+    inputVal.setValue($scope.EmailId, '');
+    inputVal.setValue($scope.PassId, '');
+    return $scope.redirectUser();
+  }
+
+  $scope.redirectUser = function() {
+
+    $ionicLoading.show({
+      content: 'Logging in',
+      animation: 'fade-in',
+      showBackdrop: true,
+      maxWidth: 200,
+      showDelay: 0
+    });
+
+    if ($scope.path == 'getitem') {
+      $timeout(function () {
+        $ionicLoading.hide();
+        $ionicHistory.clearCache();
+        //$ionicHistory.clearHistory();
+        //$ionicHistory.nextViewOptions({ disableBack: true, historyRoot: true });
+        $ionicHistory.goBack();
+      }, 1000);
+      //$ionicHistory.goBack();
+    }
+    else if ($scope.path == 'main') {
+
+      $timeout(function () {
+        $ionicLoading.hide();
+        $ionicHistory.clearCache();
+        $ionicHistory.clearHistory();
+        $ionicHistory.nextViewOptions({ disableBack: true, historyRoot: true });
+        $state.go('app.main');
+      }, 1000);
+
+    }
+    else if ($scope.path == 'postitem') {
+      //$window.location.href = '#/app/postitem';
+      $timeout(function () {
+        $ionicLoading.hide();
+        $ionicHistory.clearCache();
+        $ionicHistory.clearHistory();
+        //$ionicHistory.nextViewOptions({ disableBack: false, historyRoot: true });
+        $state.go('app.postitem');
+      }, 1000);
+    }
+  }
+});

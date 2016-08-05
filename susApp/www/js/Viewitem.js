@@ -13,7 +13,7 @@ angular.module('Viewitem', [])
       itemRequest.processInput();
     }
     else {
-      $location.path("/app/login")
+      $location.path("/app/login/getitem")
     }
 
   }

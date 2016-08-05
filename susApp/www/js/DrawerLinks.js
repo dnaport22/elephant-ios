@@ -1,6 +1,7 @@
 angular.module('DrawerLinks', [])
 
-.controller('DrawerController', function($state, $scope, $location) {
+.controller('DrawerController', function($state, $scope, $location, $ionicLoading, $window, $ionicHistory, $timeout) {
+
 
   $scope.username = 'Login to view more options';
   $scope.authTitle = [];
@@ -30,11 +31,25 @@ angular.module('DrawerLinks', [])
 
   $scope.authAction = function(action) {
     if (action == 'Login') {
-      $location.path('/app/login')
+      $location.path('/app/login/main')
     }
     else if (action == 'Logout') {
-      localStorage.clear()
-      $state.transitionTo($state.current, { reload: true, inherit: false, notify: true });
+      $ionicLoading.show({
+        content: 'Logging out',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0
+      });
+
+      $timeout(function () {
+        $ionicLoading.hide();
+        $ionicHistory.clearCache();
+        $ionicHistory.clearHistory();
+        localStorage.clear();
+        $window.location.reload();
+        $ionicSideMenuDelegate.toggleLeft();
+      }, 1000);
     }
   }
 });
