@@ -9857,3 +9857,7 @@ img {
 .list:last-child.card {
   margin-top: 10px !important;
   margin-bottom: 10px !important; }
+
+.character-limit-warning {
+  color: red;
+  padding: 10px; }

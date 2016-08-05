@@ -3,7 +3,6 @@ angular.module('Postitem', [])
 .controller('PostitemController', function($scope, $ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $window) {
 
   $scope.imageOptions = function() {
-
     var hideSheet = $ionicActionSheet.show({
       buttons: [
         { text: 'Capture using camera' },
@@ -30,7 +29,6 @@ angular.module('Postitem', [])
   $scope.imageToUpload = null;
 
   $scope.takePicture = function(source) {
-
     var options = {
       quality: 100,
       destinationType: Camera.DestinationType.FILE_URI,
@@ -67,7 +65,6 @@ angular.module('Postitem', [])
     var fileURL = $scope.imageToUpload;
     var serverURL = "http://maddna.xyz/postitem.php";
     var imageSrc = $scope.getFileName(fileURL);
-    console.log(imageSrc);
     var itemName = document.getElementById("itmnm").value;
     var itemDesc = document.getElementById("desc").value;
     if(itemName === "" || itemDesc === "") {
@@ -108,6 +105,31 @@ angular.module('Postitem', [])
     }
     else {
       return fileCheck[0]+'.jpg';
+    }
+  }
+
+  $scope.checkMaxLength = function() {
+    var itemName = document.getElementById("name");
+    var itemNameMaxLength = document.getElementById("name").maxLength;
+    var itemNameWarning = document.getElementById("name-warning");
+    var itemDesc = document.getElementById("desc");
+    var itemDescMaxLength = document.getElementById("desc").maxLength;
+    var itemDescWarning = document.getElementById("desc-warning");
+
+    if (itemName.value.length == itemNameMaxLength) {
+      itemName.style.color = "red";
+      itemNameWarning.style.display = "block";
+    } else {
+      itemName.style.color = "black";
+      itemNameWarning.style.display = "none";
+    }
+
+    if (itemDesc.value.length == itemDescMaxLength) {
+      itemDesc.style.color = "red";
+      itemDescWarning.style.display = "block";
+    } else {
+      itemDesc.style.color = "black";
+      itemDescWarning.style.display = "none";
     }
   }
 
