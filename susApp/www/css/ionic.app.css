@@ -9861,3 +9861,6 @@ img {
 .character-limit-warning {
   color: red;
   padding: 10px; }
+
+.list-inset.search-container {
+  margin: 15px 10px 5px; }
