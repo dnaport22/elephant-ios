@@ -21,6 +21,14 @@
     }
   }
 
+  // Cards on the 'My Items' view
+  .my-items & {
+    .item-image {
+      height: 180px;
+      padding: 5px;
+    }
+  }
+
   // Card on the 'Get Item' view
   .get-item & {
     .item-image {

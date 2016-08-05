@@ -1,8 +1,12 @@
-<ion-view view-title="My items">
+<ion-view view-title="My items" class="my-items">
   <ion-content>
-    <div class="list card" ng-repeat="item in myitems">
-      <div class="item item-body">
-        {{ item.name }}
+    <div class="grid-two-to-three-to-four-col" ng-repeat="item in myitems">
+      <div href="#" class="list card">
+        <div class="item item-image" style="background-image: url('http://maddna.xyz/images/{{ items.image }}')"></div>
+        <a class="item item-icon-right">
+          <i class="icon ion-ios-redo"></i>
+          {{ item.name }}
+        </a>
       </div>
     </div>
     <ion-infinite-scroll
