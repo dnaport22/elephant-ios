@@ -65,7 +65,7 @@ angular.module('Postitem', [])
     var fileURL = $scope.imageToUpload;
     var serverURL = "http://maddna.xyz/postitem.php";
     var imageSrc = $scope.getFileName(fileURL);
-    var itemName = document.getElementById("itmnm").value;
+    var itemName = document.getElementById("name").value;
     var itemDesc = document.getElementById("desc").value;
     if(itemName === "" || itemDesc === "") {
       alert("Please fill all fields",'Alert');

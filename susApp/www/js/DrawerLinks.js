@@ -9,9 +9,9 @@ angular.module('DrawerLinks', [])
   $scope.links = [];
   $scope.changecolor = 'positive';
   $scope.$test = $localStorage.test;
-  
 
-  if ($localStorage.test == 1) {
+
+  if (localStorage.getItem('user_status') == 1) {
     $scope.authTitle = 'Logout';
     $scope.authStatus = 1;
     $scope.username = 'Logged in as ' + localStorage.getItem('user_username');
