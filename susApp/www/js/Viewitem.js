@@ -17,4 +17,18 @@ angular.module('Viewitem', [])
     }
 
   }
+
+  $scope.checkMaxLength = function() {
+    var mesageName = document.getElementById("user_message");
+    var mesageNameMaxLength = document.getElementById("user_message").maxLength;
+    var mesageNameWarning = document.getElementById("user_message-warning");
+
+    if (mesageName.value.length == mesageNameMaxLength) {
+      mesageName.style.color = "red";
+      mesageNameWarning.style.display = "block";
+    } else {
+      mesageName.style.color = "black";
+      mesageNameWarning.style.display = "none";
+    }
+  }
 });
