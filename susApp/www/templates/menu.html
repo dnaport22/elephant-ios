@@ -18,14 +18,11 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item ng-click="clearCache()">
-          Test {{$storage.test}}
-        </ion-item>
         <ion-item>
           {{ username }}
         </ion-item>
       </ion-list>
-      <ion-list ng-repeat = "link in links">
+      <ion-list ng-repeat = "link in drawerLinks_top | filter: $storage.user_login_id">
         <ion-item menu-close ng-href="{{ link.href }}">
            <i ng-class="{ '{{link.class}}': 1 }"></i>
           {{ link.title }}
@@ -35,12 +32,13 @@
     <ion-footer-bar
       align-title="left"
       ng-class = "{
-        'bar-assertive': authStatus === 1,
-        'bar-balanced': authStatus === 0,
+        'bar-assertive': $storage.user_login_id === 1,
+        'bar-balanced': $storage.user_login_id === 0,
       }"
-      ng-click="authAction(authTitle)"
+      ng-repeat = "link in drawerLinks_bottom | filter: $storage.user_login_id"
+      ng-href="{{link.href}}"
       menu-close>
-      <h1 class="title">{{ authTitle }}</h1>
+      <h1 class="title">{{ link.title }}</h1>
     </ion-footer-bar>
   </ion-side-menu>
 </ion-side-menus>

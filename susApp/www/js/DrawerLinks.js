@@ -10,6 +10,23 @@ angular.module('DrawerLinks', [])
   $scope.changecolor = 'positive';
   $scope.$test = $localStorage.test;
 
+  $scope.$storage = $localStorage.$default({
+    user_login_id: 0
+  })
+
+  $scope.drawerLinks_top = [
+    {title: 'Home', class: 'icon ion-home', href: '#/app/main', id: 1},
+    {title: 'My items', class: 'icon ion-folder', href: '#/app/myitems', id: 1},
+    {title: 'About us', class: 'icon ion-information-circled', href: '#/app/aboutus', id: 1},
+    {title: 'Terms and conditions', class: 'icon ion-document-text', href: '#/app/terms', id: 1},
+    {title: 'Home', class: 'icon ion-home', href: '#/app/main', id: 0},
+    {title: 'About us', class: 'icon ion-information-circled', href: '#/app/aboutus', id: 0}
+  ];
+
+  $scope.drawerLinks_bottom = [
+    {title: 'Login', href: '#/app/login', id: 0},
+    {title: 'Logout', id: 1}
+  ];
 
   if (localStorage.getItem('user_status') == 1) {
     $scope.authTitle = 'Logout';
@@ -36,22 +53,11 @@ angular.module('DrawerLinks', [])
       $location.path('/app/login/main')
     }
     else if (action == 'Logout') {
-      $ionicLoading.show({
-        content: 'Logging out',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0
-      });
+      localStorage.setItem('user_username', '');
+      localStorage.setItem('user_email', '');
+      localStorage.setItem('user_activation', '');
+      $localStorage.user_login_id = 0;
 
-      $timeout(function () {
-        $ionicLoading.hide();
-        $ionicHistory.clearCache();
-        $ionicHistory.clearHistory();
-        localStorage.clear();
-        $window.location.reload();
-        $ionicSideMenuDelegate.toggleLeft();
-      }, 1000);
     }
   }
 });

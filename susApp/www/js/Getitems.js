@@ -1,6 +1,6 @@
 angular.module('Getitems', [])
 
-.controller('MainpageCtrl', function($scope, $http, $location, $ionicLoading, $timeout, $state) {
+.controller('MainpageCtrl', function($scope, $http, $location, $ionicLoading, $timeout, $state, $localStorage) {
 
   $scope.items = [];
   var offset = 0;
@@ -40,7 +40,7 @@ angular.module('Getitems', [])
 
   $scope.trafficLight = function(route, item_name, item_desc, item_date, item_uid, item_img) {
     if (route == 'postitem') {
-      if (localStorage.getItem('user_status') == 1) {
+      if ($localStorage.user_login_status == 1) {
         $location.path("/app/postitem")
       }
       else {

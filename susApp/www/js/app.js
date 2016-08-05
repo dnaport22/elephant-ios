@@ -13,7 +13,8 @@ angular.module('susapp',
   'ResetPass',
   'Login',
   'Submitform',
-  'ngStorage'
+  'ngStorage',
+  'test'
 ])
 
 
@@ -134,6 +135,16 @@ angular.module('susapp',
     views: {
       'menuContent': {
         templateUrl: 'templates/terms.html'
+      }
+    }
+  })
+
+  .state('app.test', {
+    url: '/test',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/test.html',
+        controller: 'testCtrl'
       }
     }
   })

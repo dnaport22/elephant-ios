@@ -1,0 +1,9 @@
+<ion-view view-title="Test page">
+  <ion-content>
+    <ion-list ng-repeat="list in data_a | filter: $storage.id">
+      <ion-item>
+        {{list.title}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
