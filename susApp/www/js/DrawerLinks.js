@@ -1,6 +1,6 @@
 angular.module('DrawerLinks', [])
 
-.controller('DrawerController', function($state, $scope, $location, $ionicLoading, $window, $ionicHistory, $timeout) {
+.controller('DrawerController', function($state, $scope, $location, $ionicLoading, $window, $ionicHistory, $timeout, $localStorage) {
 
 
   $scope.username = 'Login to view more options';
@@ -8,8 +8,10 @@ angular.module('DrawerLinks', [])
   $scope.authStatus = null;
   $scope.links = [];
   $scope.changecolor = 'positive';
+  $scope.$test = $localStorage.test;
+  
 
-  if (localStorage.getItem('user_status') == 1) {
+  if ($localStorage.test == 1) {
     $scope.authTitle = 'Logout';
     $scope.authStatus = 1;
     $scope.username = 'Logged in as ' + localStorage.getItem('user_username');

@@ -1,8 +1,4 @@
 <ion-view view-title="Get Item" class="get-item">
-  <ion-nav-bar class="bar-calm">
-    <ion-nav-back-button>
-    </ion-nav-back-button>
-  </ion-nav-bar>
   <ion-content>
     <div class="list card">
       <div class="item item-image" style="background-image: url('http://maddna.xyz/images/{{item_img}}')"></div>
@@ -15,7 +11,7 @@
     </div>
     <div class="list list-inset">
       <label class="item item-input">
-        <textarea id="user_message" ng-model="message" maxlength="600" ng-change="checkMaxLength()">Hey, I am interested in your item.</textarea>
+        <textarea id="user_message" ng-model="message" maxlength="600" ng-change="checkMaxLength()">Hey, I am interested in {{item_name}}</textarea>
       </label>
       <div id="user_message-warning" class="character-limit-warning" style="display: none;">Message character limit reached</div>
       <button class="button button-calm button-full icon-center ion-paper-airplane" ng-click="messageCheck()">

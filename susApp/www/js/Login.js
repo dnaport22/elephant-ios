@@ -1,6 +1,6 @@
 angular.module('Login', [])
 
-.controller('LoginController', function($scope, $stateParams, $location, $window, $ionicHistory, $ionicSideMenuDelegate, $state, $ionicLoading, $timeout) {
+.controller('LoginController', function($scope, $stateParams, $location, $window, $ionicHistory, $ionicSideMenuDelegate, $state, $ionicLoading, $timeout, $localStorage) {
 
   $scope.path = $stateParams.path;
   $scope.EmailId = 'login_email';
@@ -55,6 +55,9 @@ angular.module('Login', [])
   }
 
   $scope.userStorage = function(data) {
+    $scope.$storage = $localStorage.$default({
+      side_panel: 1,
+    });
     localStorage.setItem('user_username', data.name);
     localStorage.setItem('user_email', data.email);
     localStorage.setItem('user_status', data.status);
@@ -81,31 +84,22 @@ angular.module('Login', [])
     if ($scope.path == 'getitem') {
       $timeout(function () {
         $ionicLoading.hide();
-        $ionicHistory.clearCache();
-        //$ionicHistory.clearHistory();
-        //$ionicHistory.nextViewOptions({ disableBack: true, historyRoot: true });
         $ionicHistory.goBack();
       }, 1000);
-      //$ionicHistory.goBack();
     }
     else if ($scope.path == 'main') {
 
       $timeout(function () {
         $ionicLoading.hide();
-        $ionicHistory.clearCache();
-        $ionicHistory.clearHistory();
-        $ionicHistory.nextViewOptions({ disableBack: true, historyRoot: true });
         $state.go('app.main');
+        $ionicSideMenuDelegate.toggleLeft();
       }, 1000);
 
     }
     else if ($scope.path == 'postitem') {
-      //$window.location.href = '#/app/postitem';
+
       $timeout(function () {
         $ionicLoading.hide();
-        $ionicHistory.clearCache();
-        $ionicHistory.clearHistory();
-        //$ionicHistory.nextViewOptions({ disableBack: false, historyRoot: true });
         $state.go('app.postitem');
       }, 1000);
     }

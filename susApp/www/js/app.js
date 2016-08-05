@@ -12,7 +12,8 @@ angular.module('susapp',
   'ngCordova',
   'ResetPass',
   'Login',
-  'Submitform'
+  'Submitform',
+  'ngStorage'
 ])
 
 
