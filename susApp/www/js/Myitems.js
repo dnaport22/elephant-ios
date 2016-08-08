@@ -12,6 +12,10 @@ angular.module('Myitems', [])
       destructiveButtonClicked: function() {
         //Do Stuff
         return true; //Closes the modal
+        .done(function(item) {
+          var index=$scope.myitems.indexOf(item)
+          $scope.myitems.splice(index,1);
+        })
       }
     });
     $timeout(function() {
