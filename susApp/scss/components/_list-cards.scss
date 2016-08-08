@@ -27,6 +27,11 @@
       height: 180px;
       padding: 5px;
     }
+
+    .item-body {
+      height: 80px;
+      overflow: scroll;
+    }
   }
 
   // Card on the 'Get Item' view

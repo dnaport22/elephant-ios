@@ -9850,6 +9850,10 @@ img {
   height: 180px;
   padding: 5px; }
 
+.my-items .list.card .item-body {
+  height: 80px;
+  overflow: scroll; }
+
 .get-item .list.card .item-image {
   height: 360px;
   padding: 10px; }
