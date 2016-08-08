@@ -4,8 +4,14 @@ angular.module('test', [])
   $scope.test = 'im here';
   $scope.$storage = $localStorage.$default({
     id: 1,
-    text: 'alpha'
+    text: 'alpha',
+    expiry: Date.now()
   });
+
+  $scope.getTime = Date.now();
+  $scope.comparison = $scope.getTime < Date.now();
+  $scope.currTimestamp = Date.now();
+  $scope.subtraction = Date.now() - $scope.getTime;
 
   $scope.login = function() {
     $scope.modal.show();
