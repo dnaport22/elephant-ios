@@ -1,8 +1,13 @@
 <ion-view view-title="Test page">
   <ion-content>
-    <ion-list ng-repeat="list in data_a | filter: $storage.id">
+    <ion-list ng-if="$storage.id == 1">
       <ion-item>
-        {{list.title}}
+        Login
+      </ion-item>
+    </ion-list>
+    <ion-list ng-if="$storage.id == 0">
+      <ion-item>
+        Logout
       </ion-item>
     </ion-list>
   </ion-content>
