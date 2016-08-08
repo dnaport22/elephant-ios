@@ -40,4 +40,7 @@ angular.module('DrawerLinks', [])
     $localStorage.user_login_id = 0;
     $ionicLoading.hide();
   }
+  $scope.loginMainuser = function() {
+    $location.path("/app/login/main")
+  }
 });
