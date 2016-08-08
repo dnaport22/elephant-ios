@@ -7,6 +7,10 @@ angular.module('test', [])
     text: 'alpha'
   });
 
+  $scope.login = function() {
+    $scope.modal.show();
+  };
+
 
   $scope.data_a = [
     {title: 'alpha', id: 1},

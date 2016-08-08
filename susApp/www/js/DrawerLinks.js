@@ -34,12 +34,10 @@ angular.module('DrawerLinks', [])
       maxWidth: 200,
       showDelay: 0
     });
-    $timeout(function() {
-      localStorage.setItem('user_username', '');
-      localStorage.setItem('user_email', '');
-      localStorage.setItem('user_activation', '');
-      $localStorage.user_login_id = 0;
-    }, 10000)
+    localStorage.setItem('user_username', '');
+    localStorage.setItem('user_email', '');
+    localStorage.setItem('user_activation', '');
+    $localStorage.user_login_id = 0;
     $ionicLoading.hide();
   }
 });
