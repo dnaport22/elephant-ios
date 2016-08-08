@@ -27,6 +27,7 @@ angular.module('Myitems', [])
             }
           })
         }
+      }
     });
     $timeout(function() {
       hideSheet();
