@@ -13,7 +13,7 @@ angular.module('Myitems', [])
         //Do Stuff
 
         .done(function(item) {
-          var index=$scope.myitems.indexOf(item)
+          var index=$scope.myitems.indexOf(item);
           $scope.myitems.splice(index,1);
         })
         return true; //Closes the modal
