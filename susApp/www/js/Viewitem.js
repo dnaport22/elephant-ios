@@ -15,8 +15,9 @@ angular.module('Viewitem', [])
     else {
       $location.path("/app/login/getitem")
     }
-
   }
+
+  $scope.defaultMessagevalue = "Hey, I am interested in " + $scope.item_name;
 
   $scope.checkMaxLength = function() {
     var mesageName = document.getElementById("user_message");
