@@ -9866,6 +9866,9 @@ img {
   margin-top: 10px !important;
   margin-bottom: 10px !important; }
 
+.terms .item-body {
+  font-size: 14px; }
+
 .character-limit-warning {
   color: red;
   padding: 10px; }
