@@ -21,6 +21,7 @@ angular.module('DrawerLinks', [])
 
   $scope.drawerLinks_loggedIn = [
     {title: 'Home', class: 'icon ion-home', href: '#/app/main', id: 1},
+    {title: 'Post items', class: 'icon ion-upload', href: '#/app/postitem', id: 1},
     {title: 'My items', class: 'icon ion-folder', href: '#/app/myitems', id: 1},
     {title: 'About us', class: 'icon ion-information-circled', href: '#/app/aboutus', id: 1},
     {title: 'Terms and conditions', class: 'icon ion-document-text', href: '#/app/terms', id: 1},
