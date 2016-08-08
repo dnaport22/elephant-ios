@@ -1,22 +1,32 @@
 angular.module('Myitems', [])
 
-.controller('MyitemsController', function($scope, $http) {
+.controller('MyitemsController', function($scope, $http, $timeout, $localStorage, $ionicActionSheet) {
   $scope.myitems = [];
   $scope.offset = 0;
   $scope.limit = 10;
 
-  $scope.itemOptions = function() {
+  $scope.itemOptions = function(itemid) {
+    var itemid = itemid;
     var hideSheet = $ionicActionSheet.show({
-      destructiveText: 'Delete',
-      cancelText: 'Cancel',
-      destructiveButtonClicked: function() {
-        //Do Stuff
-
-        .done(function(item) {
-          var index=$scope.myitems.indexOf(item);
-          $scope.myitems.splice(index,1);
-        })
-        return true; //Closes the modal
+      buttons: [
+        {text: 'Delete'},
+      ],
+      buttonClicked: function(index) {
+        if (index == 0) {
+          var dataString = 'code='+$localStorage.user_activation+'&name='+itemid;
+          console.log(dataString)
+          $.ajax({
+            type: 'POST',
+            url: 'http://maddna.xyz/dismiss.php',
+            data: dataString,
+            success:function(response) {
+              hideSheet();
+            },
+            error: function(error) {
+              console.log(error)
+            }
+          })
+        }
       }
     });
     $timeout(function() {
@@ -32,7 +42,7 @@ angular.module('Myitems', [])
       url: 'http://maddna.xyz/myitems.php',
       method: 'GET',
       params: {
-        code: localStorage.getItem('user_activation'),
+        code: $localStorage.user_activation,
         offset: $scope.offset,
         limit: $scope.limit
       }}).success(function(response) {
@@ -51,5 +61,9 @@ angular.module('Myitems', [])
   $scope.$on('$stateChangeSuccess', function() {
     $scope.loadMore();
   });
+
+  $scope.deleteItem = function(id) {
+
+  }
 
  });

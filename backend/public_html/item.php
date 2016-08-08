@@ -81,7 +81,7 @@ class Item implements JsonSerializable {
    */
   public function save() {
     $query = <<<SQL
-      INSERT INTO items (user_id, itemID, item_name, description, image_src, post_date, status) 
+      INSERT INTO items (user_id, itemID, item_name, description, image_src, post_date, status)
 				VALUES (:uid, :itemid, :name, :description, :image, :postdate, :status)
 			ON DUPLICATE KEY UPDATE
 			  user_id = VALUES(user_id),
@@ -89,7 +89,7 @@ class Item implements JsonSerializable {
 			  description = VALUES(description),
 			  image_src = VALUES(image_src),
 			  post_date = VALUES(post_date),
-			  status = VALUES(status)			  
+			  status = VALUES(status)
 SQL;
 
     $result = $this->db->query($query, [
@@ -139,8 +139,8 @@ SQL;
   public static function getListFiltered($offset, $limit, $filter) {
     global $mysql_db;
     $query = <<<SQL
-      SELECT * FROM items WHERE 
-        CONCAT(' ', LOWER(item_name), ' ') LIKE LOWER(:filter) OR 
+      SELECT * FROM items WHERE
+        CONCAT(' ', LOWER(item_name), ' ') LIKE LOWER(:filter) OR
         CONCAT(' ', LOWER(description), ' ') LIKE LOWER(:filter)
       ORDER BY post_date LIMIT :limit OFFSET :offset
 SQL;
@@ -157,10 +157,11 @@ SQL;
   public static function getUserList(User $user, $offset, $limit) {
     global $mysql_db;
     /** @var PDOStatement $results */
-    $results = $mysql_db->queryCast('SELECT * FROM items WHERE user_id = :uid LIMIT :limit OFFSET :offset', [
+    $results = $mysql_db->queryCast('SELECT * FROM items WHERE user_id = :uid AND status = :status LIMIT :limit OFFSET :offset', [
       ':uid' => $user->getUid(),
       ':offset' => (int) $offset ?: 0,
       ':limit' => (int) $limit ?: 10,
+      ':status' => '1'
     ]);
     return self::loadList($results);
   }
