@@ -1,15 +1,17 @@
 angular.module('Viewitem', [])
 
-.controller('ViewitemController', function($scope, $stateParams, $location) {
+.controller('ViewitemController', function($scope, $stateParams, $location, $localStorage) {
   $scope.item_name = $stateParams.itemName;
   $scope.item_description = $stateParams.itemDesc;
   $scope.item_date = $stateParams.itemDate;
   $scope.item_uid = $stateParams.itemUid;
   $scope.item_img = $stateParams.itemImg;
+  $scope.email = $localStorage.user_email;
+  $scope.username = $localStorage.user_username;
 
   $scope.messageCheck = function() {
-    if (localStorage.getItem('user_status') == 1) {
-      var itemRequest = new Message($scope.item_uid, $scope.item_name);
+    if ($localStorage.user_login_id == 1) {
+      var itemRequest = new Message($scope.item_uid, $scope.item_name, $scope.email, $scope.username);
       itemRequest.processInput();
     }
     else {

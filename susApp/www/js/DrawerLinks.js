@@ -11,8 +11,11 @@ angular.module('DrawerLinks', [])
   $scope.$test = $localStorage.test;
 
   $scope.$storage = $localStorage.$default({
-    user_login_id: 0
-  })
+    user_login_id: 0,
+    user_username: null,
+    user_activation: null,
+    user_email: null
+  });
 
   $scope.drawerLinks_loggedOut = [
     {title: 'Home', class: 'icon ion-home', href: '#/app/main', id: 0},
@@ -35,9 +38,9 @@ angular.module('DrawerLinks', [])
       maxWidth: 200,
       showDelay: 0
     });
-    localStorage.setItem('user_username', '');
-    localStorage.setItem('user_email', '');
-    localStorage.setItem('user_activation', '');
+    localStorage.user_username = null;
+    localStorage.user_email = null;
+    $localStorage.user_activation = null;
     $localStorage.user_login_id = 0;
     $ionicLoading.hide();
   }

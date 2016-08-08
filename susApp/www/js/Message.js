@@ -1,10 +1,9 @@
-function Message(to_user, item_name) {
-  console.log(to_user, item_name)
+function Message(to_user, item_name, email, username) {
   this.msg = inputVal.getValue("user_message");
   this.item_name = item_name;
   this.toUserId = to_user;
-  this.fromUser = localStorage.getItem('user_email');
-  this.fromUsername = localStorage.getItem('user_username');
+  this.fromUser = email;
+  this.fromUsername = username;
   this.itemid = '';
   this._url = 'http://www.maddna.xyz/message.php';
 }
