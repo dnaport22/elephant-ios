@@ -9869,6 +9869,12 @@ img {
 .terms .item-body {
   font-size: 14px; }
 
+.tabs {
+  height: 55px !important; }
+
+.tabs-icon-top.tabs .tab-item {
+  font-size: 13px !important; }
+
 .character-limit-warning {
   color: red;
   padding: 10px; }
