@@ -1,11 +1,29 @@
 angular.module('Myitems', [])
 
 .controller('MyitemsController', function($scope, $http) {
-
-
   $scope.myitems = [];
   $scope.offset = 0;
   $scope.limit = 10;
+
+  $scope.itemOptions = function() {
+    var hideSheet = $ionicActionSheet.show({
+      destructiveText: 'Delete',
+      cancelText: 'Cancel',
+      destructiveButtonClicked: function() {
+        //Do Stuff
+
+        .done(function(item) {
+          var index=$scope.myitems.indexOf(item);
+          $scope.myitems.splice(index,1);
+        })
+        return true; //Closes the modal
+      }
+    });
+    $timeout(function() {
+      hideSheet();
+    }, 9000);
+  };
+
 
 
   $scope.loadMore = function() {
