@@ -57,9 +57,9 @@ angular.module('Login', [])
 
   $scope.userStorage = function(data) {
     $localStorage.user_login_id = 1;
-    localStorage.setItem('user_username', data.name);
-    localStorage.setItem('user_email', data.email);
-    localStorage.setItem('user_activation', data.activation);
+    $localStorage.user_username = data.name;
+    $localStorage.user_email = data.email;
+    $localStorage.user_activation = data.activation;
     return $scope.reloadForm();
   }
 

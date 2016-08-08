@@ -40,7 +40,7 @@ angular.module('Getitems', [])
 
   $scope.trafficLight = function(route, item_name, item_desc, item_date, item_uid, item_img) {
     if (route == 'postitem') {
-      if ($localStorage.user_login_status == 1) {
+      if ($localStorage.user_login_id == 1) {
         $location.path("/app/postitem")
       }
       else {

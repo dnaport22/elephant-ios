@@ -17,10 +17,10 @@
       <h1 class="title">Sus App</h1>
     </ion-header-bar>
     <ion-content>
-      
+
       <ion-list ng-if="$storage.user_login_id == 1">
         <ion-item>
-          Logged in as {{ username }}
+          Logged in as {{ $storage.user_username }}
         </ion-item>
       </ion-list>
       <ion-list ng-if="$storage.user_login_id == 0">
@@ -52,7 +52,7 @@
       }"
       menu-close>
       <h1 class="title" ng-if = "$storage.user_login_id == 1" ng-click="logout()">Logout</h1>
-      <a ng-href="#/app/login/main"><h1 class="title" ng-if = "$storage.user_login_id == 0">Login</h1></a>
+      <h1 class="title" ng-if="$storage.user_login_id == 0" ng-click="loginMainuser()">Login</h1>
     </ion-footer-bar>
   </ion-side-menu>
 </ion-side-menus>
