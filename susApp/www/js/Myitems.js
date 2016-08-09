@@ -5,8 +5,7 @@ angular.module('Myitems', [])
   $scope.offset = 0;
   $scope.limit = 10;
 
-  $scope.itemOptions = function(itemid) {
-    var itemid = itemid;
+  $scope.itemOptions = function(itemid, item) {
     var hideSheet = $ionicActionSheet.show({
       buttons: [
         {text: 'Delete'},
@@ -21,6 +20,9 @@ angular.module('Myitems', [])
             data: dataString,
             success:function(response) {
               hideSheet();
+              var index = $scope.myitems.indexOf(item);
+              $scope.myitems.splice(index, 1);
+
             },
             error: function(error) {
               console.log(error)
@@ -62,8 +64,5 @@ angular.module('Myitems', [])
     $scope.loadMore();
   });
 
-  $scope.deleteItem = function(id) {
-
-  }
 
  });
