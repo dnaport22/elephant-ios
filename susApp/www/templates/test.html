@@ -1,16 +1,6 @@
 <ion-view>
   <ion-content>
-    <ion-item>
-      <span>{{$storage.expiry | date:'medium'}}</span>
-    </ion-item>
-    <ion-item>
-      <span>{{comparison}}</span>
-    </ion-item>
-    <ion-item>
-      <span>{{subtraction}}</span>
-    </ion-item>
-    <ion-item>
-      <span>{{currTimestamp - $storage.expiry}}</span>
-    </ion-item>
+    <ion-checkbox id="tcCheck">Agree terms and condition</ion-checkbox>
+    <ion-item>{{tc}}</ion-item>
   </ion-content>
 </ion-view>

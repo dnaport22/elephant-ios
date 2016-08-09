@@ -38,4 +38,11 @@ angular.module('test', [])
 
   ];
 
+  $scope.checkbox = {
+    checked: false
+  }
+
+  $scope.tc = document.getElementById('tcCheck').checked;
+  console.log(document.getElementById('tcCheck').checked)
+
 });

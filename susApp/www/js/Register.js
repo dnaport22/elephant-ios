@@ -1,3 +1,14 @@
+angular.module('Register', [])
+
+.controller('RegisterController', function($scope) {
+  $scope.isChecked = {
+    checkbox: false
+  }
+
+  $scope.register = function() {
+    registerUser.processInput($scope.isChecked.checkbox)
+  }
+})
 // Class to register users
 function Register() {
   this.NameId = 'set_name';
@@ -8,10 +19,12 @@ function Register() {
   this._email = '';
   this._pass = '';
   this._pass2 = '';
+  this.checkbox = null;
   this._url = 'http://maddna.xyz/register.php';
 }
 
-Register.prototype.processInput = function() {
+Register.prototype.processInput = function(checkbox) {
+   this.checkbox = checkbox;
    this._name = inputVal.getValue(this.NameId);
    this._email = inputVal.getValue(this.EmailId);
    this._pass = inputVal.getValue(this.PassId);
@@ -44,18 +57,17 @@ Register.prototype.validatePassword = function() {
     alert("Password Doesn't Match",'Alert');
   }
   else {
-    return this.submit();
+    return this.validateTC();
   }
 }
 
 Register.prototype.validateTC = function() {
-  var terms = document.getElementById('tcCheck').checked;
-  if (terms == false) {
+  if (this.checkbox == false) {
     this.formError = true;
     alert('Agree terms and conditions')
   }
   else {
-    return this.submit();
+    return this.submit;
   }
 }
 
