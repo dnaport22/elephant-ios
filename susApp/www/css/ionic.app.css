@@ -9881,3 +9881,6 @@ img {
 
 .list-inset.search-container {
   margin: 15px 10px 5px; }
+
+.main .grid-container {
+  padding-bottom: 55px; }
