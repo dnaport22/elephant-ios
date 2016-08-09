@@ -2,6 +2,13 @@ angular.module('Getitems', [])
 
 .controller('MainpageCtrl', function($scope, $http, $location, $ionicLoading, $timeout, $state, $localStorage) {
 
+  $scope.$storage = $localStorage.$default({
+    user_login_id: 0,
+    user_username: null,
+    user_activation: null,
+    user_email: null
+  });
+
   $scope.items = [];
   var offset = 0;
   var limit = 10;

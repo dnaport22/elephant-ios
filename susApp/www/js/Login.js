@@ -97,7 +97,7 @@ angular.module('Login', [])
 
       $timeout(function () {
         $ionicLoading.hide();
-        $state.go('app.postitem');
+        $ionicHistory.goBack();
       }, 1000);
     }
   }

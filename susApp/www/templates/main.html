@@ -31,10 +31,16 @@
     </ion-infinite-scroll>
   </ion-content>
   <div class="tab-striped  tabs-background-calm">
-    <div class="tabs tabs-icon-top tabs-color-light ">
-    <a class="tab-item active" ng-click="trafficLight('postitem')">
+    <div class="tabs tabs-icon-top tabs-color-light">
+
+    <a  class="tab-item active" ng-href="#/app/postitem" ng-if="$storage.user_login_id == 1">
       <i class="icon ion-upload"></i>
       Post item
+    </a>
+
+    <a  class="tab-item active" ng-href="#/app/login/postitem" ng-if="$storage.user_login_id == 0">
+      <i class="icon ion-log-in"></i>
+      Login to post item
     </a>
   </div>
 </div>
