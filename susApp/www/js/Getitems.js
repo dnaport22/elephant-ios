@@ -30,6 +30,12 @@ angular.module('Getitems', [])
     $scope.loadMore();
   }
 
+  $scope.pullToRefresh = function() {
+    $scope.items = [];
+    offset = 0
+    $scope.loadMore();
+  }
+
   $scope.check = function() {
     return $scope.retrieved > 0
   }

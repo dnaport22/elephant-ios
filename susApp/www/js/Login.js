@@ -49,7 +49,6 @@ angular.module('Login', [])
         alert("Activate your account","Alert");
       }
       else {
-        alert("You can now get or post items","You are now logged in");
         $scope.userStorage(response.user);
       }
     }
