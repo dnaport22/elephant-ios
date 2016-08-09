@@ -1,6 +1,6 @@
 angular.module('Postitem', [])
 
-.controller('PostitemController', function($scope, $ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $window) {
+.controller('PostitemController', function($scope,$localStorage ,$ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $window, $ionicLoading) {
 
   $scope.imageOptions = function() {
     var hideSheet = $ionicActionSheet.show({
@@ -61,15 +61,21 @@ angular.module('Postitem', [])
   }
 
   $scope.uploadItem = function() {
+    $ionicLoading.show({animation: 'fade-in', showBackdrop: true, maxWidth: 200,});
     var fileURL = $scope.imageToUpload;
     var serverURL = "http://maddna.xyz/postitem.php";
-    var imageSrc = $scope.getFileName(fileURL);
     var itemName = document.getElementById("name").value;
     var itemDesc = document.getElementById("desc").value;
     if(itemName === "" || itemDesc === "") {
+      $ionicLoading.hide();
       alert("Please fill all fields",'Alert');
     }
+    if(fileURL == null) {
+      $ionicLoading.hide();
+      alert("Please select an image",'Alert');
+    }
     else {
+      var imageSrc = $scope.getFileName(fileURL);
       var options = new FileUploadOptions();
       options.fileKey = 'file';
       options.fileName = imageSrc;
@@ -78,14 +84,18 @@ angular.module('Postitem', [])
       var params = new Object();
       params.itemName = itemName;
       params.desc = itemDesc;
-      params.code = localStorage.getItem('user_activation');
+      params.code = $localStorage.user_activation;
       options.params = params;
 
       $cordovaFileTransfer.upload(serverURL, fileURL, options)
         .then(function(result) {
+          $ionicLoading.hide();
+          alert("Item uploaded")
           console.log(result)
           $cordovaCamera.cleanup();
         }, function(err) {
+          $ionicLoading.hide();
+          alert("Item upload error")
           console.log(err)
           $cordovaCamera.cleanup();
         }, function(progress) {
