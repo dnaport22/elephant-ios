@@ -3,7 +3,7 @@ angular.module('Login', [])
 .controller('LoginController', function($scope, $stateParams, $location, $window, $ionicHistory, $ionicSideMenuDelegate, $state, $ionicLoading, $timeout, $localStorage, popAlert) {
 
   $scope.path = $stateParams.path;
-  $scope.loginMessage = 'Login in to ';
+  $scope.loginMessage = 'Log in in to ';
   $scope.EmailId = 'login_email';
   $scope.PassId = 'login_pass';
   $scope._email = '';
@@ -104,12 +104,12 @@ angular.module('Login', [])
 
   //Login intent message
   if ($scope.path == 'main') {
-    $scope.loginMessage = 'Login to get or post items';
+    $scope.loginMessage = 'Log in to get or post items';
   }
   else if($scope.path == 'postitem') {
-    $scope.loginMessage = 'Login to post items';
+    $scope.loginMessage = 'Log in to post items';
   }
   else if ($scope.path == 'getitem') {
-    $scope.loginMessage = 'Login to send message';
+    $scope.loginMessage = 'Log in to send message';
   }
 });
