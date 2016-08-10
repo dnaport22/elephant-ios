@@ -1,6 +1,14 @@
 angular.module('Login', [])
 
-.controller('LoginController', function($scope, $stateParams, $location, $window, $ionicHistory, $ionicSideMenuDelegate, $state, $ionicLoading, $timeout, $localStorage) {
+.controller('LoginController', function($scope, $stateParams, $location, $window, $ionicHistory, $ionicSideMenuDelegate, $state, $ionicLoading, $timeout, $localStorage, $ionicPopup) {
+
+  $scope.showAlert = function(title, template) {
+      var alertPopup = $ionicPopup.alert({
+        title: title,
+        template: template,
+      });
+      return alertPopup;
+  }
 
   $scope.path = $stateParams.path;
   $scope.loginMessage = 'Login in to ';
@@ -14,7 +22,7 @@ angular.module('Login', [])
     this._email = inputVal.getValue(this.EmailId);
     this._pass = inputVal.getValue(this.PassId);
     if (this._email == ''  || this._pass == '') {
-      alert("Please Fill All Fields",'Alert');
+      $scope.showAlert('Alert', 'Please fill all the fields');
     }
     else {
       return $scope.validateEmail();
@@ -24,10 +32,10 @@ angular.module('Login', [])
   $scope.validateEmail = function() {
     var validate = new Validation(this._email);
     if (validate.emailValidate() == 'formatError') {
-      alert('Plase enter valid lsbu email', "Alert");
+      $scope.showAlert('Alert', 'Plase enter valid lsbu email');
     }
     else if (validate.emailValidate() == 'invalid') {
-      alert("Invalid Email",'Alert');
+      $scope.showAlert('Alert', 'Invalid Password');
     }
     else {
       return $scope.submit();
@@ -42,11 +50,11 @@ angular.module('Login', [])
 
   $scope.submitResponse = function(response) {
     if (response.status == 0) {
-      alert("Invalid account","Alert");
+      $scope.showAlert('Alert', 'Invalid account');
     }
     else if(response.status == 1) {
       if(response.user.status == 0) {
-        alert("Activate your account","Alert");
+        $scope.showAlert('Alert', 'Please activate your account');
       }
       else {
         $scope.userStorage(response.user);
