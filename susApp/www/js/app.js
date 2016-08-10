@@ -3,7 +3,6 @@ angular.module('susapp',
 [
   'ionic',
   'Getitems',
-  'susapp.config',
   'Viewitem',
   'Myitems',
   'DrawerLinks',
@@ -15,6 +14,7 @@ angular.module('susapp',
   'Submitform',
   'ngStorage',
   'Register',
+  'Message',
   'test'
 ])
 

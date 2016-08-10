@@ -1,6 +1,6 @@
 angular.module('Submitform', [])
 
-.service('AjaxCallsService', function($http) {
+.service('AjaxCallsService', function() {
 
   this.constructor = function(type, url, datastring, cache) {
     this.type = type;
@@ -14,16 +14,17 @@ angular.module('Submitform', [])
   }
 
   this.ajaxSubmit = function(callback) {
-    $http({
-      method: this.type,
+    $.ajax({
+      type: this.type,
       url: this.url,
-      data: this.dataString
-    })
-      .then(function successCallback(response) {
-        console.log(response)
-        callback.submitResponse(response)
-      }, function errorCallback(response) {
-          callback.submitResponse(response)
+      cache: this.cache,
+      data: this.dataString,
+      success: function(response) {
+        callback.submitResponse(response);
+      },
+      error: function(error) {
+        callback.submitResponse(error);
+      }
     });
   }
 });

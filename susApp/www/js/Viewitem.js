@@ -1,6 +1,6 @@
 angular.module('Viewitem', [])
 
-.controller('ViewitemController', function($scope, $stateParams, $location, $localStorage) {
+.controller('ViewitemController', function($scope, $stateParams, $location, $localStorage, MessageService) {
   $scope.item_name = $stateParams.itemName;
   $scope.item_description = $stateParams.itemDesc;
   $scope.item_date = $stateParams.itemDate;
@@ -11,7 +11,9 @@ angular.module('Viewitem', [])
 
   $scope.messageCheck = function() {
     if ($localStorage.user_login_id == 1) {
-      var itemRequest = new Message($scope.item_uid, $scope.item_name, $scope.email, $scope.username);
+      // new Message($scope.item_uid, $scope.item_name, $scope.email, $scope.username);
+      var itemRequest = MessageService;
+      itemRequest.constructor($scope.item_uid, $scope.item_name, $scope.email, $scope.username)
       itemRequest.processInput();
     }
     else {

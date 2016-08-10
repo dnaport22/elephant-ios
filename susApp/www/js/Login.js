@@ -1,14 +1,6 @@
 angular.module('Login', [])
 
-.controller('LoginController', function($scope, $stateParams, $location, $window, $ionicHistory, $ionicSideMenuDelegate, $state, $ionicLoading, $timeout, $localStorage, $ionicPopup) {
-
-  $scope.showAlert = function(title, template) {
-      var alertPopup = $ionicPopup.alert({
-        title: title,
-        template: template,
-      });
-      return alertPopup;
-  }
+.controller('LoginController', function($scope, $stateParams, $location, $window, $ionicHistory, $ionicSideMenuDelegate, $state, $ionicLoading, $timeout, $localStorage, popAlert) {
 
   $scope.path = $stateParams.path;
   $scope.loginMessage = 'Login in to ';
@@ -22,7 +14,7 @@ angular.module('Login', [])
     this._email = inputVal.getValue(this.EmailId);
     this._pass = inputVal.getValue(this.PassId);
     if (this._email == ''  || this._pass == '') {
-      $scope.showAlert('Alert', 'Please fill all the fields');
+      popAlert.showAlert('Alert', 'Please fill all the fields');
     }
     else {
       return $scope.validateEmail();
@@ -32,10 +24,10 @@ angular.module('Login', [])
   $scope.validateEmail = function() {
     var validate = new Validation(this._email);
     if (validate.emailValidate() == 'formatError') {
-      $scope.showAlert('Alert', 'Plase enter valid lsbu email');
+      popAlert.showAlert('Alert', 'Plase enter valid lsbu email');
     }
     else if (validate.emailValidate() == 'invalid') {
-      $scope.showAlert('Alert', 'Invalid Password');
+      popAlert.showAlert('Alert', 'Invalid Password');
     }
     else {
       return $scope.submit();
@@ -50,11 +42,11 @@ angular.module('Login', [])
 
   $scope.submitResponse = function(response) {
     if (response.status == 0) {
-      $scope.showAlert('Alert', 'Invalid account');
+      popAlert.showAlert('Alert', 'Invalid account');
     }
     else if(response.status == 1) {
       if(response.user.status == 0) {
-        $scope.showAlert('Alert', 'Please activate your account');
+        popAlert.showAlert('Alert', 'Please activate your account');
       }
       else {
         $scope.userStorage(response.user);

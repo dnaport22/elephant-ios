@@ -1,6 +1,6 @@
 angular.module('Getitems', [])
 
-.controller('MainpageCtrl', function($scope, $http, $location, $ionicLoading, $timeout, $state, $localStorage) {
+.controller('MainpageCtrl', function($scope, $http, $location, $ionicLoading, $timeout, $state, $localStorage, AjaxCallsService) {
 
   $ionicLoading.show({
     content: 'Logging in',
@@ -15,13 +15,13 @@ angular.module('Getitems', [])
     user_login_id: 0,
     user_username: null,
     user_activation: null,
-    user_email: null,
-    device_network: null
+    user_email: null
   });
 
   $scope.items = [];
   var offset = 0;
   var limit = 10;
+
 
   $scope.loadMore = function() {
     $http({
@@ -64,15 +64,7 @@ angular.module('Getitems', [])
   });
 
   $scope.trafficLight = function(route, item_name, item_desc, item_date, item_uid, item_img) {
-    if (route == 'postitem') {
-      if ($localStorage.user_login_id == 1) {
-        $location.path("/app/postitem")
-      }
-      else {
-        $location.path("/app/login/postitem")
-      }
-    }
-    else if (route == 'getitem') {
+    if (route == 'getitem') {
       $location.path("/app/getitem/" + item_name + "/" + item_desc + "/" + item_date + "/" + item_uid + "/" + item_img )
     }
   }
