@@ -62,9 +62,7 @@ HTML;
   }
 
   protected function getActivationUrl(User $user) {
-    return 'https://' . $_SERVER['HTTP_HOST'] . '/activation.php?' . http_build_query([
-      'uniqueId' => $user->getActivation(),
-    ]);
+    return 'http://' . $_SERVER['HTTP_HOST'] . '/app/#/app/activation/' . $user->getActivation();
   }
 
   public function test() {
