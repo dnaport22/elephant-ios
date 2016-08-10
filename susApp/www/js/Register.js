@@ -1,100 +1,89 @@
 angular.module('Register', [])
 
-.controller('RegisterController', function($scope) {
+.controller('RegisterController', function($scope, popAlert, $ionicHistory) {
   $scope.isChecked = {
     checkbox: false
   }
 
-  $scope.register = function() {
-    registerUser.processInput($scope.isChecked.checkbox)
+  $scope.NameId = 'set_name';
+  $scope.EmailId = 'set_email';
+  $scope.PassId = 'set_pass';
+  $scope.Pass2Id = 'set_pass2';
+  $scope._name = '';
+  $scope._email = '';
+  $scope._pass = '';
+  $scope._pass2 = '';
+  $scope._url = 'http://maddna.xyz/register.php';
+
+  $scope.processInput = function() {
+     $scope._name = inputVal.getValue($scope.NameId);
+     $scope._email = inputVal.getValue($scope.EmailId);
+     $scope._pass = inputVal.getValue($scope.PassId);
+     $scope._pass2 = inputVal.getValue($scope.Pass2Id);
+     var nameMatching = name.match($scope.nameMatch);
+     if ($scope._name == ''  || $scope._email == '' || $scope._pass == '' || $scope._pass2 == '' ) {
+       popAlert.showAlert('Alert', 'Please fill all the fields');
+     }
+     else {
+       return $scope.validateEmail();
+     }
   }
+
+  $scope.validateEmail = function() {
+    var validate = new Validation($scope._email);
+    if (validate.emailValidate() == 'formatError') {
+      popAlert.showAlert('Alert', 'Please enter valid LSBU email address');
+    }
+    else if (validate.emailValidate() == 'invalid') {
+      popAlert.showAlert('Alert', 'Invalid email');
+    }
+    else {
+      $scope.validatePassword();
+    }
+  }
+
+  $scope.validatePassword = function() {
+    if ($scope._pass != $scope._pass2){
+      popAlert.showAlert('Alert', 'Password does not match');
+    }
+    else {
+      return $scope.validateTC();
+    }
+  }
+
+  $scope.validateTC = function() {
+    if ($scope.isChecked.checkbox == false) {
+      popAlert.showAlert('Alert', 'Agree terms and conditions')
+    }
+    else {
+      return $scope.submit();
+    }
+  }
+
+  $scope.submit = function() {
+    var dataString = 'name=' + $scope._name + '&email=' + $scope._email + '&pass=' + $scope._pass;
+    var request = new Submitform('POST', $scope._url, dataString, false);
+    request.ajaxSubmit($scope);
+    return false;
+  }
+
+  $scope.submitResponse = function(response) {
+    if (response.status == 1) {
+      popAlert.showAlert('Registred successfully', 'A validation email has been sent to your LSBU email account, please validate your email to start using your account.');
+      $scope.reloadForm();
+    }
+    else if(response.status == 0) {
+      popAlert.showAlert('Alert', 'Email already registred');
+    }
+  }
+
+  $scope.reloadForm = function() {
+    inputVal.setValue($scope.NameId, '');
+    inputVal.setValue($scope.EmailId, '');
+    inputVal.setValue($scope.PassId, '');
+    inputVal.setValue($scope.Pass2Id, '');
+    $scope.isChecked.checkbox = false;
+    return $ionicHistory.goBack();;
+  }
+
 })
-// Class to register users
-function Register() {
-  this.NameId = 'set_name';
-  this.EmailId = 'set_email';
-  this.PassId = 'set_pass';
-  this.Pass2Id = 'set_pass2';
-  this._name = '';
-  this._email = '';
-  this._pass = '';
-  this._pass2 = '';
-  this.checkbox = null;
-  this._url = 'http://maddna.xyz/register.php';
-}
-
-Register.prototype.processInput = function(checkbox) {
-   this.checkbox = checkbox;
-   this._name = inputVal.getValue(this.NameId);
-   this._email = inputVal.getValue(this.EmailId);
-   this._pass = inputVal.getValue(this.PassId);
-   this._pass2 = inputVal.getValue(this.Pass2Id);
-   var nameMatching = name.match(this.nameMatch);
-   if (this._name == ''  || this._email == '' || this._pass == '' || this._pass2 == '' ) {
-     alert("Please Fill All Fields",'Alert');
-   }
-   else {
-     return this.validateEmail();
-   }
-}
-
-Register.prototype.validateEmail = function() {
-  var validate = new Validation(this._email);
-  if (validate.emailValidate() == 'formatError') {
-    alert('Plase enter valid lsbu email');
-  }
-  else if (validate.emailValidate() == 'invalid') {
-    alert("Invalid Email",'Alert');
-  }
-  else {
-    this.validatePassword();
-  }
-}
-
-Register.prototype.validatePassword = function() {
-  if (this._pass != this._pass2){
-    this.formError = true;
-    alert("Password Doesn't Match",'Alert');
-  }
-  else {
-    return this.validateTC();
-  }
-}
-
-Register.prototype.validateTC = function() {
-  if (this.checkbox == false) {
-    this.formError = true;
-    alert('Agree terms and conditions')
-  }
-  else {
-    return this.submit();
-  }
-}
-
-Register.prototype.submit = function() {
-  var dataString = 'name=' + this._name + '&email=' + this._email + '&pass=' + this._pass;
-  var request = new Submitform('POST', this._url, dataString, false);
-  request.ajaxSubmit(this);
-  return false;
-}
-
-Register.prototype.submitResponse = function(response) {
-  console.log(response)
-  if (response.status == 1) {
-    alert("Successfully registred");
-  }
-  else if(response.status == 0) {
-    alert("Email already registred");
-  }
-}
-
-Register.prototype.reloadForm = function() {
-  inputVal.setValue(this.NameId, '');
-  inputVal.setValue(this.EmailId, '');
-  inputVal.setValue(this.PassId, '');
-  inputVal.setValue(this.Pass2Id, '');
-  return false;
-}
-
-
-registerUser = new Register();
