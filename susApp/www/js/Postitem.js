@@ -1,6 +1,6 @@
 angular.module('Postitem', [])
 
-.controller('PostitemController', function($scope,$localStorage ,$ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $window, $ionicLoading) {
+.controller('PostitemController', function($scope,$localStorage ,$ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $window, $ionicLoading, popAlert) {
 
   $scope.imageOptions = function() {
     var hideSheet = $ionicActionSheet.show({
@@ -53,7 +53,7 @@ angular.module('Postitem', [])
       document.getElementById("select-image-button").innerHTML= "Reselect Image";
       console.log($scope.imageToUpload)
     }, function(err) {
-      alert('Error while calling native components');
+      popAlert.showAlert('Alert', 'Error while calling native components');
       console.log(err)
     });
 
@@ -66,13 +66,9 @@ angular.module('Postitem', [])
     var serverURL = "http://maddna.xyz/postitem.php";
     var itemName = document.getElementById("name").value;
     var itemDesc = document.getElementById("desc").value;
-    if(itemName === "" || itemDesc === "") {
+    if(itemName === "" || itemDesc === "" || fileURL == null) {
       $ionicLoading.hide();
-      alert("Please fill all fields",'Alert');
-    }
-    if(fileURL == null) {
-      $ionicLoading.hide();
-      alert("Please select an image",'Alert');
+      popAlert.showAlert('Alert', 'Please fill all fields and select an image');
     }
     else {
       var imageSrc = $scope.getFileName(fileURL);
@@ -90,16 +86,12 @@ angular.module('Postitem', [])
       $cordovaFileTransfer.upload(serverURL, fileURL, options)
         .then(function(result) {
           $ionicLoading.hide();
-          alert("Item uploaded")
-          console.log(result)
+          popAlert.showAlert('Success', 'Your item will appear in the app soon after approval')
           $cordovaCamera.cleanup();
         }, function(err) {
           $ionicLoading.hide();
-          alert("Item upload error")
-          console.log(err)
+          alert('Alert', 'An error occured file uploading the item, please contact app admintrantion team if error presist')
           $cordovaCamera.cleanup();
-        }, function(progress) {
-          console.log(progress)
         }
       )
     }
@@ -142,7 +134,4 @@ angular.module('Postitem', [])
     }
   }
 
-  $scope.goBack = function() {
-    $window.location.href = '#/app/main'
-  }
 });
