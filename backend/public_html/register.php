@@ -51,8 +51,8 @@ class registerUser {
     $subject = "Verify your email address";
     $activation_link = $this->getActivationUrl($user);
     $message = <<<HTML
-Dear {${$user->getName()}},<br/><br/>
-Please click the link below to confirm that this email address will be associated with your Womble app user account:<br/><br/>
+Dear {$user->getName()},<br/><br/>
+Please click the link below to confirm that this email address will be associated with your Sustainability app user account:<br/><br/>
 <a href="{$activation_link}">{$activation_link}</a>
 HTML;
     $header  = "From: noreply@maddna.xyz \r\n";
@@ -62,14 +62,14 @@ HTML;
   }
 
   protected function getActivationUrl(User $user) {
-    return 'https://' . $_SERVER['HTTP_HOST'] . '/app/activation.php?' . http_build_query([
+    return 'https://' . $_SERVER['HTTP_HOST'] . '/activation.php?' . http_build_query([
       'uniqueId' => $user->getActivation(),
     ]);
   }
 
   public function test() {
-    $register = ("INSERT INTO 
-			user_profiles (uid,name,email,password,activation) 
+    $register = ("INSERT INTO
+			user_profiles (uid,name,email,password,activation)
 			VALUES ('$this->uid','$this->name','$this->email','$this->final_password','$this->activation')");
     $stmt = $this->my_query->prepare($register);
     if ($stmt->execute()) {

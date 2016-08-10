@@ -2,7 +2,7 @@
 require "db_connect.php";
 require "item.php";
 require "response.php";
-require_one "user.php";
+require_once "user.php";
 
 /**
  * Class postItem implements a post item manager.
@@ -74,7 +74,7 @@ class postItem
 		$item->setName($_POST['itemName']);
 		$item->setDescription($_POST['desc']);
 		$item->setImage($image_source);
-		$item->setStatus(1);
+		$item->setStatus(0);
 		if ($item->save()) {
 			$this->sendEmail($user);
 			Response::flush(1, 'The email could not be sent.');

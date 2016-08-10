@@ -15,6 +15,7 @@ angular.module('susapp',
   'ngStorage',
   'Register',
   'Message',
+  'Useraccount',
   'test'
 ])
 
@@ -147,6 +148,16 @@ angular.module('susapp',
       'menuContent': {
         templateUrl: 'templates/test.html',
         controller: 'testCtrl'
+      }
+    }
+  })
+
+  .state('app.useraccount', {
+    url: '/activation/:uniqueId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/activateaccount.html',
+        controller: 'UseraccountController'
       }
     }
   })
