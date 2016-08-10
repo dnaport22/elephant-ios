@@ -51,6 +51,7 @@ ResetPass.prototype.submitResponse = function(response) {
   console.log(response)
   if (response.status == 1) {
     alert("Successfully Changed pass");
+    this.reloadForm();
   }
   else if(response.status == 0) {
     alert("Error Occured");
