@@ -2,11 +2,21 @@ angular.module('Getitems', [])
 
 .controller('MainpageCtrl', function($scope, $http, $location, $ionicLoading, $timeout, $state, $localStorage) {
 
+  $ionicLoading.show({
+    content: 'Logging in',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
+
+
   $scope.$storage = $localStorage.$default({
     user_login_id: 0,
     user_username: null,
     user_activation: null,
-    user_email: null
+    user_email: null,
+    device_network: null
   });
 
   $scope.items = [];
