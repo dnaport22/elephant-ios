@@ -38,6 +38,8 @@ angular.module('Getitems', [])
         $scope.$broadcast('scroll.refreshComplete');
         $scope.$broadcast('scroll.infiniteScrollComplete');
         $ionicLoading.hide();
+    }).error(function(error) {
+      $scope.loadMore();
     });
   };
 
