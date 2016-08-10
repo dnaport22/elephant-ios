@@ -67,7 +67,7 @@ Register.prototype.validateTC = function() {
     alert('Agree terms and conditions')
   }
   else {
-    return this.submit;
+    return this.submit();
   }
 }
 
