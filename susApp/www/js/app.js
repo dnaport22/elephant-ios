@@ -1,5 +1,5 @@
 
-angular.module('susapp',
+angular.module('elephant',
 [
   'ionic',
   'Getitems',
