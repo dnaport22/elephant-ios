@@ -1,12 +1,6 @@
-elephant.controller('DrawerController', function($state, $scope, $location, $ionicLoading, $window, $ionicHistory, $timeout, $localStorage) {
+elephant.controller('DrawerController', function($state, $scope, $location, $ionicLoading, $window, $ionicHistory, $timeout, $localStorage, UIfactory) {
 
   $scope.username = $localStorage.user_username;
-  $scope.authTitle = [];
-  $scope.authStatus = null;
-  $scope.links = [];
-  $scope.changecolor = 'positive';
-  $scope.$test = $localStorage.test;
-
   $scope.$storage = $localStorage.$default({
     user_login_id: 0,
     user_username: null,

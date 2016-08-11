@@ -1,4 +1,4 @@
-elephant.service('MessageService', function(popAlert) {
+elephant.service('MessageService', function(UIfactory) {
 
   this.constructor = function(to_user, item_name, email, username) {
     this.msg = inputVal.getValue("user_message");
@@ -12,7 +12,7 @@ elephant.service('MessageService', function(popAlert) {
 
   this.processInput = function() {
     if (this.msg == '') {
-      popAlert.showAlert('Alert', 'Please enter you message');
+      UIfactory.showAlert('Alert', 'Please enter you message');
     } else {
       return this.sendMessage();
     }
@@ -27,11 +27,11 @@ elephant.service('MessageService', function(popAlert) {
 
   this.submitResponse = function(response) {
     if (response == '1') {
-      popAlert.showAlert('Message Sent', 'Please keep an eye on your LSBU email account');
+      UIfactory.showAlert('Message Sent', 'Please keep an eye on your LSBU email account');
       this.reloadForm();
     }
     else {
-      popAlert.showAlert('Error occurred', 'Check if you internet is working');
+      UIfactory.showAlert('Error occurred', 'Check if you internet is working');
     }
   }
 

@@ -1,4 +1,4 @@
-elephant.controller('LoginController', function($scope, $stateParams, $location, $window, $ionicHistory, $ionicSideMenuDelegate, $state, $ionicLoading, $timeout, $localStorage, popAlert) {
+elephant.controller('LoginController', function($scope, $stateParams, $location, $ionicHistory, $ionicSideMenuDelegate, $state, $timeout, $localStorage, UIfactory) {
 
   var path = $stateParams.path;
   var loginMessage = 'Log in in to ';
@@ -8,11 +8,12 @@ elephant.controller('LoginController', function($scope, $stateParams, $location,
   var pass = '';
   var url = 'http://maddna.xyz/login.php';
 
-  this.loginUser = function() {
+  $scope.loginUser = function() {
+    console.log('triggered')
     this.email = inputVal.getValue(this.EmailId);
     this.pass = inputVal.getValue(this.PassId);
     if (this.email == ''  || this.pass == '') {
-      popAlert.showAlert('Alert', 'Please fill all the fields');
+      UIfactory.showAlert('Alert', 'Please fill all the fields');
     }
     else {
       return this.validateEmail();
@@ -22,10 +23,10 @@ elephant.controller('LoginController', function($scope, $stateParams, $location,
   this.validateEmail = function() {
     var validate = new Validation(this.email);
     if (validate.emailValidate() == 'formatError') {
-      popAlert.showAlert('Alert', 'Plase enter valid lsbu email');
+      UIfactory.showAlert('Alert', 'Plase enter valid lsbu email');
     }
     else if (validate.emailValidate() == 'invalid') {
-      popAlert.showAlert('Alert', 'Invalid Password');
+      UIfactory.showAlert('Alert', 'Invalid Password');
     }
     else {
       return this.submit();
@@ -40,11 +41,11 @@ elephant.controller('LoginController', function($scope, $stateParams, $location,
 
   this.submitResponse = function(response) {
     if (response.status == 0) {
-      popAlert.showAlert('Alert', 'Invalid account');
+      UIfactory.showAlert('Alert', 'Invalid account');
     }
     else if(response.status == 1) {
       if(response.user.status == 0) {
-        popAlert.showAlert('Alert', 'Please activate your account');
+        UIfactory.showAlert('Alert', 'Please activate your account');
       }
       else {
         this.userStorage(response.user);
@@ -68,25 +69,17 @@ elephant.controller('LoginController', function($scope, $stateParams, $location,
   }
 
   this.redirectUser = function() {
-
-    $ionicLoading.show({
-      content: 'Logging in',
-      animation: 'fade-in',
-      showBackdrop: true,
-      maxWidth: 200,
-      showDelay: 0
-    });
-
+    UIfactory.showSpinner();
     if (path == 'getitem') {
       $timeout(function () {
-        $ionicLoading.hide();
+        UIfactory.hideSpinner();
         $ionicHistory.goBack();
       }, 1000);
     }
     else if (path == 'main') {
 
       $timeout(function () {
-        $ionicLoading.hide();
+        UIfactory.hideSpinner();
         $state.go('app.main');
         $ionicSideMenuDelegate.toggleLeft();
       }, 1000);
@@ -95,7 +88,7 @@ elephant.controller('LoginController', function($scope, $stateParams, $location,
     else if (path == 'postitem') {
 
       $timeout(function () {
-        $ionicLoading.hide();
+        UIfactory.hideSpinner();
         $ionicHistory.goBack();
       }, 1000);
     }

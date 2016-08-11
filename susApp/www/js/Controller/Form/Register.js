@@ -1,4 +1,4 @@
-elephant.controller('RegisterController', function($scope, popAlert, $ionicHistory) {
+elephant.controller('RegisterController', function($scope, UIfactory, $ionicHistory) {
   $scope.isChecked = {
     checkbox: false
   }
@@ -15,8 +15,8 @@ elephant.controller('RegisterController', function($scope, popAlert, $ionicHisto
 
   this.processInput = function() {
      var nameMatching = name.match(this.nameMatch);
-     if (this._name == ''  || this._email == '' || this._pass == '' || this._pass2 == '' ) {
-       popAlert.showAlert('Alert', 'Please fill all the fields');
+     if (this.name == ''  || this.email == '' || this.pass == '' || this.pass2 == '' ) {
+       UIfactory.showAlert('Alert', 'Please fill all the fields');
      }
      else {
        return this.validateEmail();
@@ -24,12 +24,12 @@ elephant.controller('RegisterController', function($scope, popAlert, $ionicHisto
   }
 
   this.validateEmail = function() {
-    var validate = new Validation(this._email);
+    var validate = new Validation(this.email);
     if (validate.emailValidate() == 'formatError') {
-      popAlert.showAlert('Alert', 'Please enter valid LSBU email address');
+      UIfactory.showAlert('Alert', 'Please enter valid LSBU email address');
     }
     else if (validate.emailValidate() == 'invalid') {
-      popAlert.showAlert('Alert', 'Invalid email');
+      UIfactory.showAlert('Alert', 'Invalid email');
     }
     else {
       this.validatePassword();
@@ -37,8 +37,8 @@ elephant.controller('RegisterController', function($scope, popAlert, $ionicHisto
   }
 
   this.validatePassword = function() {
-    if (this._pass != this._pass2){
-      popAlert.showAlert('Alert', 'Password does not match');
+    if (this.pass != this.pass2){
+      UIfactory.showAlert('Alert', 'Password does not match');
     }
     else {
       return this.validateTC();
@@ -47,7 +47,7 @@ elephant.controller('RegisterController', function($scope, popAlert, $ionicHisto
 
   this.validateTC = function() {
     if (this.isChecked.checkbox == false) {
-      popAlert.showAlert('Alert', 'Agree terms and conditions')
+      UIfactory.showAlert('Alert', 'Agree terms and conditions')
     }
     else {
       return this.submit();
@@ -55,19 +55,19 @@ elephant.controller('RegisterController', function($scope, popAlert, $ionicHisto
   }
 
   this.submit = function() {
-    var dataString = 'name=' + this._name + '&email=' + this._email + '&pass=' + this._pass;
-    var request = new Submitform('POST', this._url, dataString, false);
+    var dataString = 'name=' + this.name + '&email=' + this.email + '&pass=' + this.pass;
+    var request = new Submitform('POST', this.url, dataString, false);
     request.ajaxSubmit(this);
     return false;
   }
 
   this.submitResponse = function(response) {
     if (response.status == 1) {
-      popAlert.showAlert('Registred successfully', 'A validation email has been sent to your LSBU email account, please validate your email to start using your account.');
+      UIfactory.showAlert('Registred successfully', 'A validation email has been sent to your LSBU email account, please validate your email to start using your account.');
       this.reloadForm();
     }
     else if(response.status == 0) {
-      popAlert.showAlert('Alert', 'Email already registred');
+      UIfactory.showAlert('Alert', 'Email already registred');
     }
   }
 
