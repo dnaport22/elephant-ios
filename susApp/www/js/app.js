@@ -2,17 +2,16 @@
 angular.module('elephant',
 [
   'ionic',
-  'Services',
   'ngCordova',
-  'Submitform',
+  'elephantFactory',
+  'elephantService',
   'ngStorage',
-  'Message',
-  'Useraccount',
   'PostitemController',
   'MyitemController',
   'MainController',
   'FormController',
   'ViewitemController',
+  'testctrls'
 ])
 
 

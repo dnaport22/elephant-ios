@@ -1,4 +1,4 @@
-angular.module('Services', [])
+angular.module('elephantFactory')
 
 .factory('popAlert', function($http, $ionicPopup) {
 

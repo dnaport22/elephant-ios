@@ -1,4 +1,4 @@
-angular.module('Submitform', [])
+angular.module('elephantFactory')
 
 .service('AjaxCallsService', function() {
 

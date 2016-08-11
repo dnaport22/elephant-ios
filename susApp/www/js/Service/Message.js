@@ -1,4 +1,4 @@
-angular.module('Message', [])
+angular.module('elephantService')
 
 .service('MessageService', function(popAlert) {
 
