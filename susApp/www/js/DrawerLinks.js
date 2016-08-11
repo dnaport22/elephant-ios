@@ -2,8 +2,7 @@ angular.module('DrawerLinks', [])
 
 .controller('DrawerController', function($state, $scope, $location, $ionicLoading, $window, $ionicHistory, $timeout, $localStorage) {
 
-
-  $scope.username = localStorage.getItem('user_username');
+  $scope.username = $localStorage.user_username;
   $scope.authTitle = [];
   $scope.authStatus = null;
   $scope.links = [];
