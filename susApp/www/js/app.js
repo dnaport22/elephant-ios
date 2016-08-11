@@ -16,8 +16,6 @@ angular.module('susapp',
   'Register',
   'Message',
   'Useraccount',
-  'angular-cache',
-  'MainpageServices',
   'test'
 ])
 
