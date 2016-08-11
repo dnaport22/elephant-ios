@@ -37,7 +37,9 @@ angular.module('susapp',
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+
+  $ionicConfigProvider.scrolling.jsScrolling(false);
 
   $stateProvider
 
