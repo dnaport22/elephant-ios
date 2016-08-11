@@ -1,26 +1,26 @@
 elephant.controller('LoginController', function($scope, $stateParams, $location, $window, $ionicHistory, $ionicSideMenuDelegate, $state, $ionicLoading, $timeout, $localStorage, popAlert) {
 
-  $scope.path = $stateParams.path;
-  $scope.loginMessage = 'Log in in to ';
-  $scope.EmailId = 'login_email';
-  $scope.PassId = 'login_pass';
-  $scope._email = '';
-  $scope._pass = '';
-  $scope._url = 'http://maddna.xyz/login.php';
+  var path = $stateParams.path;
+  var loginMessage = 'Log in in to ';
+  var EmailId = 'login_email';
+  var PassId = 'login_pass';
+  var email = '';
+  var pass = '';
+  var url = 'http://maddna.xyz/login.php';
 
-  $scope.loginUser = function() {
-    this._email = inputVal.getValue(this.EmailId);
-    this._pass = inputVal.getValue(this.PassId);
-    if (this._email == ''  || this._pass == '') {
+  this.loginUser = function() {
+    this.email = inputVal.getValue(this.EmailId);
+    this.pass = inputVal.getValue(this.PassId);
+    if (this.email == ''  || this.pass == '') {
       popAlert.showAlert('Alert', 'Please fill all the fields');
     }
     else {
-      return $scope.validateEmail();
+      return this.validateEmail();
     }
   }
 
-  $scope.validateEmail = function() {
-    var validate = new Validation(this._email);
+  this.validateEmail = function() {
+    var validate = new Validation(this.email);
     if (validate.emailValidate() == 'formatError') {
       popAlert.showAlert('Alert', 'Plase enter valid lsbu email');
     }
@@ -28,17 +28,17 @@ elephant.controller('LoginController', function($scope, $stateParams, $location,
       popAlert.showAlert('Alert', 'Invalid Password');
     }
     else {
-      return $scope.submit();
+      return this.submit();
     }
   }
 
-  $scope.submit = function() {
+  this.submit = function() {
     var dataString = 'email=' + this._email + '&pass=' + this._pass;
     var request = new Submitform('POST', this._url, dataString, false);
     return request.ajaxSubmit(this);
   }
 
-  $scope.submitResponse = function(response) {
+  this.submitResponse = function(response) {
     if (response.status == 0) {
       popAlert.showAlert('Alert', 'Invalid account');
     }
@@ -47,27 +47,27 @@ elephant.controller('LoginController', function($scope, $stateParams, $location,
         popAlert.showAlert('Alert', 'Please activate your account');
       }
       else {
-        $scope.userStorage(response.user);
+        this.userStorage(response.user);
       }
     }
   }
 
-  $scope.userStorage = function(data) {
+  this.userStorage = function(data) {
     $localStorage.user_login_id = 1;
     $localStorage.user_username = data.name;
     $localStorage.user_email = data.email;
     $localStorage.user_activation = data.activation;
     $localStorage.expiry = new Date().getTime();
-    return $scope.reloadForm();
+    return this.reloadForm();
   }
 
-  $scope.reloadForm = function() {
+  this.reloadForm = function() {
     inputVal.setValue($scope.EmailId, '');
     inputVal.setValue($scope.PassId, '');
-    return $scope.redirectUser();
+    return this.redirectUser();
   }
 
-  $scope.redirectUser = function() {
+  this.redirectUser = function() {
 
     $ionicLoading.show({
       content: 'Logging in',
@@ -77,13 +77,13 @@ elephant.controller('LoginController', function($scope, $stateParams, $location,
       showDelay: 0
     });
 
-    if ($scope.path == 'getitem') {
+    if (path == 'getitem') {
       $timeout(function () {
         $ionicLoading.hide();
         $ionicHistory.goBack();
       }, 1000);
     }
-    else if ($scope.path == 'main') {
+    else if (path == 'main') {
 
       $timeout(function () {
         $ionicLoading.hide();
@@ -92,7 +92,7 @@ elephant.controller('LoginController', function($scope, $stateParams, $location,
       }, 1000);
 
     }
-    else if ($scope.path == 'postitem') {
+    else if (path == 'postitem') {
 
       $timeout(function () {
         $ionicLoading.hide();
@@ -102,13 +102,13 @@ elephant.controller('LoginController', function($scope, $stateParams, $location,
   }
 
   //Login intent message
-  if ($scope.path == 'main') {
+  if (path == 'main') {
     $scope.loginMessage = 'Log in to get or post items';
   }
-  else if($scope.path == 'postitem') {
+  else if(path == 'postitem') {
     $scope.loginMessage = 'Log in to post items';
   }
-  else if ($scope.path == 'getitem') {
+  else if (path == 'getitem') {
     $scope.loginMessage = 'Log in to send message';
   }
 });
