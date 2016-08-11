@@ -1,4 +1,4 @@
-angular.module('Getitems', [])
+angular.module('MainController')
 
 .controller('MainpageCtrl', function($scope, $http, $location, $ionicLoading, $timeout, $state, $localStorage) {
 

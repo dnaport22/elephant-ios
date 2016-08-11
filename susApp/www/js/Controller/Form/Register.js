@@ -1,4 +1,4 @@
-angular.module('Register', [])
+angular.module('FormController', [])
 
 .controller('RegisterController', function($scope, popAlert, $ionicHistory) {
   $scope.isChecked = {

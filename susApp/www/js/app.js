@@ -2,21 +2,17 @@
 angular.module('elephant',
 [
   'ionic',
-  'Getitems',
-  'Viewitem',
-  'Myitems',
-  'DrawerLinks',
-  'Postitem',
   'Services',
   'ngCordova',
-  'ResetPass',
-  'Login',
   'Submitform',
   'ngStorage',
-  'Register',
   'Message',
   'Useraccount',
-  'test'
+  'PostitemController',
+  'MyitemController',
+  'MainController',
+  'FormController',
+  'ViewitemController',
 ])
 
 
@@ -95,7 +91,7 @@ angular.module('elephant',
     views: {
       'menuContent': {
         templateUrl: 'templates/getitem.html',
-        controller: 'ViewitemController'
+        controller: 'ViewController'
       }
     }
   })

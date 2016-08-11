@@ -1,4 +1,4 @@
-angular.module('ResetPass', [])
+angular.module('FormController', [])
 
 .controller('ResetPassController', function($state, $stateParams, $scope){
   var key = $stateParams.key;

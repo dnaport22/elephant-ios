@@ -1,4 +1,4 @@
-angular.module('Login', [])
+angular.module('FormController', [])
 
 .controller('LoginController', function($scope, $stateParams, $location, $window, $ionicHistory, $ionicSideMenuDelegate, $state, $ionicLoading, $timeout, $localStorage, popAlert) {
 

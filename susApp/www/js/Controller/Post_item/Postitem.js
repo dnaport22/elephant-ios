@@ -1,4 +1,4 @@
-angular.module('Postitem', [])
+angular.module('PostitemController')
 
 .controller('PostitemController', function($scope,$localStorage ,$ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $window, $ionicLoading, popAlert) {
 

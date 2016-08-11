@@ -1,6 +1,6 @@
-angular.module('Viewitem', [])
+angular.module('ViewitemController')
 
-.controller('ViewitemController', function($scope, $stateParams, $location, $localStorage, MessageService) {
+.controller('ViewController', function($scope, $stateParams, $location, $localStorage, MessageService) {
   $scope.item_name = $stateParams.itemName;
   $scope.item_description = $stateParams.itemDesc;
   $scope.item_date = $stateParams.itemDate;

@@ -1,4 +1,4 @@
-angular.module('DrawerLinks', [])
+angular.module('MainController')
 
 .controller('DrawerController', function($state, $scope, $location, $ionicLoading, $window, $ionicHistory, $timeout, $localStorage) {
 

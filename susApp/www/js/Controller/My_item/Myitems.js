@@ -1,4 +1,4 @@
-angular.module('Myitems', [])
+angular.module('MyitemController')
 
 .controller('MyitemsController', function($scope, $http, $timeout, $localStorage, $ionicActionSheet) {
   $scope.myitems = [];
