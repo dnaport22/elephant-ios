@@ -39,7 +39,9 @@ angular.module('susapp',
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
+  $ionicConfigProvider.views.transition('android');
   $ionicConfigProvider.scrolling.jsScrolling(false);
+  $ionicConfigProvider.spinner.icon('android');
 
   $stateProvider
 

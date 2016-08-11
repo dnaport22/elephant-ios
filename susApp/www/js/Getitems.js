@@ -3,12 +3,10 @@ angular.module('Getitems', [])
 .controller('MainpageCtrl', function($scope, $http, $location, $ionicLoading, $timeout, $state, $localStorage) {
 
   $scope.$on('$ionicView.beforeEnter', function() {
-    console.log('loading')
     $scope.loadMore();
   });
 
   $ionicLoading.show({
-    content: 'Logging in',
     animation: 'fade-in',
     showBackdrop: true,
     maxWidth: 200,
@@ -33,7 +31,6 @@ angular.module('Getitems', [])
     $http({
       url: 'http://maddna.xyz/getitems.php',
       method: 'GET',
-      cache: true,
       params: {
         offset: offset,
         limit: limit,

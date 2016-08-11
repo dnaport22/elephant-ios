@@ -11,4 +11,8 @@ angular.module('Services', [])
       return alertPopup;
     }
   }
+})
+
+.factory('myCache', function($cacheFactory) {
+  return $cacheFactory('myData');
 });
