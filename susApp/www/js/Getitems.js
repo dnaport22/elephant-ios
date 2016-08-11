@@ -15,7 +15,8 @@ angular.module('Getitems', [])
     user_login_id: 0,
     user_username: null,
     user_activation: null,
-    user_email: null
+    user_email: null,
+    expiry: 0
   });
 
   $scope.items = [];
@@ -73,5 +74,19 @@ angular.module('Getitems', [])
     $state.go($state.current, {reload: true, inherit: false})
     $scope.$broadcast('scroll.refreshComplete');
   }
+
+  $scope.expiryCheck = function() {
+    var two_weeks = 336;
+    var now = new Date().getTime();
+    if(now - $localStorage.expiry > two_weeks*60*60*1000) {
+      $localStorage.expiry = 0;
+      $localStorage.user_login_id = 0;
+      $localStorage.user_email = null;
+      $localStorage.user_username = null;
+      $localStorage.user_activation = null;
+    }
+  }
+
+  $scope.expiryCheck()
 
  });

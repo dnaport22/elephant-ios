@@ -59,6 +59,7 @@ angular.module('Login', [])
     $localStorage.user_username = data.name;
     $localStorage.user_email = data.email;
     $localStorage.user_activation = data.activation;
+    $localStorage.expiry = new Date().getTime();
     return $scope.reloadForm();
   }
 

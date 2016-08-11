@@ -87,12 +87,12 @@ class postItem
 	 */
 	public function sendEmail(User $user) {
 		$name = $user->getName();
-		$subject= "Thank you for Wombling!";
+		$subject= "Item upload request!";
 		$message = <<<HTML
 Post request by: {$name}<br/>
-Your item will be posted within our Womble app soon after approval.<br/>
+Your item will be posted within sustainability app soon after approval.<br/>
 Thank you.<br/>
-Regards, Womble Team.
+Regards, Sustainability all Team.
 HTML;
 
 		$header  = "From:noreply@maddna.xyz \r\n";

@@ -38,10 +38,11 @@ angular.module('DrawerLinks', [])
       maxWidth: 200,
       showDelay: 0
     });
-    localStorage.user_username = null;
-    localStorage.user_email = null;
+    $localStorage.user_username = null;
+    $localStorage.user_email = null;
     $localStorage.user_activation = null;
     $localStorage.user_login_id = 0;
+    $localStorage.expiry = 0;
     $ionicLoading.hide();
   }
   $scope.loginMainuser = function() {
