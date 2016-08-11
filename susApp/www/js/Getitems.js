@@ -1,6 +1,11 @@
 angular.module('Getitems', [])
 
-.controller('MainpageCtrl', function($scope, $http, $location, $ionicLoading, $timeout, $state, $localStorage, AjaxCallsService) {
+.controller('MainpageCtrl', function($scope, $http, $location, $ionicLoading, $timeout, $state, $localStorage) {
+
+  $scope.$on('$ionicView.beforeEnter', function() {
+    console.log('loading')
+    $scope.loadMore();
+  });
 
   $ionicLoading.show({
     content: 'Logging in',
@@ -28,6 +33,7 @@ angular.module('Getitems', [])
     $http({
       url: 'http://maddna.xyz/getitems.php',
       method: 'GET',
+      cache: true,
       params: {
         offset: offset,
         limit: limit,
@@ -60,9 +66,6 @@ angular.module('Getitems', [])
     return $scope.retrieved > 0
   }
 
-  $scope.$on('$stateChangeSuccess', function() {
-    $scope.loadMore();
-  });
 
   $scope.trafficLight = function(route, item_name, item_desc, item_date, item_uid, item_img) {
     if (route == 'getitem') {

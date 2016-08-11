@@ -20,7 +20,7 @@ angular.module('Viewitem', [])
     }
   }
 
-  $scope.defaultMessagevalue = "Hey, I am interested in " + $scope.item_name;
+  $scope.defaultMessagevalue = "Hey, I am interested in your " + $scope.item_name;
 
   $scope.checkMaxLength = function() {
     var mesageName = document.getElementById("user_message");

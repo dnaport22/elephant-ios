@@ -1,14 +1,7 @@
 angular.module('test', [])
 
-.controller('testCtrl', function($scope, $localStorage, popAlert) {
-  $scope.$storage = $localStorage.$default({
-    expiry: null
-  })
-  console.log($localStorage.expiry)
+.controller('testCtrl', function($scope, $localStorage, popAlert, GetitemService) {
 
-  $scope.expiry = function() {
-    return $localStorage.expiry = new Date().getTime();
-  }
+  console.log(GetitemService)
 
-  $scope.expiry()
 });

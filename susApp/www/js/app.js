@@ -16,6 +16,8 @@ angular.module('susapp',
   'Register',
   'Message',
   'Useraccount',
+  'angular-cache',
+  'MainpageServices',
   'test'
 ])
 
@@ -58,6 +60,7 @@ angular.module('susapp',
   })
 
   .state('app.main', {
+    cache: false,
     url: '/main',
     views: {
       'menuContent': {
