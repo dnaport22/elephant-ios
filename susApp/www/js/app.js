@@ -1,15 +1,10 @@
-
 var elephant = angular.module('elephant',
 [
   'ionic',
   'ngCordova',
-  'elephantFactory',
-  'elephantService',
   'ngStorage',
   'testctrls'
 ])
-
-
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

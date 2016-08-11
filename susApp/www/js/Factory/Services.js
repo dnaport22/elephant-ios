@@ -1,6 +1,4 @@
-angular.module('elephantFactory')
-
-.factory('popAlert', function($http, $ionicPopup) {
+elephant.factory('popAlert', function($http, $ionicPopup) {
 
   return {
     showAlert: function(title, template) {

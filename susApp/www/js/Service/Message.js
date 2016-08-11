@@ -1,6 +1,4 @@
-angular.module('elephantService')
-
-.service('MessageService', function(popAlert) {
+elephant.service('MessageService', function(popAlert) {
 
   this.constructor = function(to_user, item_name, email, username) {
     this.msg = inputVal.getValue("user_message");

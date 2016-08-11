@@ -1,6 +1,4 @@
-angular.module('elephantFactory')
-
-.service('AjaxCallsService', function() {
+elephant.service('AjaxCallsService', function() {
 
   this.constructor = function(type, url, datastring, cache) {
     this.type = type;
