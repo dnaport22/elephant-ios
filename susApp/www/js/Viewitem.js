@@ -11,7 +11,6 @@ angular.module('Viewitem', [])
 
   $scope.messageCheck = function() {
     if ($localStorage.user_login_id == 1) {
-      // new Message($scope.item_uid, $scope.item_name, $scope.email, $scope.username);
       var itemRequest = MessageService;
       itemRequest.constructor($scope.item_uid, $scope.item_name, $scope.email, $scope.username)
       itemRequest.processInput();
