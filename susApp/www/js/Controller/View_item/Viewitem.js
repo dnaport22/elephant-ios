@@ -1,6 +1,4 @@
-angular.module('ViewitemController')
-
-.controller('ViewController', function($scope, $stateParams, $location, $localStorage, MessageService) {
+elephant.controller('ViewController', function($scope, $stateParams, $location, $localStorage, MessageService) {
   $scope.item_name = $stateParams.itemName;
   $scope.item_description = $stateParams.itemDesc;
   $scope.item_date = $stateParams.itemDate;

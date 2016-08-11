@@ -1,6 +1,4 @@
-angular.module('FormController', [])
-
-.controller('LoginController', function($scope, $stateParams, $location, $window, $ionicHistory, $ionicSideMenuDelegate, $state, $ionicLoading, $timeout, $localStorage, popAlert) {
+elephant.controller('LoginController', function($scope, $stateParams, $location, $window, $ionicHistory, $ionicSideMenuDelegate, $state, $ionicLoading, $timeout, $localStorage, popAlert) {
 
   $scope.path = $stateParams.path;
   $scope.loginMessage = 'Log in in to ';

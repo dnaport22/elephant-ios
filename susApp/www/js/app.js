@@ -1,16 +1,11 @@
 
-angular.module('elephant',
+var elephant = angular.module('elephant',
 [
   'ionic',
   'ngCordova',
   'elephantFactory',
   'elephantService',
   'ngStorage',
-  'PostitemController',
-  'MyitemController',
-  'MainController',
-  'FormController',
-  'ViewitemController',
   'testctrls'
 ])
 

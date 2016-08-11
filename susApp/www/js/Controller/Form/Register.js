@@ -1,6 +1,4 @@
-angular.module('FormController', [])
-
-.controller('RegisterController', function($scope, popAlert, $ionicHistory) {
+elephant.controller('RegisterController', function($scope, popAlert, $ionicHistory) {
   $scope.isChecked = {
     checkbox: false
   }

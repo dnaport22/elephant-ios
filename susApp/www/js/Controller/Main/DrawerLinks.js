@@ -1,6 +1,4 @@
-angular.module('MainController')
-
-.controller('DrawerController', function($state, $scope, $location, $ionicLoading, $window, $ionicHistory, $timeout, $localStorage) {
+elephant.controller('DrawerController', function($state, $scope, $location, $ionicLoading, $window, $ionicHistory, $timeout, $localStorage) {
 
   $scope.username = $localStorage.user_username;
   $scope.authTitle = [];

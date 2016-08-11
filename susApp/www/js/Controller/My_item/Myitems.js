@@ -1,6 +1,4 @@
-angular.module('MyitemController')
-
-.controller('MyitemsController', function($scope, $http, $timeout, $localStorage, $ionicActionSheet) {
+elephant.controller('MyitemsController', function($scope, $http, $timeout, $localStorage, $ionicActionSheet) {
   $scope.myitems = [];
   $scope.offset = 0;
   $scope.limit = 10;

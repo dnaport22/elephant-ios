@@ -1,6 +1,4 @@
-angular.module('PostitemController')
-
-.controller('PostitemController', function($scope,$localStorage ,$ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $window, $ionicLoading, popAlert) {
+elephant.controller('PostitemController', function($scope,$localStorage ,$ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $window, $ionicLoading, popAlert) {
 
   $scope.itemNameid = 'name';
   $scope.itemDescid = 'desc';

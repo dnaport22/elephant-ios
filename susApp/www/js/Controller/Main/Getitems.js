@@ -1,6 +1,4 @@
-angular.module('MainController')
-
-.controller('MainpageCtrl', function($scope, $http, $location, $ionicLoading, $timeout, $state, $localStorage) {
+elephant.controller('MainpageCtrl', function($scope, $http, $location, $ionicLoading, $timeout, $state, $localStorage) {
 
   $scope.$on('$ionicView.beforeEnter', function() {
     $scope.loadMore();

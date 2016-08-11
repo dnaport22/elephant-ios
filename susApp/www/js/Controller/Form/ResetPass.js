@@ -1,6 +1,4 @@
-angular.module('FormController', [])
-
-.controller('ResetPassController', function($state, $stateParams, $scope){
+elephant.controller('ResetPassController', function($state, $stateParams, $scope){
   var key = $stateParams.key;
   $scope.resetPassword = function() {
     resetPass.processInput(key);

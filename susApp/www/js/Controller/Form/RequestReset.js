@@ -1,4 +1,3 @@
-
 function RequestReset() {
     this.EmailId = 'reset_email';
     this._email = '';
