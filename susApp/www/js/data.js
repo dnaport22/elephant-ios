@@ -1,11 +1,18 @@
 elephant.constant('elephantData_URL', {
   GET_ALL_ITEM_URL: 'http://maddna.xyz/getitems.php',
+  GET_ALL_ITEM_TYPE: 'GET',
   LOGIN_USER_URL: 'http://maddna.xyz/login.php',
+  LOGIN_USER_TYPE: 'POST',
   REGISTER_USER_URL: 'http://maddna.xyz/register.php',
+  REGISTER_USER_TYPE: 'POST',
   GET_USER_ITEM_URL: 'http://maddna.xyz/myitems.php',
+  GET_USER_ITEM_TYPE:'GET',
   DELETE_USER_ITEM_URL: 'http://maddna.xyz/dismiss.php',
+  DELETE_USER_ITEM_TYPE: 'POST',
   POST_ITEM_URL: 'http://maddna.xyz/postitem.php',
+  POST_ITEM_TYPE: 'POST',
   REQUEST_ITEM_URL: 'http://maddna.xyz/message.php',
+  REQUEST_ITEM_TYPE: 'POST'
 })
 
 elephant.constant('elephantData_AUTH', {

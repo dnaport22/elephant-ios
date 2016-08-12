@@ -1,11 +1,10 @@
-elephant.controller('MainpageCtrl', function($scope, $http, $location, $timeout, $state, $localStorage, UIfactory) {
+elephant.controller('MainpageCtrl', function($scope, $http, $location, $timeout, $state, $localStorage, UIfactory, elephantData_URL, $templateCache) {
 
   $scope.$on('$ionicView.beforeEnter', function() {
     $scope.loadMore();
   });
 
   UIfactory.showSpinner();
-
 
   $scope.$storage = $localStorage.$default({
     user_login_id: 0,
@@ -18,20 +17,18 @@ elephant.controller('MainpageCtrl', function($scope, $http, $location, $timeout,
   $scope.items = [];
   var offset = 0;
   var limit = 10;
-
+  var retrieved = 0;
 
   $scope.loadMore = function() {
-    $http({
-      url: 'http://maddna.xyz/getitems.php',
-      method: 'GET',
+    $http({ url: elephantData_URL.GET_ALL_ITEM_URL, method: elephantData_URL.GET_ALL_ITEM_TYPE, cache: $templateCache,
       params: {
         offset: offset,
         limit: limit,
-        filter: document.getElementById('search').value
+        filter: inputVal.getValue('search'),
       }}).success(function(response) {
         $scope.items = $scope.items.concat(response.items)
-        $scope.retrieved = response.items.length
-        offset += $scope.retrieved
+        retrieved = response.items.length
+        offset += retrieved
         $scope.$broadcast('scroll.refreshComplete');
         $scope.$broadcast('scroll.infiniteScrollComplete');
         UIfactory.hideSpinner();
@@ -53,7 +50,7 @@ elephant.controller('MainpageCtrl', function($scope, $http, $location, $timeout,
   }
 
   $scope.check = function() {
-    return $scope.retrieved > 0
+    return retrieved > 0
   }
 
 
@@ -67,19 +64,5 @@ elephant.controller('MainpageCtrl', function($scope, $http, $location, $timeout,
     $state.go($state.current, {reload: true, inherit: false})
     $scope.$broadcast('scroll.refreshComplete');
   }
-
-  function expiryCheck() {
-    var two_weeks = 336;
-    var now = new Date().getTime();
-    if(now - $localStorage.expiry > two_weeks*60*60*1000) {
-      $localStorage.expiry = 0;
-      $localStorage.user_login_id = 0;
-      $localStorage.user_email = null;
-      $localStorage.user_username = null;
-      $localStorage.user_activation = null;
-    }
-  }
-
-  expiryCheck()
 
  });

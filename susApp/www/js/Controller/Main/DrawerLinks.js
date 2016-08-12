@@ -33,4 +33,17 @@ elephant.controller('DrawerController', function($state, $scope, $location, $loc
   $scope.loginMainuser = function() {
     $location.path("/app/login/main")
   }
+
+  function loginexpiryCheck() {
+    var two_weeks = 336;
+    var now = new Date().getTime();
+    if(now - $localStorage.expiry > two_weeks*60*60*1000) {
+      $localStorage.expiry = 0;
+      $localStorage.user_login_id = 0;
+      $localStorage.user_email = null;
+      $localStorage.user_username = null;
+      $localStorage.user_activation = null;
+    }
+  }
+  loginexpiryCheck();
 });
