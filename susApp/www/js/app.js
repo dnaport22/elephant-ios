@@ -142,6 +142,15 @@ var elephant = angular.module('elephant',
     }
   })
 
+  .state('app.userguide', {
+    url: '/userguide',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/userguide.html'
+      }
+    }
+  })
+
   .state('app.useraccount', {
     url: '/activation/:uniqueId',
     views: {
