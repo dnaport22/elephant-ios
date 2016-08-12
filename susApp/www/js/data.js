@@ -23,3 +23,9 @@ elephant.constant('elephantData_AUTH', {
   REGISTER_PASS: 'set_pass',
   REGISTER_PASS_VALIDATE: 'set_pass2',
 })
+
+elephant.constant('elephantData_POSTITEM', {
+  ITEM_NAME: 'name',
+  ITEM_DESC: 'desc',
+  ITEM_IMAGE: 'upImage',
+})

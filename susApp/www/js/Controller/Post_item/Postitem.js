@@ -1,9 +1,7 @@
-elephant.controller('PostitemController', function($scope,$localStorage ,$ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $window, $ionicLoading, UIfactory) {
-
-  $scope.itemNameid = 'name';
-  $scope.itemDescid = 'desc';
-  $scope.itemInageid = 'upImage';
-  var BASE_URL = 'http://maddna.xyz/postitem.php';
+elephant.controller('PostitemController', function($scope,$localStorage ,$ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $window, UIfactory, elephantData_URL, elephantData_POSTITEM) {
+  var itemNameid = elephantData_POSTITEM.ITEM_NAME;
+  var itemDescid = elephantData_POSTITEM.ITEM_DESC;
+  var itemImageid = elephantData_POSTITEM.ITEM_IMAGE;
 
   $scope.imageOptions = function() {
     var hideSheet = $ionicActionSheet.show({
@@ -29,7 +27,7 @@ elephant.controller('PostitemController', function($scope,$localStorage ,$ionicA
     }, 9000);
   };
 
-  $scope.imageToUpload = null;
+  var imageToUpload = null;
 
   $scope.takePicture = function(source) {
     var options = {
@@ -50,25 +48,24 @@ elephant.controller('PostitemController', function($scope,$localStorage ,$ionicA
       var image = document.getElementById('upImage');
       var photo = 'data:image/jpeg;base64,' + imageURI;
       image.style.backgroundImage = "url('" + imageURI + "')";
-      $scope.imageToUpload = imageURI;
+      imageToUpload = imageURI;
       document.getElementById("upload-image-container").style.display = "block";
       document.getElementById("select-image-button").innerHTML= "Reselect Image";
     }, function(err) {
       UIfactory.showAlert('Alert', 'Error while calling native components');
-      console.log(err)
     });
 
 
   }
 
   $scope.uploadItem = function() {
-    $ionicLoading.show({animation: 'fade-in', showBackdrop: true, maxWidth: 200,});
-    var fileURL = $scope.imageToUpload;
-    var serverURL = BASE_URL;
-    var itemName = inputVal.getValue($scope.itemNameid);
-    var itemDesc = inputVal.getValue($scope.itemDescid);
+    UIfactory.showSpinner();
+    var fileURL = imageToUpload;
+    var serverURL = elephantData_URL.POST_ITEM_URL;
+    var itemName = inputVal.getValue(itemNameid);
+    var itemDesc = inputVal.getValue(itemDescid);
     if(itemName === "" || itemDesc === "" || fileURL == null) {
-      $ionicLoading.hide();
+      UIfactory.hideSpinner();
       UIfactory.showAlert('Alert', 'Please fill all fields and select an image');
     }
     else {
@@ -100,8 +97,8 @@ elephant.controller('PostitemController', function($scope,$localStorage ,$ionicA
   }
 
   $scope.reloadForm = function() {
-    inputVal.setValue($scope.itemNameid, null);
-    inputVal.setValue($scope.itemDescid, null);
+    inputVal.setValue(itemNameid, null);
+    inputVal.setValue(itemDescid, null);
     document.getElementById("upload-image-container").style.display = "none";
     document.getElementById("select-image-button").innerHTML= "Select Image";
   }
