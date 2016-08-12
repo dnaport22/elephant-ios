@@ -29,3 +29,7 @@ elephant.constant('elephantData_POSTITEM', {
   ITEM_DESC: 'desc',
   ITEM_IMAGE: 'upImage',
 })
+
+elephant.constant('elephantData_REQUESTITEM', {
+  USER_MESSAGE: 'user_message',
+})

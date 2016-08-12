@@ -1,6 +1,4 @@
 elephant.factory('UIfactory', function($http, $ionicPopup, $ionicLoading) {
-
-
   return {
     showAlert: function(title, template) {
       var alertPopup = $ionicPopup.alert({

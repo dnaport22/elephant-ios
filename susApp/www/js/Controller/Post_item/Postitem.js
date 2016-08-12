@@ -37,6 +37,7 @@ elephant.controller('PostitemController', function($scope,$localStorage ,$ionicA
       allowEdit: true,
       encodingType: Camera.EncodingType.JPEG,
       targetWidth: 720,
+      targetHeight: 720,
       popoverOption: CameraPopoverOptions,
       saveToPhotoAlbum: false,
       correctOrientation: true,
@@ -83,12 +84,12 @@ elephant.controller('PostitemController', function($scope,$localStorage ,$ionicA
 
       $cordovaFileTransfer.upload(serverURL, fileURL, options)
         .then(function(result) {
-          $ionicLoading.hide();
+          UIfactory.hideSpinner();
           UIfactory.showAlert('Success', 'Your item will appear in the app soon after approval')
           $cordovaCamera.cleanup();
           $scope.reloadForm();
         }, function(err) {
-          $ionicLoading.hide();
+          UIfactory.hideSpinner();
           UIfactory.showAlert('Alert', 'An error occured file uploading the item, please contact app admintrantion team if error presist')
           $cordovaCamera.cleanup();
         }

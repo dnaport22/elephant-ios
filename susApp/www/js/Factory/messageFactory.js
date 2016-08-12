@@ -1,16 +1,21 @@
-elephant.service('MessageService', function(UIfactory, elephantData_URL) {
+elephant.factory('messageFactory', function(UIfactory, elephantData_URL, elephantData_REQUESTITEM) {
 
-  this.constructor = function(to_user, item_name, email, username) {
+  function messageFactory() {
     this.msg = inputVal.getValue("user_message");
-    this.item_name = item_name;
-    this.toUserId = to_user;
-    this.fromUser = email;
-    this.fromUsername = username;
+    this.item_name = null;
+    this.toUserId = null;
+    this.fromUser = null;
+    this.fromUsername = null;
     this.itemid = null;
     this.url = elephantData_URL.REQUEST_ITEM_URL;
   }
 
-  this.processInput = function() {
+  messageFactory.prototype.processInput = function(msg, to_user, item_name, email, username) {
+    this.msg = msg;
+    this.item_name = item_name;
+    this.toUserId = to_user;
+    this.fromUser = email;
+    this.fromUsername = username;
     if (this.msg == '') {
       UIfactory.showAlert('Alert', 'Please enter you message');
     } else {
@@ -18,14 +23,14 @@ elephant.service('MessageService', function(UIfactory, elephantData_URL) {
     }
   }
 
-  this.sendMessage = function() {
+  messageFactory.prototype.sendMessage = function() {
     var dataString = 'msg='+this.msg+'&toUser='+this.toUserId+'&fromUser='+this.fromUser+'&itemName='+this.item_name+'&fromUsername='+this.fromUsername;
     var request = new Submitform('POST', this.url, dataString, false);
     request.ajaxSubmit(this);
     return false;
   }
 
-  this.submitResponse = function(response) {
+  messageFactory.prototype.submitResponse = function(response) {
     if (response == '1') {
       UIfactory.showAlert('Message Sent', 'Please keep an eye on your LSBU email account');
       this.reloadForm();
@@ -35,9 +40,10 @@ elephant.service('MessageService', function(UIfactory, elephantData_URL) {
     }
   }
 
-  this.reloadForm = function() {
+  messageFactory.prototype.reloadForm = function() {
     inputVal.setValue('user_message', 'Hey, I am interested in your item.');
     return false;
   }
 
+  return messageFactory;
 })
