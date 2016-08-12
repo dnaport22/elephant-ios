@@ -2,7 +2,7 @@ elephant.controller('MyitemsController', function($scope, $http, $timeout, $loca
   $scope.myitems = [];
   var offset = 0;
   var limit = 10;
-  var retrieved = 0;
+  $scope.retrieved = 0;
 
   $scope.itemOptions = function(itemid, item) {
     var hideSheet = $ionicActionSheet.show({
@@ -42,14 +42,14 @@ elephant.controller('MyitemsController', function($scope, $http, $timeout, $loca
       }}).success(function(response) {
         console.log(response)
         $scope.myitems = $scope.myitems.concat(response.items)
-        retrieved = response.items.length
-        offset += retrieved
+        $scope.retrieved = response.items.length
+        offset += $scope.retrieved
         $scope.$broadcast('scroll.infiniteScrollComplete');
     });
   };
 
   $scope.check = function() {
-    return retrieved > 0
+    return $scope.retrieved > 0
   }
 
   $scope.$on('$stateChangeSuccess', function() {
