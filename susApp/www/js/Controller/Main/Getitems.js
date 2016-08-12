@@ -6,13 +6,6 @@ elephant.controller('MainpageCtrl', function($scope, $http, $location, $timeout,
 
   UIfactory.showSpinner();
 
-  $scope.$storage = $localStorage.$default({
-    user_login_id: 0,
-    user_username: null,
-    user_activation: null,
-    user_email: null,
-    expiry: 0
-  });
 
   $scope.items = [];
   var offset = 0;
