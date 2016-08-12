@@ -1,15 +1,10 @@
-elephant.controller('MainpageCtrl', function($scope, $http, $location, $ionicLoading, $timeout, $state, $localStorage) {
+elephant.controller('MainpageCtrl', function($scope, $http, $location, $timeout, $state, $localStorage, UIfactory) {
 
   $scope.$on('$ionicView.beforeEnter', function() {
     $scope.loadMore();
   });
 
-  $ionicLoading.show({
-    animation: 'fade-in',
-    showBackdrop: true,
-    maxWidth: 200,
-    showDelay: 0
-  });
+  UIfactory.showSpinner();
 
 
   $scope.$storage = $localStorage.$default({
@@ -39,7 +34,7 @@ elephant.controller('MainpageCtrl', function($scope, $http, $location, $ionicLoa
         offset += $scope.retrieved
         $scope.$broadcast('scroll.refreshComplete');
         $scope.$broadcast('scroll.infiniteScrollComplete');
-        $ionicLoading.hide();
+        UIfactory.hideSpinner();
     }).error(function(error) {
       $scope.loadMore();
     });
