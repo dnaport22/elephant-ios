@@ -1,4 +1,4 @@
-elephant.controller('DrawerController', function($state, $scope, $location, $localStorage, UIfactory) {
+elephant.controller('DrawerController', function($state, $scope, $location, $localStorage, UIfactory, $ionicModal) {
 
   $scope.username = $localStorage.user_username;
   $scope.$storage = $localStorage.$default({
@@ -6,7 +6,8 @@ elephant.controller('DrawerController', function($state, $scope, $location, $loc
     user_username: null,
     user_activation: null,
     user_email: null,
-    expiry: 0
+    expiry: 0,
+    app_launch_activity: 0
   });
 
   $scope.drawerLinks_loggedOut = [
@@ -37,6 +38,7 @@ elephant.controller('DrawerController', function($state, $scope, $location, $loc
     $location.path("/app/login/main")
   }
 
+//This is to check logged in time interval (this code needs to be moved to a structred area)
   function loginexpiryCheck() {
     var two_weeks = 336;
     var now = new Date().getTime();
@@ -49,4 +51,28 @@ elephant.controller('DrawerController', function($state, $scope, $location, $loc
     }
   }
   loginexpiryCheck();
+
+ /* This is userguide pop up modal which will be executed from the menu.html is $localStorage.app_launch_activity == 0
+  * Needs improvement
+  */
+ $ionicModal.fromTemplateUrl('templates/userguide.html', {
+     scope: $scope,
+     animation: 'slide-in-up',
+   }).then(function(modal) {
+     $scope.modal = modal;
+   });
+   $scope.Test = function() {
+     if ($localStorage.user_login_id == 0) {
+       return $scope.modal.show()
+     }
+     else {
+       return true;
+     }
+   }
+   $scope.openModal = function() {
+     $scope.modal.show();
+   };
+   $scope.closeModal = function() {
+     $scope.modal.hide();
+   };
 });

@@ -146,7 +146,8 @@ var elephant = angular.module('elephant',
     url: '/userguide',
     views: {
       'menuContent': {
-        templateUrl: 'templates/userguide.html'
+        templateUrl: 'templates/userguide.html',
+        controller: 'UserguideController'
       }
     }
   })

@@ -1,11 +1,10 @@
-elephant.controller('MainpageCtrl', function($scope, $http, $location, $timeout, $state, $localStorage, UIfactory, elephantData_URL, $templateCache) {
+elephant.controller('MainpageCtrl', function($scope, $http, $ionicPlatform,$ionicModal,$location, $timeout, $state, $localStorage, UIfactory, elephantData_URL, $templateCache) {
 
   $scope.$on('$ionicView.beforeEnter', function() {
     $scope.loadMore();
   });
 
   UIfactory.showSpinner();
-
 
   $scope.items = [];
   var offset = 0;
