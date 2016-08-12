@@ -1,4 +1,4 @@
-elephant.controller('DrawerController', function($state, $scope, $location, $ionicLoading, $window, $ionicHistory, $timeout, $localStorage, UIfactory) {
+elephant.controller('DrawerController', function($state, $scope, $location, $localStorage, UIfactory) {
 
   $scope.username = $localStorage.user_username;
   $scope.$storage = $localStorage.$default({
@@ -22,19 +22,13 @@ elephant.controller('DrawerController', function($state, $scope, $location, $ion
   ];
 
   $scope.logout = function() {
-    $ionicLoading.show({
-      content: 'Logging in',
-      animation: 'fade-in',
-      showBackdrop: true,
-      maxWidth: 200,
-      showDelay: 0
-    });
+    UIfactory.showSpinner();
     $localStorage.user_username = null;
     $localStorage.user_email = null;
     $localStorage.user_activation = null;
     $localStorage.user_login_id = 0;
     $localStorage.expiry = 0;
-    $ionicLoading.hide();
+    UIfactory.hideSpinner();
   }
   $scope.loginMainuser = function() {
     $location.path("/app/login/main")
