@@ -1,4 +1,4 @@
-elephant.controller('LoginController', function($scope, loginFactory,$stateParams, $location, $ionicHistory, $ionicSideMenuDelegate, $state, $timeout, $localStorage, UIfactory, elephantData_AUTH, elephantData_URL) {
+elephant.controller('LoginController', function($scope, loginFactory,$stateParams, elephantData_AUTH, elephantData_URL) {
   $scope.loginMessage = null;
 
   var path = $stateParams.path;

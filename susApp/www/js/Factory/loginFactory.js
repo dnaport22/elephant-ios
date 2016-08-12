@@ -1,4 +1,4 @@
-elephant.factory('loginFactory', function(UIfactory, $ionicHistory, elephantData_URL, elephantData_AUTH, $localStorage, $timeout, $state) {
+elephant.factory('loginFactory', function(UIfactory, $ionicHistory, elephantData_URL, elephantData_AUTH, $localStorage, $timeout, $state, $ionicSideMenuDelegate) {
 
   var loginDataId = elephantData_AUTH;
   var loginBaseUrl = elephantData_URL;
