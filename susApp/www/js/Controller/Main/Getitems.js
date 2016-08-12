@@ -20,7 +20,7 @@ elephant.controller('MainpageCtrl', function($scope, $http, $location, $timeout,
   var retrieved = 0;
 
   $scope.loadMore = function() {
-    $http({ url: elephantData_URL.GET_ALL_ITEM_URL, method: elephantData_URL.GET_ALL_ITEM_TYPE, cache: $templateCache,
+    $http({ url: elephantData_URL.GET_ALL_ITEM_URL, method: elephantData_URL.GET_ALL_ITEM_TYPE,
       params: {
         offset: offset,
         limit: limit,
