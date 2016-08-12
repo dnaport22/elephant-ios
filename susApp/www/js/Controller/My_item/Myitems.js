@@ -1,7 +1,8 @@
-elephant.controller('MyitemsController', function($scope, $http, $timeout, $localStorage, $ionicActionSheet) {
+elephant.controller('MyitemsController', function($scope, $http, $timeout, $localStorage, $ionicActionSheet, elephantData_URL, UIfactory, $templateCache) {
   $scope.myitems = [];
-  $scope.offset = 0;
-  $scope.limit = 10;
+  var offset = 0;
+  var limit = 10;
+  var retrieved = 0;
 
   $scope.itemOptions = function(itemid, item) {
     var hideSheet = $ionicActionSheet.show({
@@ -11,19 +12,17 @@ elephant.controller('MyitemsController', function($scope, $http, $timeout, $loca
       buttonClicked: function(index) {
         if (index == 0) {
           var dataString = 'code='+$localStorage.user_activation+'&name='+itemid;
-          console.log(dataString)
           $.ajax({
-            type: 'POST',
-            url: 'http://maddna.xyz/dismiss.php',
+            type: elephantData_URL.DELETE_USER_ITEM_TYPE,
+            url: elephantData_URL.DELETE_USER_ITEM_URL,
             data: dataString,
             success:function(response) {
               hideSheet();
               var index = $scope.myitems.indexOf(item);
               $scope.myitems.splice(index, 1);
-
             },
             error: function(error) {
-              console.log(error)
+              UIfactory.showAlert('Error occured', 'An error occured while deleting your item')
             }
           })
         }
@@ -34,33 +33,27 @@ elephant.controller('MyitemsController', function($scope, $http, $timeout, $loca
     }, 9000);
   };
 
-
-
   $scope.loadMore = function() {
-
-    $http({
-      url: 'http://maddna.xyz/myitems.php',
-      method: 'GET',
+    $http({ url: elephantData_URL.GET_USER_ITEM_URL, method: elephantData_URL.GET_USER_ITEM_TYPE, cache: $templateCache,
       params: {
         code: $localStorage.user_activation,
-        offset: $scope.offset,
-        limit: $scope.limit
+        offset: offset,
+        limit: limit
       }}).success(function(response) {
         console.log(response)
         $scope.myitems = $scope.myitems.concat(response.items)
-        $scope.retrieved = response.items.length
-        $scope.offset += $scope.retrieved
+        retrieved = response.items.length
+        offset += retrieved
         $scope.$broadcast('scroll.infiniteScrollComplete');
     });
   };
 
   $scope.check = function() {
-    return $scope.retrieved > 0
+    return retrieved > 0
   }
 
   $scope.$on('$stateChangeSuccess', function() {
     $scope.loadMore();
   });
-
 
  });
