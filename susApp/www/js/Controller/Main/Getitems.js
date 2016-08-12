@@ -68,7 +68,7 @@ elephant.controller('MainpageCtrl', function($scope, $http, $location, $timeout,
     $scope.$broadcast('scroll.refreshComplete');
   }
 
-  $scope.expiryCheck = function() {
+  function expiryCheck() {
     var two_weeks = 336;
     var now = new Date().getTime();
     if(now - $localStorage.expiry > two_weeks*60*60*1000) {
@@ -80,6 +80,6 @@ elephant.controller('MainpageCtrl', function($scope, $http, $location, $timeout,
     }
   }
 
-  $scope.expiryCheck()
+  expiryCheck()
 
  });
