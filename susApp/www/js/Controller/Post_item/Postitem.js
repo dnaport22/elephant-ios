@@ -1,4 +1,4 @@
-elephant.controller('PostitemController', function($scope,$localStorage ,$ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $window, $ionicLoading, popAlert) {
+elephant.controller('PostitemController', function($scope,$localStorage ,$ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $window, $ionicLoading, UIfactory) {
 
   $scope.itemNameid = 'name';
   $scope.itemDescid = 'desc';
@@ -54,7 +54,7 @@ elephant.controller('PostitemController', function($scope,$localStorage ,$ionicA
       document.getElementById("upload-image-container").style.display = "block";
       document.getElementById("select-image-button").innerHTML= "Reselect Image";
     }, function(err) {
-      popAlert.showAlert('Alert', 'Error while calling native components');
+      UIfactory.showAlert('Alert', 'Error while calling native components');
       console.log(err)
     });
 
@@ -69,7 +69,7 @@ elephant.controller('PostitemController', function($scope,$localStorage ,$ionicA
     var itemDesc = inputVal.getValue($scope.itemDescid);
     if(itemName === "" || itemDesc === "" || fileURL == null) {
       $ionicLoading.hide();
-      popAlert.showAlert('Alert', 'Please fill all fields and select an image');
+      UIfactory.showAlert('Alert', 'Please fill all fields and select an image');
     }
     else {
       var imageSrc = $scope.getFileName(fileURL);
@@ -87,12 +87,12 @@ elephant.controller('PostitemController', function($scope,$localStorage ,$ionicA
       $cordovaFileTransfer.upload(serverURL, fileURL, options)
         .then(function(result) {
           $ionicLoading.hide();
-          popAlert.showAlert('Success', 'Your item will appear in the app soon after approval')
+          UIfactory.showAlert('Success', 'Your item will appear in the app soon after approval')
           $cordovaCamera.cleanup();
           $scope.reloadForm();
         }, function(err) {
           $ionicLoading.hide();
-          alert('Alert', 'An error occured file uploading the item, please contact app admintrantion team if error presist')
+          UIfactory.showAlert('Alert', 'An error occured file uploading the item, please contact app admintrantion team if error presist')
           $cordovaCamera.cleanup();
         }
       )
