@@ -2,15 +2,15 @@ elephant.controller('ViewController', function($scope, $stateParams, $location, 
   $scope.item_name = $stateParams.itemName;
   $scope.item_description = $stateParams.itemDesc;
   $scope.item_date = $stateParams.itemDate;
-  $scope.item_uid = $stateParams.itemUid;
   $scope.item_img = $stateParams.itemImg;
-  $scope.email = $localStorage.user_email;
-  $scope.username = $localStorage.user_username;
+  var item_uid = $stateParams.itemUid;
+  var email = $localStorage.user_email;
+  var username = $localStorage.user_username;
 
   $scope.messageCheck = function() {
     if ($localStorage.user_login_id == 1) {
       var itemRequest = MessageService;
-      itemRequest.constructor($scope.item_uid, $scope.item_name, $scope.email, $scope.username)
+      itemRequest.constructor(item_uid, $scope.item_name, email, username)
       itemRequest.processInput();
     }
     else {
