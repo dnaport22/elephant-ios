@@ -1,11 +1,11 @@
 <ion-view view-title="My items" class="my-items">
   <ion-content>
-    <div class="row" ng-if="retrieved == 0">
+    <div class="row" ng-if="myitems.length == 0">
       <div class="col col-center text-center" style="padding-top:100px;padding-bottom:40px">
         <i class="icon ion-sad-outline" style="font-size: 90px;"></i>
       </div>
     </div>
-    <div class="row" ng-if="retrieved == 0">
+    <div class="row" ng-if="myitems.length == 0">
       <div class="col col-center text-center" style="padding-top:40px;padding-bottom:40px">
         <h3>No items here...</h3>
       </div>

@@ -1,4 +1,4 @@
-elephant.controller('DrawerController', function($state, $scope, $location, $localStorage, UIfactory, $ionicModal) {
+elephant.controller('DrawerController', function($state, $scope, $location, $localStorage, UIfactory, $ionicPopover) {
 
   $scope.username = $localStorage.user_username;
   $scope.$storage = $localStorage.$default({
@@ -55,15 +55,15 @@ elephant.controller('DrawerController', function($state, $scope, $location, $loc
  /* This is userguide pop up modal which will be executed from the menu.html is $localStorage.app_launch_activity == 0
   * Needs improvement
   */
- $ionicModal.fromTemplateUrl('templates/userguide.html', {
+ $ionicPopover.fromTemplateUrl('templates/userguide.html', {
      scope: $scope,
      animation: 'slide-in-up',
-   }).then(function(modal) {
-     $scope.modal = modal;
+   }).then(function(popover) {
+     $scope.popover = popover;
    });
    $scope.Test = function() {
-     if ($localStorage.user_login_id == 0) {
-       return $scope.modal.show()
+     if ($localStorage.user_login_id == 1) {
+       return $scope.popover.show()
      }
      else {
        return true;

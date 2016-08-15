@@ -2,7 +2,7 @@ elephant.controller('MyitemsController', function($scope, $http, $timeout, $loca
   $scope.myitems = [];
   var offset = 0;
   var limit = 10;
-  $scope.retrieved = 0;
+  var retrieved = 0;
 
   $scope.itemOptions = function(itemid, item) {
     var hideSheet = $ionicActionSheet.show({
@@ -11,7 +11,10 @@ elephant.controller('MyitemsController', function($scope, $http, $timeout, $loca
       ],
       buttonClicked: function(index) {
         if (index == 0) {
-          var dataString = 'code='+$localStorage.user_activation+'&name='+itemid;
+          var dataString = {
+            code: $localStorage.user_activation,
+            name: itemid
+          }
           $.ajax({
             type: elephantData_URL.DELETE_USER_ITEM_TYPE,
             url: elephantData_URL.DELETE_USER_ITEM_URL,
@@ -40,20 +43,18 @@ elephant.controller('MyitemsController', function($scope, $http, $timeout, $loca
         offset: offset,
         limit: limit
       }}).success(function(response) {
-        console.log(response)
         $scope.myitems = $scope.myitems.concat(response.items)
-        $scope.retrieved = response.items.length
-        offset += $scope.retrieved
+        retrieved = response.items.length
+        offset += retrieved
         $scope.$broadcast('scroll.infiniteScrollComplete');
     });
   };
 
   $scope.check = function() {
-    return $scope.retrieved > 0
+    return retrieved > 0
   }
 
   $scope.$on('$stateChangeSuccess', function() {
     $scope.loadMore();
   });
-
  });
