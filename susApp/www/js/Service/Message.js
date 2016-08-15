@@ -19,13 +19,20 @@ elephant.service('MessageService', function(UIfactory, elephantData_URL) {
   }
 
   this.sendMessage = function() {
-    var dataString = 'msg='+this.msg+'&toUser='+this.toUserId+'&fromUser='+this.fromUser+'&itemName='+this.item_name+'&fromUsername='+this.fromUsername;
+    var dataString = {
+      msg: this.msg,
+      toUser: this.toUserId,
+      fromUser: this.fromUser,
+      itemName: this.item_name,
+      fromUsername: this.fromUsername
+    }
     var request = new Submitform('POST', this.url, dataString, false);
     request.ajaxSubmit(this);
     return false;
   }
 
   this.submitResponse = function(response) {
+    console.log(response)
     if (response == '1') {
       UIfactory.showAlert('Message Sent', 'Please keep an eye on your LSBU email account');
       this.reloadForm();
