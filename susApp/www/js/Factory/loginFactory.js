@@ -26,6 +26,7 @@ elephant.factory('loginFactory', function(UIfactory, $ionicHistory, elephantData
 
   loginFactory.prototype.validateEmail = function() {
     var validate = new Validation(this.email);
+    this.email = validate.removeJunk();
     if (validate.emailValidate() == 'formatError') {
       UIfactory.showAlert('Alert', 'Plase enter valid lsbu email');
     }
