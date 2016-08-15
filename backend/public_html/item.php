@@ -51,7 +51,7 @@ class Item implements JsonSerializable {
    *   TRUE if the user is authorized, false otherwise.
    */
   public function authorize(User $user) {
-    return $this->getUid() == $user->getUid();
+    return $this->getUid() === $user->getUid();
   }
 
   /**

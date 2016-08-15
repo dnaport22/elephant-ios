@@ -17,7 +17,7 @@ elephant.constant('elephantData_URL', {
   GET_ALL_ADMIN_ITEM_TYPE: 'GET',
   APPROVE_ADMIN_ITEM_URL: 'http://maddna.xyz/approve.php',
   APPROVE_ADMIN_ITEM_TYPE: 'POST',
-  DECLINE_ADMIN_ITEM_URL: 'http://maddna.xyz/dismiss.php',
+  DECLINE_ADMIN_ITEM_URL: 'http://maddna.xyz/admindismiss.php',
   DECLINE_ADMIN_ITEM_TYPE: 'POST'
 })
 

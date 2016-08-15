@@ -9,11 +9,11 @@ $user = User::authorize();
 $item = new Item($mysql_db);
 $item->loadByItemId(@$_POST['itemId']);
 // if ($item->authorize($user)) {
-// 	$item->setStatus(1);
+// 	$item->setStatus(2);
 // 	$item->save();
-// 	Response::flush(1, 'Item activated successfully');
+// 	Response::flush(1, 'Item dismissed successfully');
 // }
-$item->setStatus(1);
+$item->setStatus(2);
 if ($item->save()) {
-  Response::flush(1, 'Item activated successfully');
+  Response::flush(1, 'Item dismissed successfully');
 }
