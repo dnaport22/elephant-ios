@@ -70,9 +70,9 @@ elephant.controller('DrawerController', function($state, $scope, $location, $loc
      }
    }
    $scope.openModal = function() {
-     $scope.modal.show();
+     $scope.popover.show();
    };
    $scope.closeModal = function() {
-     $scope.modal.hide();
+     $scope.popover.hide();
    };
 });
