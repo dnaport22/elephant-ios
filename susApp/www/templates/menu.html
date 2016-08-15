@@ -30,17 +30,17 @@
       </ion-list>
 
       <ion-list ng-repeat = "link in drawerLinks_loggedIn" ng-if="$storage.user_login_id == 1">
-        <ion-item menu-close ng-href="{{ link.href }}">
-           <i ng-class="{ '{{link.class}}': 1 }"></i>
-          {{ link.title }}
+        <ion-item menu-close ng-href="{{::link.href}}">
+           <i ng-class="{ '{{::link.class}}': 1 }"></i>
+          {{::link.title}}
         </ion-item>
 
       </ion-list>
 
       <ion-list ng-repeat = "link in drawerLinks_loggedOut" ng-if="$storage.user_login_id == 0">
-        <ion-item menu-close ng-href="{{ link.href }}">
-           <i ng-class="{ '{{link.class}}': 1 }"></i>
-          {{ link.title }}
+        <ion-item menu-close ng-href="{{::link.href}}">
+           <i ng-class="{ '{{::link.class}}': 1 }"></i>
+          {{::link.title}}
         </ion-item>
         <!-- This is for enabling userguide modal if app is lunched for the first time -->
         <!-- <ion-item ng-init="openModal()">
