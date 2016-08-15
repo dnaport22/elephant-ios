@@ -85,12 +85,12 @@ elephant.controller('PostitemController', function($scope,$localStorage ,$ionicA
       $cordovaFileTransfer.upload(serverURL, fileURL, options)
         .then(function(result) {
           UIfactory.hideSpinner();
-          UIfactory.showAlert('Success', 'Your item will appear in the app soon after approval')
+          UIfactory.showAlert('Success', 'Your ' + itemName + ' will be posted on the elephant app soon after approval by our team');
           $cordovaCamera.cleanup();
           $scope.reloadForm();
         }, function(err) {
           UIfactory.hideSpinner();
-          UIfactory.showAlert('Alert', 'An error occured file uploading the item, please contact app admintrantion team if error presist')
+          UIfactory.showAlert('Alert', 'An error occured file uploading the item, please contact app admintrantion team if error presist');
           $cordovaCamera.cleanup();
         }
       )
