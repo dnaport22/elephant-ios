@@ -72,7 +72,7 @@ elephant.factory('registerFactory', function(UIfactory, $ionicHistory, elephantD
 
   registerFactory.prototype.submitResponse = function(response) {
     if (response.status == 1) {
-      UIfactory.showAlert('Registred successfully', 'A validation email has been sent to your LSBU email account, please validate your email to start using your account.');
+      UIfactory.showAlert('Registred successfully', 'A validation email has been sent to your LSBU email account. Please validate your email to start using your account.');
       this.reloadForm();
     }
     else if(response.status == 0) {
