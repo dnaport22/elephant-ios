@@ -46,7 +46,7 @@ var elephant = angular.module('elephant',
 
   .state('app.main', {
     cache: false,
-    url: '/main',
+    url: '/main/admin',
     views: {
       'menuContent': {
         templateUrl: 'templates/login.html',
@@ -55,12 +55,13 @@ var elephant = angular.module('elephant',
     }
   })
 
-  .state('app.login', {
-    url: '/login/:path',
+  .state('app.home', {
+    cache: false,
+    url: '/home',
     views: {
       'menuContent': {
-        templateUrl: 'templates/login.html',
-        controller: 'LoginController'
+        templateUrl: 'templates/main.html',
+        controller: 'MainpageCtrl'
       }
     }
   })
@@ -104,34 +105,6 @@ var elephant = angular.module('elephant',
     }
   })
 
-  .state('app.myitems', {
-    url: '/myitems',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/myitems.html',
-        controller: 'MyitemsController'
-      }
-    }
-  })
-
-  .state('app.aboutus', {
-    url: '/aboutus',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/aboutus.html'
-      }
-    }
-  })
-
-  .state('app.terms', {
-    url: '/terms',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/terms.html'
-      }
-    }
-  })
-
   .state('app.test', {
     url: '/test',
     views: {
@@ -142,15 +115,6 @@ var elephant = angular.module('elephant',
     }
   })
 
-  .state('app.userguide', {
-    url: '/userguide',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/userguide.html',
-        controller: 'UserguideController'
-      }
-    }
-  })
 
   .state('app.useraccount', {
     url: '/activation/:uniqueId',
@@ -158,16 +122,6 @@ var elephant = angular.module('elephant',
       'menuContent': {
         templateUrl: 'templates/activateaccount.html',
         controller: 'UseraccountController'
-      }
-    }
-  })
-
-  .state('app.postitem', {
-    url: '/postitem',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/postitem.html',
-        controller: 'PostitemController'
       }
     }
   });

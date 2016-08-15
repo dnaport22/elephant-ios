@@ -54,8 +54,17 @@ elephant.factory('loginFactory', function(UIfactory, $ionicHistory, elephantData
         UIfactory.showAlert('Alert', 'Please activate your account');
       }
       else {
-        this.userStorage(response.user);
+        this.adminApproval(response.user.role, response.user);
       }
+    }
+  }
+
+  loginFactory.prototype.adminApproval = function(role, data) {
+    if(role == 1) {
+      this.userStorage(data)
+    }
+    else{
+      UIfactory.showAlert('Alert', 'You are not authorised to log into this page.');
     }
   }
 
@@ -96,6 +105,13 @@ elephant.factory('loginFactory', function(UIfactory, $ionicHistory, elephantData
       $timeout(function () {
         UIfactory.hideSpinner();
         $ionicHistory.goBack();
+      }, 1000);
+    }
+    else if (this.path = 'admin') {
+
+      $timeout(function () {
+        UIfactory.hideSpinner();
+        $state.go('app.home');
       }, 1000);
     }
   }

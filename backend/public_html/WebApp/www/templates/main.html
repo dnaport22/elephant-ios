@@ -20,6 +20,15 @@
               <i class="icon ion-ios-redo"></i>
                 {{::item.name}}
             </a>
+          <div ng-class="{
+            'bar bar-energized item item-divider': item.status == 0,
+            'bar bar-balanced item item-divider': item.status == 1,
+            'bar bar-assertive item item-divider': item.status == 2
+          }">
+            <span ng-if="item.status == 0">Pending approval</span>
+            <span ng-if="item.status == 1">Item approved</span>
+            <span ng-if="item.status == 2">Item not approved</span>
+          </div>
         </div>
       </div>
     </div>
@@ -30,7 +39,9 @@
       distance="10%">
     </ion-infinite-scroll>
   </ion-content>
-  <div class="tab-striped  tabs-background-calm">
+  <!-- Footer could be added in future if required! -->
+
+  <!-- <div class="tab-striped  tabs-background-calm">
     <div class="tabs tabs-icon-top tabs-color-light">
 
     <a  class="tab-item active" ng-href="#/app/postitem" ng-if="$storage.user_login_id == 1">
@@ -42,6 +53,6 @@
       <i class="icon ion-log-in"></i>
       Log in to post item
     </a>
-  </div>
+  </div> -->
 </div>
 </ion-view>

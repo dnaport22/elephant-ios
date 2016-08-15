@@ -8,7 +8,7 @@ elephant.controller('MainpageCtrl', function($scope, $http, $ionicPlatform,$ioni
   var retrieved = 0;
 
   $scope.loadMore = function() {
-    $http({ url: elephantData_URL.GET_ALL_ITEM_URL, method: elephantData_URL.GET_ALL_ITEM_TYPE,
+    $http({ url: elephantData_URL.GET_ALL_ADMIN_ITEM_URL, method: elephantData_URL.GET_ALL_ADMIN_ITEM_TYPE,
       params: {
         offset: offset,
         limit: limit,

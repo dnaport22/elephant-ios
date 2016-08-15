@@ -118,10 +118,9 @@ SQL;
   public static function getList($offset, $limit) {
     global $mysql_db;
     /** @var PDOStatement $results */
-    $results = $mysql_db->queryCast('SELECT * FROM items WHERE status = :status ORDER BY post_date LIMIT :limit OFFSET :offset', [
+    $results = $mysql_db->queryCast('SELECT * FROM items  ORDER BY post_date LIMIT :limit OFFSET :offset', [
       ':offset' => (int) $offset ?: 0,
       ':limit' => (int) $limit ?: 10,
-      ':status' => '1',
     ]);
     return self::loadList($results);
   }
@@ -156,6 +155,26 @@ SQL;
       ':limit' => (int) $limit ?: 10,
       ':filter' => '%' . $filter . '%',
       ':status' => '1',
+    ]);
+    return self::loadList($results);
+  }
+
+  public static function getAllListFiltered($offset, $limit, $filter) {
+    global $mysql_db;
+    $query = <<<SQL
+      SELECT * FROM items WHERE
+        CONCAT(' ', LOWER(item_name), ' ') LIKE LOWER(:filter) AND
+        CONCAT(' ', LOWER(description), ' ') LIKE LOWER(:filter)
+      ORDER BY post_date LIMIT :limit OFFSET :offset
+SQL;
+
+
+
+    /** @var PDOStatement $results */
+    $results = $mysql_db->queryCast($query, [
+      ':offset' => (int) $offset ?: 0,
+      ':limit' => (int) $limit ?: 10,
+      ':filter' => '%' . $filter . '%',
     ]);
     return self::loadList($results);
   }

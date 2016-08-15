@@ -12,7 +12,9 @@ elephant.constant('elephantData_URL', {
   POST_ITEM_URL: 'http://maddna.xyz/postitem.php',
   POST_ITEM_TYPE: 'POST',
   REQUEST_ITEM_URL: 'http://maddna.xyz/message.php',
-  REQUEST_ITEM_TYPE: 'POST'
+  REQUEST_ITEM_TYPE: 'POST',
+  GET_ALL_ADMIN_ITEM_URL: 'http://maddna.xyz/getallitems.php',
+  GET_ALL_ADMIN_ITEM_TYPE: 'GET'
 })
 
 elephant.constant('elephantData_AUTH', {
