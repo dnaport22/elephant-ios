@@ -1,9 +1,5 @@
 elephant.controller('MainpageCtrl', function($scope, $http, $ionicPlatform,$ionicModal,$location, $timeout, $state, $localStorage, UIfactory, elephantData_URL, $templateCache) {
 
-  $scope.$on('$ionicView.beforeEnter', function() {
-    $scope.loadMore();
-  });
-
   UIfactory.showSpinner();
 
   $scope.items = [];
@@ -51,6 +47,10 @@ elephant.controller('MainpageCtrl', function($scope, $http, $ionicPlatform,$ioni
       $location.path("/app/getitem/" + item_name + "/" + item_desc + "/" + item_date + "/" + item_uid + "/" + item_img )
     }
   }
+
+  $scope.$on('$stateChangeSuccess', function() {
+    $scope.loadMore();
+  });
 
   $scope.reloadData = function() {
     $state.go($state.current, {reload: true, inherit: false})
