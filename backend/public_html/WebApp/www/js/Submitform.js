@@ -18,6 +18,7 @@ Submitform.prototype.ajaxSubmit = function(callback) {
     cache: this.cache,
     data: this.dataString,
     success: function(response) {
+      console.log(response)
       callback.submitResponse(response);
     },
     error: function(error) {

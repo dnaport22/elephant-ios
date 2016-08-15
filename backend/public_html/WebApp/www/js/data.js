@@ -14,7 +14,11 @@ elephant.constant('elephantData_URL', {
   REQUEST_ITEM_URL: 'http://maddna.xyz/message.php',
   REQUEST_ITEM_TYPE: 'POST',
   GET_ALL_ADMIN_ITEM_URL: 'http://maddna.xyz/getallitems.php',
-  GET_ALL_ADMIN_ITEM_TYPE: 'GET'
+  GET_ALL_ADMIN_ITEM_TYPE: 'GET',
+  APPROVE_ADMIN_ITEM_URL: 'http://maddna.xyz/approve.php',
+  APPROVE_ADMIN_ITEM_TYPE: 'POST',
+  DECLINE_ADMIN_ITEM_URL: 'http://maddna.xyz/dismiss.php',
+  DECLINE_ADMIN_ITEM_TYPE: 'POST'
 })
 
 elephant.constant('elephantData_AUTH', {

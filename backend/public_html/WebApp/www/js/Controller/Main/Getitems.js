@@ -14,6 +14,7 @@ elephant.controller('MainpageCtrl', function($scope, $http, $ionicPlatform,$ioni
         limit: limit,
         filter: inputVal.getValue('search'),
       }}).success(function(response) {
+        console.log(response)
         $scope.items = $scope.items.concat(response.items)
         retrieved = response.items.length
         offset += retrieved
@@ -42,9 +43,9 @@ elephant.controller('MainpageCtrl', function($scope, $http, $ionicPlatform,$ioni
   }
 
 
-  $scope.trafficLight = function(route, item_name, item_desc, item_date, item_uid, item_img) {
+  $scope.trafficLight = function(route, item_name, item_desc, item_date, item_uid, item_img, item_id) {
     if (route == 'getitem') {
-      $location.path("/app/getitem/" + item_name + "/" + item_desc + "/" + item_date + "/" + item_uid + "/" + item_img )
+      $location.path("/app/getitem/" + item_name + "/" + item_desc + "/" + item_date + "/" + item_uid + "/" + item_img + "/" + item_id )
     }
   }
 

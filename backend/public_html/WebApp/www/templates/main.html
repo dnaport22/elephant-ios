@@ -14,7 +14,7 @@
         </label>
       </div>
       <div class="grid-two-to-three-to-four-col" ng-repeat="item in items track by item.id">
-        <div href="#" class="list card" ng-click="trafficLight('getitem',item.name,item.description,item.postDate,item.uid,item.image)">
+        <div href="#" class="list card" ng-click="trafficLight('getitem',item.name,item.description,item.postDate,item.uid,item.image,item.id)">
           <div class="item item-image" style="background-image: url('http://maddna.xyz/images/{{::item.image}}')"></div>
             <a class="item item-icon-right">
               <i class="icon ion-ios-redo"></i>

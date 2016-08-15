@@ -6,7 +6,7 @@ require_once 'item.php';
 
 $user = User::authorize();
 $item = new Item($mysql_db);
-$item->loadByItemId(@$_POST['name']);
+$item->loadByItemId(@$_POST['itemId']);
 if ($item->authorize($user)) {
 	$item->setStatus(1);
 	$item->save();
