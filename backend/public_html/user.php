@@ -26,6 +26,7 @@ class User implements JsonSerializable {
   private $password;
   private $activation;
   private $status;
+  private $role;
 
   /**
    * User constructor.
@@ -49,6 +50,7 @@ class User implements JsonSerializable {
       $this->setActivation($data['activation']);
       $this->setStatus($data['status']);
       $this->setPassword($data['password']);
+      $this->setRole($data['role']);
       return TRUE;
     }
     return FALSE;
@@ -56,14 +58,15 @@ class User implements JsonSerializable {
 
   public function save($password = '') {
     $query = <<<SQL
-      INSERT INTO user_profiles (uid, name, email, password, activation, status) 
-				VALUES (:uid, :name, :email, :password, :activation, :status)
+      INSERT INTO user_profiles (uid, name, email, password, activation, status, role)
+				VALUES (:uid, :name, :email, :password, :activation, :status, :role)
 			ON DUPLICATE KEY UPDATE
 			  name = VALUES(name),
 			  email = VALUES(email),
 			  password = VALUES(password),
 			  activation = VALUES(activation),
-			  status = VALUES(status)			  
+			  status = VALUES(status),
+        role = VALUES(role)
 SQL;
 
     $result = $this->db->query($query, [
@@ -73,6 +76,7 @@ SQL;
       ':password' => ($password) ? Password::getInstance()->getHash($password) : $this->getPassword(),
       ':activation' => $this->getActivation(),
       ':status' => $this->getStatus(),
+      ':role' => $this->getRole()
     ]);
     return (bool) $result->rowCount();
   }
@@ -206,4 +210,19 @@ SQL;
   public function setPassword($password) {
     $this->password = $password;
   }
+
+  /*
+   * @param mixed $role
+   */
+  public function setRole($role) {
+    $this->role = $role;
+  }
+
+  /*
+   * @param mixed $role
+   */
+  public function getRole() {
+    return $this->role;
+  }
+
 }
