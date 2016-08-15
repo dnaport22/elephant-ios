@@ -57,10 +57,10 @@
    }
 
    public function sendEmail($email, $key) {
-     $subject = 'Reset password for Womble';
+     $subject = 'Reset password for elephant app';
      $link = $this->getResetPasswordUrl($key);
      $message = <<<HTML
-A password reset has been requested for this email address.<br/>
+A password reset has been requested for an elephant app account associated with this email address.<br/>
 Please follow this link to reset your password:
 <a href="{$link}">{$link}</a>
 HTML;

@@ -48,11 +48,11 @@ class registerUser {
 
   public function emailUser(User $user) {
     $to = $user->getEmail();
-    $subject = "Verify your email address";
+    $subject = "Verify your email address for elephant app";
     $activation_link = $this->getActivationUrl($user);
     $message = <<<HTML
 Dear {$user->getName()},<br/><br/>
-Please click the link below to confirm that this email address will be associated with your Sustainability app user account:<br/><br/>
+Please click the link below to confirm that this email address will be associated with your elephant app user account:<br/><br/>
 <a href="{$activation_link}">{$activation_link}</a>
 HTML;
     $header  = "From: noreply@maddna.xyz \r\n";
