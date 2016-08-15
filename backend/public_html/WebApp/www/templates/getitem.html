@@ -8,15 +8,25 @@
       <div class="item item-body">
         Description: <br> {{::item_description}}
       </div>
+      <div ng-class="{
+        'bar bar-energized item item-divider': status == 0,
+        'bar bar-balanced item item-divider': status == 1,
+        'bar bar-assertive item item-divider': status == 2
+      }">
+        <span ng-if="status == 0">Pending approval</span>
+        <span ng-if="status == 1">Item approved</span>
+        <span ng-if="status == 2">Item not approved</span>
+      </div>
     </div>
-
     <div class="row">
-      <div class="col col-50">
+      <div class="col col-100" ng-hide="status == 2">
         <button class="button button-full button-assertive" ng-click="declineItem()">
            <i class="icon ion-close-circled"></i> Decline
          </button>
       </div>
-      <div class="col col-50">
+    </div>
+    <div class="row">
+      <div class="col col-100" ng-hide="status == 1">
         <button class="button button-full button-balanced" ng-click="approveItem()">
           <i class="icon ion-checkmark"></i> Approve
         </button>

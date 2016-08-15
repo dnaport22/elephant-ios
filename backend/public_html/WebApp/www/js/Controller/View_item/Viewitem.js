@@ -1,8 +1,9 @@
 elephant.controller('ViewController', function($scope, $stateParams, $location, $localStorage, MessageService, elephantData_URL) {
-  // $scope.item_name = $stateParams.itemName;
-  // $scope.item_description = $stateParams.itemDesc;
-  // $scope.item_date = $stateParams.itemDate;
-  // $scope.item_img = $stateParams.itemImg;
+  $scope.item_name = $stateParams.itemName;
+  $scope.item_description = $stateParams.itemDesc;
+  $scope.item_date = $stateParams.itemDate;
+  $scope.item_img = $stateParams.itemImg;
+  $scope.status = $stateParams.itemStatus;
   var itemId = $stateParams.itemId;
   // var item_uid = $stateParams.itemUid;
   // var email = $localStorage.user_email;
@@ -10,7 +11,8 @@ elephant.controller('ViewController', function($scope, $stateParams, $location, 
 
   $scope.approveItem = function() {
     var dataString = {
-      itemId: itemId
+      itemId: itemId,
+      code: $localStorage.user_activation
     }
     var approveRequest = new Submitform(elephantData_URL.APPROVE_ADMIN_ITEM_TYPE, elephantData_URL.APPROVE_ADMIN_ITEM_URL, dataString, false)
     approveRequest.ajaxSubmit(this)
@@ -18,7 +20,8 @@ elephant.controller('ViewController', function($scope, $stateParams, $location, 
 
   $scope.declineItem = function() {
     var dataString = {
-      itemId: itemId
+      itemId: itemId,
+      code: $localStorage.user_activation
     }
     var approveRequest = new Submitform(elephantData_URL.DECLINE_ADMIN_ITEM_TYPE, elephantData_URL.DECLINE_ADMIN_ITEM_URL, dataString, false)
     approveRequest.ajaxSubmit(this)
