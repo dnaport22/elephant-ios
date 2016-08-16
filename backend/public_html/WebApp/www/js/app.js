@@ -66,15 +66,6 @@ var elephant = angular.module('elephant',
     }
   })
 
-  .state('app.register', {
-    url: '/register',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/register.html',
-        controller: 'RegisterController'
-      }
-    }
-  })
 
   .state('app.getitem', {
     url: '/getitem/:itemName/:itemDesc/:itemDate/:itemUid/:itemImg/:itemId/:itemStatus',
@@ -101,27 +92,6 @@ var elephant = angular.module('elephant',
     views: {
       'menuContent': {
         templateUrl: 'templates/requestreset.html'
-      }
-    }
-  })
-
-  .state('app.test', {
-    url: '/test',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/test.html',
-        controller: 'testCtrl'
-      }
-    }
-  })
-
-
-  .state('app.useraccount', {
-    url: '/activation/:uniqueId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/activateaccount.html',
-        controller: 'UseraccountController'
       }
     }
   });

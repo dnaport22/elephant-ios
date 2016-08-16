@@ -10,19 +10,10 @@ elephant.controller('DrawerController', function($state, $scope, $location, $loc
     app_launch_activity: 0
   });
 
-  $scope.drawerLinks_loggedOut = [
-    {title: 'Home', class: 'icon ion-home', href: '#/app/main', id: 0},
-    {title: 'About us', class: 'icon ion-information-circled', href: '#/app/aboutus', id: 0},
-    {title: 'User guide', class: 'icon ion-ios-book', href: '#/app/userguide', id: 0}
-  ];
+  $scope.drawerLinks_loggedOut = [];
 
   $scope.drawerLinks_loggedIn = [
-    {title: 'Home', class: 'icon ion-home', href: '#/app/main', id: 1},
-    {title: 'Post items', class: 'icon ion-upload', href: '#/app/postitem', id: 1},
-    {title: 'My items', class: 'icon ion-folder', href: '#/app/myitems', id: 1},
-    {title: 'About us', class: 'icon ion-information-circled', href: '#/app/aboutus', id: 1},
-    {title: 'Terms and conditions', class: 'icon ion-document-text', href: '#/app/terms', id: 1},
-    {title: 'User guide', class: 'icon ion-ios-book', href: '#/app/userguide', id: 0}
+    {title: 'Home', class: 'icon ion-home', href: '#/app/home', id: 1},
   ];
 
   $scope.logout = function() {
@@ -35,7 +26,7 @@ elephant.controller('DrawerController', function($state, $scope, $location, $loc
     UIfactory.hideSpinner();
   }
   $scope.loginMainuser = function() {
-    $location.path("/app/login/main")
+    $location.path("/app/main/admin")
   }
 
 //This is to check logged in time interval (this code needs to be moved to a structred area)
