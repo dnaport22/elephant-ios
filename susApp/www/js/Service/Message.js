@@ -34,7 +34,7 @@ elephant.service('MessageService', function(UIfactory, elephantData_URL) {
   this.submitResponse = function(response) {
     console.log(response)
     if (response == '1') {
-      UIfactory.showAlert('Message Sent', 'Please keep an eye on your LSBU email account');
+      UIfactory.showAlert('Message Sent', 'Response will be sent to your LSBU email account.');
       this.reloadForm();
     }
     else {
