@@ -20,7 +20,7 @@
 
       <ion-list ng-if="$storage.user_login_id == 1">
         <ion-item>
-          Logged in as {{ $storage.user_username }}
+          Logged in as {{::$storage.user_username}}
         </ion-item>
       </ion-list>
       <ion-list ng-if="$storage.user_login_id == 0">

@@ -2,8 +2,7 @@ var elephant = angular.module('elephant',
 [
   'ionic',
   'ngCordova',
-  'ngStorage',
-  'testctrls'
+  'ngStorage'
 ])
 
 .run(function($ionicPlatform) {
