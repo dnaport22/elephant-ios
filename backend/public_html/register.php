@@ -53,8 +53,8 @@ class registerUser {
     $activation_link = $this->getActivationUrl($user);
     $message = <<<HTML
 Dear {$user->getName()},<br/><br/>
-Please click the link below to confirm that this email address will be associated with your elephant app user account:<br/><br/>
-<a href="{$activation_link}">{$activation_link}</a>
+Please click the link below to confirm that this email address will be associated with your elephant app user account:<br/><hr>
+<a href="{$activation_link}">{$activation_link}</a><br><hr>
 HTML;
     $header  = "From: noreply@maddna.xyz \r\n";
     $header .= "MIME-Version: 1.0\r\n";
