@@ -118,7 +118,30 @@ SQL;
   public static function getList($offset, $limit) {
     global $mysql_db;
     /** @var PDOStatement $results */
-    $results = $mysql_db->queryCast('SELECT * FROM items  ORDER BY post_date LIMIT :limit OFFSET :offset', [
+    $results = $mysql_db->queryCast('SELECT * FROM items WHERE status = :status
+     ORDER BY post_date LIMIT :limit OFFSET :offset', [
+      ':offset' => (int) $offset ?: 0,
+      ':limit' => (int) $limit ?: 10,
+      ':status' => '1',
+    ]);
+    return self::loadList($results);
+  }
+
+  /**
+   * Gets a list of items.
+   *
+   * @param int $offset
+   *   Offset to apply to the list.
+   *
+   * @param int $limit
+   *   Number of items to return.
+   *
+   * @return Item[]
+   */
+  public static function getAdminList($offset, $limit) {
+    global $mysql_db;
+    /** @var PDOStatement $results */
+    $results = $mysql_db->queryCast('SELECT * FROM items ORDER BY post_date LIMIT :limit OFFSET :offset', [
       ':offset' => (int) $offset ?: 0,
       ':limit' => (int) $limit ?: 10,
     ]);
@@ -159,7 +182,7 @@ SQL;
     return self::loadList($results);
   }
 
-  public static function getAllListFiltered($offset, $limit, $filter) {
+  public static function getAdminListFiltered($offset, $limit, $filter) {
     global $mysql_db;
     $query = <<<SQL
       SELECT * FROM items WHERE
