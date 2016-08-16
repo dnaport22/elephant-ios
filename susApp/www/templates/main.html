@@ -13,6 +13,13 @@
                  ng-model="searchValue">
         </label>
       </div>
+
+      <div class="row" ng-show="items.length == 0">
+        <div class="col col-center text-center">
+          No items found for {{::searchValue}}
+        </div>
+     </div>
+
       <div class="grid-two-to-three-to-four-col" ng-repeat="item in items track by item.id">
         <div href="#" class="list card" ng-click="trafficLight('getitem',item.name,item.description,item.postDate,item.uid,item.image)">
           <div class="item item-image" style="background-image: url('http://maddna.xyz/images/{{::item.image}}')"></div>
