@@ -76,7 +76,7 @@ class postItem
 		$item->setImage($image_source);
 		$item->setStatus(0);
 		if ($item->save()) {
-			$this->sendEmail($user);
+			//$this->sendEmail($user);
 			Response::flush(1, 'The email could not be sent.');
 		}
 		Response::flush(0, 'An error ocurred while trying to post your item. Please try again in few minutes or contact an administrator.');
@@ -113,5 +113,3 @@ try {
 catch (Exception $exception) {
 	Response::flush(0, $exception->getMessage());
 }
-
-
