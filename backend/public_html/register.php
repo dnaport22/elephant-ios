@@ -36,6 +36,7 @@ class registerUser {
     $user->setEmail($this->email);
     $user->setActivation($this->activation);
     $user->setStatus(0);
+    $user->setRole(0);
     if ($user->save($this->raw_password)) {
       $this->emailUser($user);
       $response = new Response(1, 'User successfully registered.');
