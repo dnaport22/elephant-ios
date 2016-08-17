@@ -38,16 +38,19 @@ elephant.controller('MyitemsController', function($scope, $http, $timeout, $loca
   };
 
   $scope.loadMore = function() {
+    UIfactory.showSpinner();
     $http({ url: elephantData_URL.GET_USER_ITEM_URL, method: elephantData_URL.GET_USER_ITEM_TYPE, cache: $templateCache,
       params: {
         code: $localStorage.user_activation,
         offset: offset,
         limit: limit
       }}).success(function(response) {
+        console.log(response)
         $scope.myitems = $scope.myitems.concat(response.items)
         retrieved = response.items.length
         offset += retrieved
         $scope.$broadcast('scroll.infiniteScrollComplete');
+        UIfactory.hideSpinner();
     });
   };
 
@@ -55,7 +58,8 @@ elephant.controller('MyitemsController', function($scope, $http, $timeout, $loca
     return retrieved > 0
   }
 
-  $scope.$on('$stateChangeSuccess', function() {
+  $scope.$on('$ionicView.beforeEnter', function() {
     $scope.loadMore();
   });
+
  });

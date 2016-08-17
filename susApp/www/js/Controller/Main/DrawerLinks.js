@@ -1,4 +1,4 @@
-elephant.controller('DrawerController', function($state, $scope, $location, $localStorage, UIfactory, $ionicPopover) {
+elephant.controller('DrawerController', function($state, $scope, $location, $localStorage, UIfactory, $ionicPopover, $ionicHistory) {
 
   $scope.username = $localStorage.user_username;
   $scope.$storage = $localStorage.$default({
@@ -32,6 +32,8 @@ elephant.controller('DrawerController', function($state, $scope, $location, $loc
     $localStorage.user_activation = null;
     $localStorage.user_login_id = 0;
     $localStorage.expiry = 0;
+    $state.go('app.main');
+    $ionicHistory.nextViewOptions({disableBack: true});
     UIfactory.hideSpinner();
   }
   $scope.loginMainuser = function() {
