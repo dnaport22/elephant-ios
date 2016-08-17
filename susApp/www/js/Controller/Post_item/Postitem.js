@@ -53,7 +53,7 @@ elephant.controller('PostitemController', function($scope,$localStorage ,$ionicA
       document.getElementById("upload-image-container").style.display = "block";
       document.getElementById("select-image-button").innerHTML= "Reselect Image";
     }, function(err) {
-      UIfactory.showAlert('Alert', 'Error while calling native components');
+      //Show an event or run analytics functions if required...
     });
 
 
