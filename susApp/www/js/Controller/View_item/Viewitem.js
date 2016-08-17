@@ -1,4 +1,4 @@
-elephant.controller('ViewController', function($scope, $stateParams, $location, $localStorage, MessageService) {
+elephant.controller('ViewController', function($scope, $stateParams, $location, $localStorage, MessageService, $ionicAnalytics) {
   $scope.item_name = $stateParams.itemName;
   $scope.item_description = $stateParams.itemDesc;
   $scope.item_date = $stateParams.itemDate;
@@ -9,6 +9,8 @@ elephant.controller('ViewController', function($scope, $stateParams, $location, 
 
   $scope.messageCheck = function() {
     if ($localStorage.user_login_id == 1) {
+      //Ionic analytics below
+      //$ionicAnalytics.track('Item Request', {item_name: $scope.item_name, request_user: email})
       var itemRequest = MessageService;
       itemRequest.constructor(item_uid, $scope.item_name, email, username)
       itemRequest.processInput();

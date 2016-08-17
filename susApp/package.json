@@ -25,7 +25,11 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "codrova-plugin-camera",
-    "ionic-plugin-keyboard"
+    "ionic-plugin-keyboard",
+    {
+      "locator": "https://github.com/danwilson/google-analytics-plugin.git",
+      "id": "cordova-plugin-google-analytics"
+    }
   ],
   "cordovaPlatforms": []
 }
