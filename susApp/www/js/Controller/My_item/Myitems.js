@@ -13,13 +13,14 @@ elephant.controller('MyitemsController', function($scope, $http, $timeout, $loca
         if (index == 0) {
           var dataString = {
             code: $localStorage.user_activation,
-            name: itemid
+            itemId: itemid
           }
           $.ajax({
             type: elephantData_URL.DELETE_USER_ITEM_TYPE,
             url: elephantData_URL.DELETE_USER_ITEM_URL,
             data: dataString,
             success:function(response) {
+              console.log(dataString)
               hideSheet();
               var index = $scope.myitems.indexOf(item);
               $scope.myitems.splice(index, 1);
