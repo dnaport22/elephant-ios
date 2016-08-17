@@ -85,7 +85,7 @@ elephant.controller('PostitemController', function($scope,$localStorage ,$ionicA
       $cordovaFileTransfer.upload(serverURL, fileURL, options)
         .then(function(result) {
           UIfactory.hideSpinner();
-          UIfactory.showAlert('Success', 'Your ' + itemName + ' will be posted on the elephant app soon after approval by our team');
+          UIfactory.showAlert('Success', 'Your ' + itemName + ' will be posted on the elephant app soon after approval by our team within 24 hours.');
           $cordovaCamera.cleanup();
           $scope.reloadForm();
         }, function(err) {
