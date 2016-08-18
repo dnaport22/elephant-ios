@@ -1,4 +1,4 @@
-elephant.controller('MainpageCtrl', function($scope, $http, $ionicPlatform,$ionicModal,$location, $timeout, $state, $localStorage, UIfactory, elephantData_URL, $templateCache, $ionicAnalytics) {
+elephant.controller('MainpageCtrl', function($scope, $http, $ionicPlatform,$ionicModal,$location, $timeout, $state, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics) {
 
   UIfactory.showSpinner();
 
