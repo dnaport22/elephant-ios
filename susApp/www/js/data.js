@@ -12,7 +12,11 @@ elephant.constant('elephantData_URL', {
   POST_ITEM_URL: 'http://maddna.xyz/postitem.php',
   POST_ITEM_TYPE: 'POST',
   REQUEST_ITEM_URL: 'http://maddna.xyz/message.php',
-  REQUEST_ITEM_TYPE: 'POST'
+  REQUEST_ITEM_TYPE: 'POST',
+  RESET_REQUEST_URL: 'http://maddna.xyz/forgotpass_request.php',
+  RESET_REQUEST_TYPE: 'POST',
+  RESET_VERIFY_URL: 'http://maddna.xyz/forgotpass_verify.php',
+  RESET_VERIFY_TYPE: 'POST'
 })
 
 elephant.constant('elephantData_AUTH', {
@@ -32,4 +36,10 @@ elephant.constant('elephantData_POSTITEM', {
 
 elephant.constant('elephantData_REQUESTITEM', {
   USER_MESSAGE: 'user_message',
+})
+
+elephant.constant('elephantData_RESETPASS', {
+  RESET_REQUEST: 'reset_email',
+  RESET_PASS: 'reset_pass',
+  RESET_PASS_VALIDATE: 'reset_pass2'
 })

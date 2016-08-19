@@ -10,7 +10,7 @@ var elephant = angular.module('elephant',
 .run(function($ionicPlatform, $ionicAnalytics) {
   $ionicPlatform.ready(function() {
     //Register ionic analytics
-    $ionicAnalytics.register();
+    //$ionicAnalytics.register();
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -102,7 +102,8 @@ var elephant = angular.module('elephant',
     url: '/requestreset',
     views: {
       'menuContent': {
-        templateUrl: 'templates/requestreset.html'
+        templateUrl: 'templates/requestreset.html',
+        controller: 'RequestResetController'
       }
     }
   })

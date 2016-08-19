@@ -1,55 +1,37 @@
-function RequestReset() {
-    this.EmailId = 'reset_email';
-    this._email = '';
-    this._url = 'http://maddna.xyz/forgotpass_request.php';
-}
+elephant.controller('RequestResetController', function($scope, UIfactory, UserFactory, elephantData_URL, elephantData_RESETPASS) {
 
-RequestReset.prototype.processInput = function() {
-   this._email = inputVal.getValue(this.EmailId);
-   if (this._email == '') {
-     alert("Please Fill All Fields",'Alert');
-   }
-   else {
-     return this.validateEmail();
-   }
-}
+  const BASE_URL = elephantData_URL.RESET_REQUEST_URL;
+  var EmailId = elephantData_RESETPASS.RESET_REQUEST;
 
-RequestReset.prototype.validateEmail = function() {
-  var validate = new Validation(this._email);
-  if (validate.emailValidate() == 'formatError') {
-    alert('Plase enter valid lsbu email', "Alert");
+  $scope.requestReset = function() {
+    console.log('triggered')
+    var requestReset_data = {
+      email: inputVal.getValue(EmailId)
+    }
+    var reset = new UserFactory;
+    reset.requestResetCredentials(requestReset_data.email);
+    var cleanEmail = reset.cleanEmail();
+    if(reset.validateEmail(cleanEmail) == true) {
+      var resetFormSubmit = new Submitform('POST', BASE_URL, requestReset_data, false);
+      resetFormSubmit.ajaxSubmit(this);
+    }
   }
-  else if (validate.emailValidate() == 'invalid') {
-    alert("Invalid Email",'Alert');
-  }
-  else {
-    this.submit();
-  }
-}
 
-RequestReset.prototype.submit = function() {
-  var dataString = 'email=' + this._email;
-  var request = new Submitform('POST', this._url, dataString, false);
-  request.ajaxSubmit(this);
-  return false;
-}
-
-RequestReset.prototype.submitResponse = function(response) {
-  if (response.status == 0) {
-    alert("Error occured, please contant app administration team","Alert");
+  $scope.onSuccess = function(response) {
+    if (response.status == 0) {
+      UIfactory.showAlert('Alert', 'Error occured, please contant app administration team');
+    }
+    else if(response.status == 1) {
+      UIfactory.showAlert('Alert', 'We have emailed you an activation link')
+    }
+    else {
+      UIfactory.showAlert('Alert', 'Error occured, please contant app administration team')
+    }
+    return reloadForm();
   }
-  else if(response.status == 1) {
-    alert("We have emailed you an activation link","Alert");
-  }
-  else {
-    alert("Error occured, please contant app administration team","Alert");
-  }
-  return this.reloadForm();
-}
 
-RequestReset.prototype.reloadForm = function() {
-  inputVal.setValue(this.EmailId, '');
-  return false;
-}
+  var reloadForm = function() {
+    inputVal.setValue(EmailId, '');
+  }
 
-resetRequest = new RequestReset();
+})

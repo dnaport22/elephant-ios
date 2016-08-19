@@ -1,66 +1,36 @@
-elephant.controller('ResetPassController', function($state, $stateParams, $scope){
-  var key = $stateParams.key;
+elephant.controller('ResetPassController', function($state, $stateParams, $scope, UIfactory, UserFactory, elephantData_RESETPASS, elephantData_URL){
+
+  var PassId = elephantData_RESETPASS.RESET_PASS;
+  var Pass2Id = elephantData_RESETPASS.RESET_PASS_VALIDATE;
+  const BASE_URL = elephantData_URL.RESET_VERIFY_URL;
+  const key = $stateParams.key;
+
   $scope.resetPassword = function() {
-    resetPass.processInput(key);
+    var resetPassword_data = {
+      pass: inputVal.getValue(this.PassId),
+      key: key
+    }
+    var resetVerify = new UserFactory;
+    if(resetVerify.validatePassword() == true) {
+      var resetVerifyFormSubmit = new Submitform('POST', BASE_URL, resetPassword_data, false);
+      resetVerifyFormSubmit.ajaxSubmit(this)
+    }
+  }
+
+  $scope.onSuccess = function(response) {
+    if (response.status == 1) {
+      UIfactory.showAlert('Success', 'Successfully Changed pass');
+    }
+    else if(response.status == 0) {
+      alert('Alert', 'Error occured');
+    }
+    else {
+      reloadForm();
+    }
+  }
+
+  var reloadForm = function() {
+    inputVal.setValue(PassId, '');
+    inputVal.setValue(Pass2Id, '');
   }
 });
-
-// Class to register users
-function ResetPass() {
-  this.PassId = 'reset_pass';
-  this.Pass2Id = 'reset_pass2';
-  this._pass = '';
-  this._pass2 = '';
-  this._key = '';
-  this._url = 'http://maddna.xyz/forgotpass_verify.php';
-}
-
-ResetPass.prototype.processInput = function(key) {
-   this._key = key;
-   this._pass = inputVal.getValue(this.PassId);
-   this._pass2 = inputVal.getValue(this.Pass2Id);
-   if (this._pass == '' || this._pass2 == '' ) {
-     alert("Please Fill All Fields",'Alert');
-   }
-   else {
-     return this.validatePassword();
-   }
-}
-
-ResetPass.prototype.validatePassword = function() {
-  if (this._pass != this._pass2){
-    this.formError = true;
-    alert("Password Doesn't Match",'Alert');
-  }
-  else {
-    return this.submit();
-  }
-}
-
-ResetPass.prototype.submit = function() {
-  var dataString = 'pass=' + this._pass + '&key=' + this._key;
-  console.log(dataString)
-  var request = new Submitform('POST', this._url, dataString, false);
-  request.ajaxSubmit(this);
-  return false;
-}
-
-ResetPass.prototype.submitResponse = function(response) {
-  console.log(response)
-  if (response.status == 1) {
-    alert("Successfully Changed pass");
-    this.reloadForm();
-  }
-  else if(response.status == 0) {
-    alert("Error Occured");
-  }
-}
-
-ResetPass.prototype.reloadForm = function() {
-  inputVal.setValue(this.PassId, '');
-  inputVal.setValue(this.Pass2Id, '');
-  return false;
-}
-
-
-resetPass = new ResetPass();
