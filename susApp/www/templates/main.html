@@ -1,9 +1,20 @@
 <ion-view view-title="Home" class="main">
+  <ion-nav-buttons side="right">
+      <button class="button icon ion-navigation" ng-click="changeToGrid(viewType)">
+        <i class="icon ion-ios-grid-view-outline" ng-if="viewType == 'list'"></i>
+        <i class="icon ion-ios-list-outline" ng-if="viewType == 'grid'"></i>
+      </button>
+    </ion-nav-buttons>
   <ion-content>
+    <!-- Pull to refresh -->
     <ion-refresher
     pulling-text="Pull to load new items..."
     on-refresh="pullToRefresh()">
     </ion-refresher>
+
+
+
+    <!-- Searchbar -->
     <div class="grid-container">
       <div class="list list-inset search-container">
         <label class="item item-input">
@@ -14,21 +25,33 @@
         </label>
       </div>
 
+      <!-- Search text -->
       <div class="row" ng-show="items.length == 0">
         <div class="col col-center text-center">
           No items found for {{searchValue}}
         </div>
      </div>
 
-      <div class="grid-two-to-three-to-four-col" ng-repeat="item in items track by item.id">
+     <!-- Card view of the items -->
+      <div class="grid-two-to-three-to-four-col" ng-repeat="item in items track by item.id" ng-if="viewType == 'grid'">
         <div href="#" class="list card" ng-click="trafficLight('getitem',item.name,item.description,item.postDate,item.uid,item.image)">
           <div class="item item-image" style="background-image: url('http://maddna.xyz/images/{{::item.image}}')"></div>
             <a class="item item-icon-right">
-              <i class="icon ion-ios-redo"></i>
                 {{::item.name}}
             </a>
         </div>
       </div>
+
+      <ion-list>
+        <ion-item ng-repeat="item in items track by item.id"
+                  class="item-thumbnail-left" ng-if="viewType == 'list'"
+                  ng-click="trafficLight('getitem',item.name,item.description,item.postDate,item.uid,item.image)">
+          <img ng-src="http://maddna.xyz/images/{{::item.image}}">
+          <h2>{{::item.name}}</h2>
+          <p>{{::item.description}}<p>
+      </ion-list>
+
+
     </div>
 
     <ion-infinite-scroll

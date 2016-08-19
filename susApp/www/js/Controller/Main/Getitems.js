@@ -2,6 +2,16 @@ elephant.controller('MainpageCtrl', function($ionicHistory, $scope, $http, $ioni
 
   UIfactory.showSpinner();
 
+  $scope.viewType = 'list';
+  $scope.changeToGrid = function(type) {
+    if(type == 'list') {
+      $scope.viewType = 'grid';
+    }
+    else if (type == 'grid') {
+      $scope.viewType = 'list';
+    }
+  }
+
   $scope.items = [];
   var offset = 0;
   var limit = 10;

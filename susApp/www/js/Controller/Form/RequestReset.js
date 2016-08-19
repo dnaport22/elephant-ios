@@ -19,13 +19,13 @@ elephant.controller('RequestResetController', function($scope, UIfactory, UserFa
 
   $scope.onSuccess = function(response) {
     if (response.status == 0) {
-      UIfactory.showAlert('Alert', 'Error occured, please contant app administration team');
+      UIfactory.showAlert('Alert', 'The password could not be reset. Please try again in few minutes or contact an administrator.');
     }
     else if(response.status == 1) {
-      UIfactory.showAlert('Alert', 'We have emailed you an activation link')
+      UIfactory.showAlert('Success', 'We have emailed you an activation link')
     }
     else {
-      UIfactory.showAlert('Alert', 'Error occured, please contant app administration team')
+      UIfactory.showAlert('Alert', 'The password could not be reset. Please try again in few minutes or contact an administrator.')
     }
     return reloadForm();
   }
