@@ -1,4 +1,4 @@
-elephant.controller('MainpageCtrl', function($scope, $http, $ionicPlatform,$ionicModal,$location, $timeout, $state, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics, $templateCache) {
+elephant.controller('MainpageCtrl', function($ionicHistory, $scope, $http, $ionicPlatform,$ionicModal,$location, $timeout, $state, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics, $templateCache) {
 
   UIfactory.showSpinner();
 
@@ -47,6 +47,10 @@ elephant.controller('MainpageCtrl', function($scope, $http, $ionicPlatform,$ioni
     if (route == 'getitem') {
       if(typeof analytics !== "undefined") { analytics.trackEvent("Category", "Action", "Label", 25); }
       $location.path("/app/getitem/" + item_name + "/" + item_desc + "/" + item_date + "/" + item_uid + "/" + item_img )
+    }
+    else if (route == 'login') {
+      $ionicHistory.nextViewOptions({disableBack: false});
+      $location.path("app/login/postitem");
     }
   }
 

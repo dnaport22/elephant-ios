@@ -58,7 +58,7 @@ elephant.controller('MyitemsController', function($scope, $http, $timeout, $loca
     return retrieved > 0
   }
 
-  $scope.$on('$stateChangeSuccess', function() {
+  $scope.$on('$ionicView.beforeEnter', function() {
     $scope.loadMore();
   });
 
