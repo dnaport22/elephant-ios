@@ -119,7 +119,7 @@ SQL;
     global $mysql_db;
     /** @var PDOStatement $results */
     $results = $mysql_db->queryCast('SELECT * FROM items WHERE status = :status
-     ORDER BY post_date DESC LIMIT :limit OFFSET :offset', [
+     ORDER BY itemID DESC LIMIT :limit OFFSET :offset', [
       ':offset' => (int) $offset ?: 0,
       ':limit' => (int) $limit ?: 10,
       ':status' => '1',
@@ -141,7 +141,7 @@ SQL;
   public static function getAdminList($offset, $limit) {
     global $mysql_db;
     /** @var PDOStatement $results */
-    $results = $mysql_db->queryCast('SELECT * FROM items ORDER BY post_date DESC LIMIT :limit OFFSET :offset', [
+    $results = $mysql_db->queryCast('SELECT * FROM items ORDER BY itemID DESC LIMIT :limit OFFSET :offset', [
       ':offset' => (int) $offset ?: 0,
       ':limit' => (int) $limit ?: 10,
     ]);
@@ -167,7 +167,7 @@ SQL;
         status = :status) OR
         (CONCAT(' ', LOWER(description), ' ') LIKE LOWER(:filter) AND
         status = :status)
-      ORDER BY post_date DESC LIMIT :limit OFFSET :offset
+      ORDER BY itemID DESC LIMIT :limit OFFSET :offset
 SQL;
 
 
@@ -188,7 +188,7 @@ SQL;
       SELECT * FROM items WHERE
         CONCAT(' ', LOWER(item_name), ' ') LIKE LOWER(:filter) AND
         CONCAT(' ', LOWER(description), ' ') LIKE LOWER(:filter)
-      ORDER BY post_date DESC LIMIT :limit OFFSET :offset
+      ORDER BY itemID DESC LIMIT :limit OFFSET :offset
 SQL;
 
 
@@ -205,7 +205,7 @@ SQL;
   public static function getUserList(User $user, $offset, $limit) {
     global $mysql_db;
     /** @var PDOStatement $results */
-    $results = $mysql_db->queryCast('SELECT * FROM items WHERE user_id = :uid AND status = :status ORDER BY post_date DESC LIMIT :limit OFFSET :offset', [
+    $results = $mysql_db->queryCast('SELECT * FROM items WHERE user_id = :uid AND status = :status ORDER BY itemID DESC LIMIT :limit OFFSET :offset', [
       ':uid' => $user->getUid(),
       ':offset' => (int) $offset ?: 0,
       ':limit' => (int) $limit ?: 10,

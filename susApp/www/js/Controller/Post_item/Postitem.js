@@ -87,7 +87,7 @@ elephant.controller('PostitemController', function($scope,$localStorage ,$ionicA
           UIfactory.hideSpinner();
           UIfactory.showAlert('Success', 'Your ' + itemName + ' will be posted on the elephant app soon after approval by our team within 24 hours.');
           $cordovaCamera.cleanup();
-          $scope.reloadForm();
+          reloadForm();
         }, function(err) {
           UIfactory.hideSpinner();
           UIfactory.showAlert('Alert', 'An error occured file uploading the item, please contact app admintrantion team if error presist');
@@ -97,9 +97,10 @@ elephant.controller('PostitemController', function($scope,$localStorage ,$ionicA
     }
   }
 
-  $scope.reloadForm = function() {
+  var reloadForm = function() {
     inputVal.setValue(itemNameid, null);
     inputVal.setValue(itemDescid, null);
+    imageToUpload = null;
     document.getElementById("upload-image-container").style.display = "none";
     document.getElementById("select-image-button").innerHTML= "Select Image";
   }
