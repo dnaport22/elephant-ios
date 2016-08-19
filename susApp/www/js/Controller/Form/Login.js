@@ -2,9 +2,8 @@ elephant.controller('LoginController', function($scope, $state, $ionicSideMenuDe
   $scope.loginMessage = null;
 
   var path = $stateParams.path;
-  var loginDataId = elephantData_AUTH;
-  var EmailId = loginDataId.LOGIN_EMAIL;
-  var PassId = loginDataId.LOGIN_PASS;
+  var EmailId = elephantData_AUTH.LOGIN_EMAIL;
+  var PassId = elephantData_AUTH.LOGIN_PASS;
   const BASE_URL = elephantData_URL.LOGIN_USER_URL;
 
   $scope.loginUser = function() {
@@ -60,6 +59,10 @@ elephant.controller('LoginController', function($scope, $state, $ionicSideMenuDe
         UIfactory.hideSpinner();
         $state.go('app.main');
         $ionicSideMenuDelegate.toggleLeft();
+    }
+    else if (path == 'postitem') {
+      UIfactory.hideSpinner();
+      $ionicHistory.goBack();
     }
   }
 
