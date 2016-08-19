@@ -48,7 +48,6 @@ var elephant = angular.module('elephant',
   })
 
   .state('app.main', {
-    cache: false,
     url: '/main',
     views: {
       'menuContent': {

@@ -1,4 +1,4 @@
-elephant.controller('MainpageCtrl', function($scope, $http, $ionicPlatform,$ionicModal,$location, $timeout, $state, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics) {
+elephant.controller('MainpageCtrl', function($scope, $http, $ionicPlatform,$ionicModal,$location, $timeout, $state, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics, $templateCache) {
 
   UIfactory.showSpinner();
 
@@ -8,7 +8,7 @@ elephant.controller('MainpageCtrl', function($scope, $http, $ionicPlatform,$ioni
   var retrieved = 0;
 
   $scope.loadMore = function() {
-    $http({ url: elephantData_URL.GET_ALL_ITEM_URL, method: elephantData_URL.GET_ALL_ITEM_TYPE,
+    $http({ url: elephantData_URL.GET_ALL_ITEM_URL, method: elephantData_URL.GET_ALL_ITEM_TYPE, cache: $templateCache,
       params: {
         offset: offset,
         limit: limit,
@@ -34,6 +34,7 @@ elephant.controller('MainpageCtrl', function($scope, $http, $ionicPlatform,$ioni
   $scope.pullToRefresh = function() {
     $scope.items = [];
     offset = 0
+    $templateCache.removeAll();
     $scope.loadMore();
   }
 
