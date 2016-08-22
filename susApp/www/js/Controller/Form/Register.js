@@ -34,7 +34,7 @@ elephant.controller('RegisterController', function($scope, UIfactory, $ionicHist
 
   $scope.onSuccess = function(response) {
     if (response.status == 1) {
-      UIfactory.showAlert('Registred successfully', 'A validation email has been sent to your LSBU email account. Please validate your email to start using your account.');
+      UIfactory.showAlert('Registered successfully', 'A validation email has been sent to your LSBU email account. Please validate your email to start using your account.');
       reloadForm();
     }
     else if(response.status == 0) {
