@@ -13,7 +13,7 @@
     <div class="list list-inset">
       <span>Type your message below:</span>
       <label class="item item-input">
-        <textarea rows="5" id="user_message" ng-model="defaultMessagevalue" maxlength="200" ng-change="checkMaxLength()" ng-value="defaultMessagevalue"></textarea>
+        <textarea rows="5" id="user_message" ng-model="defaultMessagevalue" maxlength="200" ng-change="checkMaxLength()" placeholder="{{defaultMessagevalue}}"></textarea>
       </label>
       <div id="user_message-warning" class="character-limit-warning" style="display: none;">Message character limit reached</div>
       <button class="button button-calm button-full icon-center ion-paper-airplane" ng-click="messageCheck()">

@@ -6,8 +6,8 @@ elephant.controller('PostitemController', function($scope,$localStorage ,$ionicA
   $scope.imageOptions = function() {
     var hideSheet = $ionicActionSheet.show({
       buttons: [
-        { text: 'Capture using camera' },
-        { text: 'Select from gallery' }
+        { text: '<i class="icon ion-camera"></i>Capture using camera'},
+        { text: '<i class="icon ion-images"></i>Select from gallery' }
       ],
       titleText: 'How would you like to select picture?',
       buttonClicked: function(index) {
@@ -24,7 +24,7 @@ elephant.controller('PostitemController', function($scope,$localStorage ,$ionicA
     });
     $timeout(function() {
       hideSheet();
-    }, 9000);
+    }, 60000);
   };
 
   var imageToUpload = null;
@@ -98,8 +98,8 @@ elephant.controller('PostitemController', function($scope,$localStorage ,$ionicA
   }
 
   var reloadForm = function() {
-    inputVal.setValue(itemNameid, null);
-    inputVal.setValue(itemDescid, null);
+    inputVal.setValue(itemNameid, '');
+    inputVal.setValue(itemDescid, '');
     imageToUpload = null;
     document.getElementById("upload-image-container").style.display = "none";
     document.getElementById("select-image-button").innerHTML= "Select Image";

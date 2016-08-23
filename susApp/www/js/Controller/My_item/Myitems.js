@@ -34,7 +34,7 @@ elephant.controller('MyitemsController', function($scope, $http, $timeout, $loca
     });
     $timeout(function() {
       hideSheet();
-    }, 9000);
+    }, 60000);
   };
 
   $scope.loadMore = function() {

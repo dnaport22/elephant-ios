@@ -1,11 +1,14 @@
 <ion-view view-title="Post Item" class="post-item">
   <ion-content>
-    <div class="list card" id="upload-image-container" style="display: none;">
-      <div class="item item-image" id="upImage" style="background-image: url('./../img/ionic.png')"></div>
-    </div>
+    <!-- LSA-121 -->
     <div class="list-inset">
       <button ng-click="imageOptions()" id="select-image-button" class="button button-block icon-left ion-camera button-positive">Select Image</button>
     </div>
+    <div class="list card" id="upload-image-container" style="display: none;">
+      <div class="item item-image" id="upImage" style="background-image: url('./../img/ionic.png')"></div>
+    </div>
+    <!-- /LSA-121 -->
+    
     <div class="list list-inset">
       <label class="item item-input">
         <input type="text" placeholder="Name of your item" id="name" ng-model="name" maxlength="30" ng-change="checkMaxLength()">

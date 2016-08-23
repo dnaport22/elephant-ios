@@ -22,11 +22,15 @@ elephant.controller('ResetPassController', function($state, $stateParams, $scope
       UIfactory.showAlert('Success', 'Successfully Changed pass');
     }
     else if(response.status == 0) {
-      alert('Alert', 'Error occured');
+      UIfactory.showAlert('Alert', 'The password could not be reset. Please try again in few minutes or contact elephant team.');
     }
     else {
       reloadForm();
     }
+  }
+
+  $scope.onError = function (response) {
+    UIfactory.showAlert('Alert', 'The password could not be reset. Please try again in few minutes or contact elephant team.')
   }
 
   var reloadForm = function() {

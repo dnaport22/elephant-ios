@@ -19,15 +19,19 @@ elephant.controller('RequestResetController', function($scope, UIfactory, UserFa
 
   $scope.onSuccess = function(response) {
     if (response.status == 0) {
-      UIfactory.showAlert('Alert', 'The password could not be reset. Please try again in few minutes or contact an administrator.');
+      UIfactory.showAlert('Alert', 'The password could not be reset. Please try again in few minutes or contact elephant team.');
     }
     else if(response.status == 1) {
-      UIfactory.showAlert('Success', 'We have emailed you an activation link')
+      UIfactory.showAlert('Success', 'We have emailed you an activation link.')
     }
     else {
-      UIfactory.showAlert('Alert', 'The password could not be reset. Please try again in few minutes or contact an administrator.')
+      UIfactory.showAlert('Alert', 'The password could not be reset. Please try again in few minutes or contact elephant team.')
     }
     return reloadForm();
+  }
+
+  $scope.onError = function (response) {
+    UIfactory.showAlert('Alert', 'The password could not be reset. Please try again in few minutes or contact elephant team.')
   }
 
   var reloadForm = function() {

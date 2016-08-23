@@ -62,7 +62,7 @@
      $message = <<<HTML
 A password reset has been requested for an elephant app account associated with this email address.<br/>
 Please follow this link to reset your password:
-<a href="{$link}">{$link}</a>
+<a href="{$link}">{$link}</a><hr><br><br>
 HTML;
 
      $header  = "From: noreply@maddna.xyz \r\n";
