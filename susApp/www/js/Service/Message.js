@@ -12,7 +12,7 @@ elephant.service('MessageService', function(UIfactory, elephantData_URL) {
 
   this.processInput = function() {
     if (this.msg == '') {
-      UIfactory.showAlert('Alert', 'Please enter you message');
+      UIfactory.showAlert('Alert', 'Please enter your message.');
     } else {
       return this.sendMessage();
     }
