@@ -7,7 +7,7 @@ elephant.controller('ResetPassController', function($state, $stateParams, $scope
 
   $scope.resetPassword = function() {
     var resetPassword_data = {
-      pass: inputVal.getValue(this.PassId),
+      pass: inputVal.getValue(PassId),
       key: key
     }
     var resetVerify = new UserFactory;
