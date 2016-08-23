@@ -12,17 +12,16 @@
     on-refresh="pullToRefresh()">
     </ion-refresher>
 
-
-
     <!-- Searchbar -->
     <div class="grid-container">
-      <div class="list list-inset search-container">
-        <label class="item item-input">
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
           <i class="icon ion-search placeholder-icon"></i>
           <input id="search" type="text" placeholder="Search for items"
                  ng-change="search()"
                  ng-model="searchValue">
         </label>
+        <i class="icon ion-close-round" ng-click="clearInput()" ng-if="inputVal == true"> clear</i>
       </div>
 
       <!-- Search text -->
