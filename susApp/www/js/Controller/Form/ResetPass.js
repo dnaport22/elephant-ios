@@ -19,7 +19,7 @@ elephant.controller('ResetPassController', function($state, $stateParams, $scope
 
   $scope.onSuccess = function(response) {
     if (response.status == 1) {
-      UIfactory.showAlert('Success', 'Successfully Changed pass');
+      UIfactory.showAlert('Success', 'Your password has been successfully re-set.');
     }
     else if(response.status == 0) {
       UIfactory.showAlert('Alert', 'The password could not be reset. Please try again in few minutes or contact elephant team.');
