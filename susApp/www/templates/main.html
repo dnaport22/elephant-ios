@@ -7,9 +7,10 @@
       </button>
     </ion-nav-buttons>
   <!-- Custom subheader to make search-box fixed/unscrollable -->
-  <ion-content scroll="false">
+  <ion-subheader-bar>
+    <h3>Search bar</h3>
     <div class="item item-input-inset" scroll="false">
-      <label class="item-input-wrapper" style="background-color:#4a87ee;">
+      <label class="item-input-wrapper" style="background-color:#93e3fa;">
         <i class="icon ion-search placeholder-icon" style="color:white;"></i>
         <input id="search" type="text" placeholder="Search for items"
                ng-change="search()"
@@ -18,7 +19,7 @@
       </label>
       <button class="button button-small button-assertive" ng-click="clearInput()" ng-if="inputVal == true">Clear</button>
     </div>
-  </ion-content>
+  </ion-subheader-bar>
   <!-- Main ion-content directive -->
   <ion-content class="has-subheader">
     <!-- Pull to refresh direvctive -->

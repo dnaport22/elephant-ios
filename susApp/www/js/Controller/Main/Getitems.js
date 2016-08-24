@@ -1,4 +1,7 @@
-elephant.controller('MainpageCtrl', function($ionicHistory, $scope, $http, $ionicPlatform,$ionicModal,$location, $timeout, $state, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics, $templateCache) {
+elephant.controller('MainpageCtrl', function($ionicHistory, $scope, $http, $ionicPlatform,$ionicModal,$location, $timeout, $state, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics, $templateCache, $ionicScrollDelegate, $rootScope) {
+  $rootScope.slideHeader = false;
+  $rootScope.pixelLimit = 0;
+
   /**
    * Loading spinner
    */
