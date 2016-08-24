@@ -14,10 +14,11 @@ elephant.controller('LoginController', function($scope, $state, $ionicSideMenuDe
     var login = new UserFactory;
     login.loginCredentials(login_data.email, login_data.pass);
     var cleanEmail = login.cleanEmail();
-    if(login.validateEmail(cleanEmail) == true) {
-      var loginFormSubmit = new Submitform('POST', BASE_URL, login_data, false);
-      loginFormSubmit.ajaxSubmit(this)
-    }
+    console.log(cleanEmail);
+    // if(login.validateEmail(cleanEmail) == true) {
+    //   var loginFormSubmit = new Submitform('POST', BASE_URL, login_data, false);
+    //   loginFormSubmit.ajaxSubmit(this)
+    // }
   }
 
   $scope.onSuccess = function(response) {

@@ -81,7 +81,9 @@ elephant.factory('UserFactory', function(UIfactory) {
    * @return string;
    */
   UserFactory.prototype.cleanEmail = function() {
-    return this.getEmail().trim().toLowerCase();
+    var userEmail = this.getEmail().trim().toLowerCase();
+    userEmail = userEmail.replace(/\s/g, '');
+    return userEmail;
   }
 
   /**
@@ -91,6 +93,15 @@ elephant.factory('UserFactory', function(UIfactory) {
     if(this.getPass_orig() != this.getPass_valid()) {
       return UIfactory.showAlert('Alert', 'Password does not match');
     }
+    else if(this.getPass_orig().length < 8) {
+      return UIfactory.showAlert('Alert', 'Password should be atleast 8 characters long.')
+    }
+    else if(this.getPass_orig().search(/[0-9]/) < 0){
+      return UIfactory.showAlert('Alert', 'Password should contain atleast one digit.')
+    }
+    // else if(this.getPass_orig().search(/a-z/i) < 0) {
+    //   return UIfactory.showAlert('Alert', 'Password should contain atleast one letter.')
+    // }
     else {
       return true;
     }
