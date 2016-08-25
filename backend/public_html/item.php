@@ -27,6 +27,8 @@ class Item implements JsonSerializable {
   private $image;
   private $postDate;
   private $status;
+  private $userEmail;
+  private $username
 
   /**
    * User constructor.
@@ -69,6 +71,8 @@ class Item implements JsonSerializable {
       $this->setImage($data['image_src']);
       $this->setStatus($data['status']);
       $this->setPostDate($data['post_date']);
+      $this->setUserEmail($data['email']);
+      $this->setUsername($data['name']);
       return TRUE;
     }
     return FALSE;
@@ -141,9 +145,7 @@ SQL;
   public static function getAdminList($offset, $limit) {
     global $mysql_db;
     /** @var PDOStatement $results */
-    $results = $mysql_db->queryCast('SELECT items.user_id, items.itemID, items.item_name, items.description, items.image_src, post_date.items, items.status, user_profiles.name, user_profiles.uid
-                                     FROM items INNER JOIN user_profiles ON
-                                     items.uid = user_profiles.uid
+    $results = $mysql_db->queryCast('SELECT * FROM items INNER JOIN user_profiles ON items.user_id = user_profiles.uid
                                      ORDER BY itemID DESC LIMIT :limit OFFSET :offset', [
       ':offset' => (int) $offset ?: 0,
       ':limit' => (int) $limit ?: 10,
@@ -364,6 +366,20 @@ SQL;
    */
   public function setStatus($status) {
     $this->status = $status;
+  }
+
+  /**
+   * @param mixed $useremail
+   */
+  public function setUserEmail($userEmail) {
+    $this->userEmail = $userEmail;
+  }
+
+  /**
+   * @param string $username
+   */
+  public function setUsername($username) {
+    $this->username = $username;
   }
 
 }

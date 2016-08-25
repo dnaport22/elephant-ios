@@ -24,7 +24,7 @@ elephant.controller('LoginController', function($scope, $state, $ionicSideMenuDe
   $scope.onSuccess = function(response) {
     if (response.status == 0) {
       UIfactory.hideSpinner();
-      return UIfactory.showAlert('Alert', 'Invalid account');
+      return UIfactory.showAlert('Alert', 'Invalid account.');
     }
     else if(response.status == 1) {
       if(response.user.status == 0) {

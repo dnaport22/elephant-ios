@@ -50,7 +50,7 @@ elephant.controller('PostitemController_web', function($scope,$localStorage ,$io
     else {
       //var imageSrc = $scope.getFileName(fileURL);
       var uploadData = new FormData();
-      uploadData.append('itemName', this.itemName);
+      uploadData.append('itemName', itemName);
       uploadData.append('desc', itemDesc);
       uploadData.append('code', $localStorage.user_activation);
       uploadData.append('file', imageToUpload);

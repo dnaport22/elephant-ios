@@ -11,7 +11,8 @@ elephant.controller('ResetPassController', function($state, $stateParams, $scope
       key: key
     }
     var resetVerify = new UserFactory;
-    if(resetVerify.validatePassword() == true) {
+    var cleanEmail = resetVerify.cleanEmail();
+    if(resetVerify.validatePassword(cleanEmail) == true) {
       var resetVerifyFormSubmit = new Submitform('POST', BASE_URL, resetPassword_data, false);
       resetVerifyFormSubmit.ajaxSubmit(this)
     }

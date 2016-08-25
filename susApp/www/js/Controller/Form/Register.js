@@ -28,7 +28,7 @@ elephant.controller('RegisterController', function($scope, UIfactory, $ionicHist
         }
         else {
           UIfactory.hideSpinner();
-          UIfactory.showAlert('Alert', 'Agree terms and conditions');
+          UIfactory.showAlert('Alert', 'Agree terms and conditions.');
         }
       }
     }
