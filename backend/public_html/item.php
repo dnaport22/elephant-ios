@@ -27,8 +27,11 @@ class Item implements JsonSerializable {
   private $image;
   private $postDate;
   private $status;
-  private $userEmail;
-  private $username
+  /**
+   * @var int|string additional objects required by admin
+   */
+  private $useremail;
+  private $username;
 
   /**
    * User constructor.
@@ -57,7 +60,7 @@ class Item implements JsonSerializable {
   }
 
   /**
-   * Loads the item data.
+   * Loads the item data for users.
    *
    * @param array $data
    * @return bool
@@ -71,8 +74,28 @@ class Item implements JsonSerializable {
       $this->setImage($data['image_src']);
       $this->setStatus($data['status']);
       $this->setPostDate($data['post_date']);
-      $this->setUserEmail($data['email']);
-      $this->setUsername($data['name']);
+      return TRUE;
+    }
+    return FALSE;
+  }
+
+  /**
+   * Loads the item data for admin.
+   *
+   * @param array $data
+   * @return bool
+   */
+  protected function loadAdmin($data) {
+    if (is_array($data)) {
+      $this->setUid($data['user_id']);
+      $this->setId($data['itemID']);
+      $this->setName($data['item_name']);
+      $this->setDescription($data['description']);
+      $this->setImage($data['image_src']);
+      $this->setStatus($data['status']);
+      $this->setPostDate($data['post_date']);
+      // $this->setUserEmail($data['email']);
+      // $this->setUsername($data['name']);
       return TRUE;
     }
     return FALSE;
@@ -132,7 +155,7 @@ SQL;
   }
 
   /**
-   * Gets a list of items.
+   * Gets a list of items for admin.
    *
    * @param int $offset
    *   Offset to apply to the list.
@@ -150,11 +173,11 @@ SQL;
       ':offset' => (int) $offset ?: 0,
       ':limit' => (int) $limit ?: 10,
     ]);
-    return self::loadList($results);
+    return self::loadAdminList($results);
   }
 
   /**
-   * Gets a list of items.
+   * Gets a list of items for users.
    *
    * @param int $offset
    *   Offset to apply to the list.
@@ -184,6 +207,17 @@ SQL;
     return self::loadList($results);
   }
 
+  /**
+   * Gets a list of items for admin.
+   *
+   * @param int $offset
+   *   Offset to apply to the list.
+   *
+   * @param int $limit
+   *   Number of items to return.
+   *
+   * @return Item[]
+   */
   public static function getAdminListFiltered($offset, $limit, $filter) {
     global $mysql_db;
     $query = <<<SQL
@@ -201,7 +235,7 @@ SQL;
       ':limit' => (int) $limit ?: 10,
       ':filter' => '%' . $filter . '%',
     ]);
-    return self::loadList($results);
+    return self::loadAdminList($results);
   }
 
   public static function getUserList(User $user, $offset, $limit) {
@@ -216,12 +250,35 @@ SQL;
     return self::loadList($results);
   }
 
+  /**
+   * Load result list for users
+   *
+   * @param PDOStatement $results
+   * @return array
+   */
   protected static function loadList(PDOStatement $results) {
     global $mysql_db;
     $list = [];
     while ($data = $results->fetch(PDO::FETCH_ASSOC)) {
       $item = new static($mysql_db);
       $item->load($data);
+      $list[] = $item;
+    }
+    return $list;
+  }
+
+  /**
+   * Load result list for admin
+   *
+   * @param PDOStatement $results
+   * @return array
+   */
+  protected static function loadAdminList(PDOStatement $results) {
+    global $mysql_db;
+    $list = [];
+    while ($data = $results->fetch(PDO::FETCH_ASSOC)) {
+      $item = new static($mysql_db);
+      $item->loadAdmin($data);
       $list[] = $item;
     }
     return $list;
@@ -371,8 +428,8 @@ SQL;
   /**
    * @param mixed $useremail
    */
-  public function setUserEmail($userEmail) {
-    $this->userEmail = $userEmail;
+  public function setUseremail($userEmail) {
+    $this->useremail = $userEmail;
   }
 
   /**
