@@ -1,0 +1,51 @@
+<ion-view view-title="{{::item_name}}" class="get-item">
+  <ion-content>
+    <div class="list card">
+      <div class="item item-image" style="background-image: url('http://maddna.xyz/images/{{::item_img}}')"></div>
+      <div class="item item-body">
+        {{::item_name}} <br> Posted on: {{::item_date}}
+      </div>
+      <div class="item item-body">
+        {{::item_name}}
+      </div>
+      <div class="item item-body">
+        Description: <br> {{::item_description}}
+      </div>
+      <div ng-class="{
+        'bar bar-energized item item-divider': status == 0,
+        'bar bar-balanced item item-divider': status == 1,
+        'bar bar-assertive item item-divider': status == 2
+      }">
+        <span ng-if="status == 0">Pending approval</span>
+        <span ng-if="status == 1">Item approved</span>
+        <span ng-if="status == 2">Item not approved</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-100" ng-hide="status == 2">
+        <button class="button button-full button-assertive" ng-click="declineItem()">
+           <i class="icon ion-close-circled"></i> Decline
+         </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-100" ng-hide="status == 1">
+        <button class="button button-full button-balanced" ng-click="approveItem()">
+          <i class="icon ion-checkmark"></i> Approve
+        </button>
+      </div>
+    </div>
+
+    <!-- This could be used to leave comments etc. -->
+    <!-- <div class="list list-inset">
+      <span>Type your message below:</span>
+      <label class="item item-input">
+        <textarea rows="5" id="user_message" ng-model="defaultMessagevalue" maxlength="200" ng-change="checkMaxLength()" ng-value="defaultMessagevalue"></textarea>
+      </label>
+      <div id="user_message-warning" class="character-limit-warning" style="display: none;">Message character limit reached</div>
+      <button class="button button-calm button-full icon-center ion-paper-airplane" ng-click="messageCheck()">
+        Message
+      </button>
+    </div> -->
+  </ion-content>
+</ion-view>

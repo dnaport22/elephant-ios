@@ -26,7 +26,6 @@ elephant.controller('ViewController', function($scope, $stateParams, $location, 
     }
   }
 
-  //$scope.defaultMessagevalue = "Hey, I am interested in your " + $scope.item_name;
 
   $scope.checkMaxLength = function() {
     var mesageName = document.getElementById("user_message");
@@ -42,7 +41,4 @@ elephant.controller('ViewController', function($scope, $stateParams, $location, 
     }
   }
 
-  $scope.messageInfo = function() {
-    UIfactory.showAlert('Contact user', 'Your message will be delievered to the item owner using LSBU email. Once the owner recieved your message in their LSBU inbox, they can contact you by replying to the email that we will send on your behalf.')
-  }
 });

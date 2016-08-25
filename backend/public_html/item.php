@@ -141,7 +141,10 @@ SQL;
   public static function getAdminList($offset, $limit) {
     global $mysql_db;
     /** @var PDOStatement $results */
-    $results = $mysql_db->queryCast('SELECT * FROM items ORDER BY itemID DESC LIMIT :limit OFFSET :offset', [
+    $results = $mysql_db->queryCast('SELECT items.user_id, items.itemID, items.item_name, items.description, items.image_src, post_date.items, items.status, user_profiles.name, user_profiles.uid
+                                     FROM items INNER JOIN user_profiles ON
+                                     items.uid = user_profiles.uid
+                                     ORDER BY itemID DESC LIMIT :limit OFFSET :offset', [
       ':offset' => (int) $offset ?: 0,
       ':limit' => (int) $limit ?: 10,
     ]);
@@ -163,10 +166,8 @@ SQL;
     global $mysql_db;
     $query = <<<SQL
       SELECT * FROM items WHERE
-        (CONCAT(' ', LOWER(item_name), ' ') LIKE LOWER(:filter) AND
-        status = :status) OR
-        (CONCAT(' ', LOWER(description), ' ') LIKE LOWER(:filter) AND
-        status = :status)
+        (CONCAT(' ', LOWER(item_name), ' ') LIKE LOWER(:filter) OR
+        (CONCAT(' ', LOWER(description), ' ') LIKE LOWER(:filter)
       ORDER BY itemID DESC LIMIT :limit OFFSET :offset
 SQL;
 
@@ -177,7 +178,6 @@ SQL;
       ':offset' => (int) $offset ?: 0,
       ':limit' => (int) $limit ?: 10,
       ':filter' => '%' . $filter . '%',
-      ':status' => '1',
     ]);
     return self::loadList($results);
   }

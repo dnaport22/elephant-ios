@@ -10,6 +10,7 @@ elephant.controller('RegisterController', function($scope, UIfactory, $ionicHist
   const BASE_URL = elephantData_URL.REGISTER_USER_URL;
 
   $scope.registerUser = function() {
+    UIfactory.showSpinner();
     var register_data = {
       name: inputVal.getValue(nameId),
       email: inputVal.getValue(emailId),
@@ -22,10 +23,11 @@ elephant.controller('RegisterController', function($scope, UIfactory, $ionicHist
     if(register.validateEmail(cleanEmail) == true) {
       if(register.validatePassword() == true) {
         if($scope.isChecked.checkbox == true) {
-          var registerFormSubmit = new Submitform('POST', BASE_URL, register_data, false);
+          var registerFormSubmit = new Submitform('POST', BASE_URL, register.registerFormData(), false);
           registerFormSubmit.ajaxSubmit(this);
         }
         else {
+          UIfactory.hideSpinner();
           UIfactory.showAlert('Alert', 'Agree terms and conditions');
         }
       }
@@ -34,19 +36,21 @@ elephant.controller('RegisterController', function($scope, UIfactory, $ionicHist
 
   $scope.onSuccess = function(response) {
     if (response.status == 1) {
+      UIfactory.hideSpinner();
       UIfactory.showAlert('Registered successfully', 'A validation email has been sent to your LSBU email account. Please validate your email to start using your account.');
       reloadForm();
     }
     else if(response.status == 0) {
+      UIfactory.hideSpinner();
       UIfactory.showAlert('Alert', 'Email already registred');
     }
   }
 
   var reloadForm = function() {
-    inputVal.setValue(this.NameId, '');
-    inputVal.setValue(this.EmailId, '');
-    inputVal.setValue(this.PassId, '');
-    inputVal.setValue(this.Pass2Id, '');
+    inputVal.setValue(nameId, '');
+    inputVal.setValue(emailId, '');
+    inputVal.setValue(passId, '');
+    inputVal.setValue(pass2Id, '');
     return $ionicHistory.goBack();
   }
 

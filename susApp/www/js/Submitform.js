@@ -7,12 +7,30 @@ function Submitform(type, url, data, cache) {
 }
 
 Submitform.prototype.ajaxSubmit = function(callback) {
-
   $.ajax({
     type: this.type,
     url: this.url,
     cache: this.cache,
     data: this.dataArray,
+    success: function(response) {
+      callback.onSuccess(response);
+    },
+    error: function(error) {
+      callback.onError(error);
+    }
+  });
+}
+
+Submitform.prototype.ajaxFileSubmit = function(callback) {
+  console.log(this.dataArray)
+  $.ajax({
+    type: this.type,
+    url: this.url,
+    cache: this.cache,
+    dataType: 'json',
+    contentType: false,
+    data: this.dataArray,
+    processData: false,
     success: function(response) {
       callback.onSuccess(response);
     },

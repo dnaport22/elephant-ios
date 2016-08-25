@@ -1,13 +1,16 @@
 var elephant = angular.module('elephant',
 [
-  'ionic',
+  'ionic','ionic.service.core',
   'ngCordova',
   'ngStorage',
-  'testctrls'
+  'ionic.service.core',
+  'ionic.service.analytics'
 ])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $ionicAnalytics) {
   $ionicPlatform.ready(function() {
+    //Register ionic analytics
+    //$ionicAnalytics.register();
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -45,19 +48,7 @@ var elephant = angular.module('elephant',
   })
 
   .state('app.main', {
-    cache: false,
-    url: '/main/admin',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/login.html',
-        controller: 'LoginController'
-      }
-    }
-  })
-
-  .state('app.home', {
-    cache: false,
-    url: '/home',
+    url: '/main',
     views: {
       'menuContent': {
         templateUrl: 'templates/main.html',
@@ -66,9 +57,28 @@ var elephant = angular.module('elephant',
     }
   })
 
+  .state('app.login', {
+    url: '/login/:path',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/login.html',
+        controller: 'LoginController'
+      }
+    }
+  })
+
+  .state('app.register', {
+    url: '/register',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/register.html',
+        controller: 'RegisterController'
+      }
+    }
+  })
 
   .state('app.getitem', {
-    url: '/getitem/:itemName/:itemDesc/:itemDate/:itemUid/:itemImg/:itemId/:itemStatus',
+    url: '/getitem/:itemName/:itemDesc/:itemDate/:itemUid/:itemImg',
     views: {
       'menuContent': {
         templateUrl: 'templates/getitem.html',
@@ -91,7 +101,76 @@ var elephant = angular.module('elephant',
     url: '/requestreset',
     views: {
       'menuContent': {
-        templateUrl: 'templates/requestreset.html'
+        templateUrl: 'templates/requestreset.html',
+        controller: 'RequestResetController'
+      }
+    }
+  })
+
+  .state('app.myitems', {
+    url: '/myitems',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/myitems.html',
+        controller: 'MyitemsController'
+      }
+    }
+  })
+
+  .state('app.aboutus', {
+    url: '/aboutus',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/aboutus.html'
+      }
+    }
+  })
+
+  .state('app.terms', {
+    url: '/terms',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/terms.html'
+      }
+    }
+  })
+
+  .state('app.test', {
+    url: '/test',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/test.html',
+        controller: 'testCtrl'
+      }
+    }
+  })
+
+  .state('app.userguide', {
+    url: '/userguide',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/userguide.html',
+        controller: 'UserguideController'
+      }
+    }
+  })
+
+  .state('app.useraccount', {
+    url: '/activation/:uniqueId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/activateaccount.html',
+        controller: 'UseraccountController'
+      }
+    }
+  })
+
+  .state('app.postitem', {
+    url: '/postitem',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/postitem_web.html',
+        controller: 'PostitemController_web'
       }
     }
   });

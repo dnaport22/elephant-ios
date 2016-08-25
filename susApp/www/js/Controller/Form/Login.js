@@ -7,6 +7,7 @@ elephant.controller('LoginController', function($scope, $state, $ionicSideMenuDe
   const BASE_URL = elephantData_URL.LOGIN_USER_URL;
 
   $scope.loginUser = function() {
+    UIfactory.showSpinner();
     var login_data = {
       email: inputVal.getValue(EmailId),
       pass: inputVal.getValue(PassId)
@@ -15,17 +16,19 @@ elephant.controller('LoginController', function($scope, $state, $ionicSideMenuDe
     login.loginCredentials(login_data.email, login_data.pass);
     var cleanEmail = login.cleanEmail();
     if(login.validateEmail(cleanEmail) == true) {
-      var loginFormSubmit = new Submitform('POST', BASE_URL, login_data, false);
+      var loginFormSubmit = new Submitform('POST', BASE_URL, login.loginFormData(), false);
       loginFormSubmit.ajaxSubmit(this)
     }
   }
 
   $scope.onSuccess = function(response) {
     if (response.status == 0) {
+      UIfactory.hideSpinner();
       return UIfactory.showAlert('Alert', 'Invalid account');
     }
     else if(response.status == 1) {
       if(response.user.status == 0) {
+        UIfactory.hideSpinner();
         return UIfactory.showAlert('Alert', 'Please activate your account');
       }
       else {

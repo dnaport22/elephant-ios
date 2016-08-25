@@ -1,4 +1,4 @@
-elephant.controller('PostitemController', function($scope,$localStorage ,$ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $window, UIfactory, elephantData_URL, elephantData_POSTITEM) {
+elephant.controller('PostitemController', function($state, $scope, $ionicHistory, $localStorage ,$ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $window, UIfactory, elephantData_URL, elephantData_POSTITEM) {
   var itemNameid = elephantData_POSTITEM.ITEM_NAME;
   var itemDescid = elephantData_POSTITEM.ITEM_DESC;
   var itemImageid = elephantData_POSTITEM.ITEM_IMAGE;
@@ -60,6 +60,8 @@ elephant.controller('PostitemController', function($scope,$localStorage ,$ionicA
   }
 
   $scope.uploadItem = function() {
+    //$ionicHistory.goBack()
+    //$state.go('app.main')
     UIfactory.showSpinner();
     var fileURL = imageToUpload;
     var serverURL = elephantData_URL.POST_ITEM_URL;
@@ -104,6 +106,23 @@ elephant.controller('PostitemController', function($scope,$localStorage ,$ionicA
     document.getElementById("upload-image-container").style.display = "none";
     document.getElementById("select-image-button").innerHTML= "Select Image";
   }
+
+  // var redirectUser = function() {
+  //   UIfactory.showSpinner();
+  //   if (path == 'main') {
+  //       UIfactory.hideSpinner();
+  //       $ionicHistory.goBack();
+  //   }
+  //   else if (path == 'menu') {
+  //       UIfactory.hideSpinner();
+  //       $state.go('app.main');
+  //       $ionicSideMenuDelegate.toggleLeft();
+  //   }
+  //   else if (path == 'postitem') {
+  //     UIfactory.hideSpinner();
+  //     $ionicHistory.goBack();
+  //   }
+  // }
 
   $scope.getFileName = function(fileName) {
     file = fileName.substr(fileName.lastIndexOf('/')+1);
