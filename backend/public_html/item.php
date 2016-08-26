@@ -168,7 +168,7 @@ SQL;
   public static function getAdminList($offset, $limit) {
     global $mysql_db;
     /** @var PDOStatement $results */
-    $results = $mysql_db->queryCast('SELECT * FROM items INNER JOIN user_profiles ON items.user_id = user_profiles.uid
+    $results = $mysql_db->queryCast('SELECT items.user_id, items.itemID, items.item_name, items.description, items.image_src, items.post_date, user_profiles.name, user_profiles.email, items.status FROM items INNER JOIN user_profiles ON items.user_id = user_profiles.uid
                                      ORDER BY itemID DESC LIMIT :limit OFFSET :offset', [
       ':offset' => (int) $offset ?: 0,
       ':limit' => (int) $limit ?: 10,

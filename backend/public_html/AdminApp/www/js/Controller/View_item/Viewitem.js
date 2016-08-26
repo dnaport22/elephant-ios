@@ -6,7 +6,6 @@ elephant.controller('ViewController', function($scope, $stateParams, $location, 
   $scope.status = $stateParams.itemStatus;
   $scope.item_ownername = $stateParams.item_ownername;
   $scope.item_owneremail = $stateParams.item_owneremail;
-  $scope.test = 'test';
   var itemId = $stateParams.itemId;
   // var item_uid = $stateParams.itemUid;
   // var email = $localStorage.user_email;

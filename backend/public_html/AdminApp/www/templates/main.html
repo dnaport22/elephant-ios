@@ -17,7 +17,6 @@
         <div href="#" class="list card" ng-click="trafficLight('getitem',item.name,item.description,item.postDate,item.uid,item.image,item.id,item.status, item.useremail, item.username)">
           <div class="item item-image" style="background-image: url('http://maddna.xyz/images/{{::item.image}}')"></div>
             <a class="item item-icon-right">
-              <i class="icon ion-ios-redo"></i>
                 {{::item.name}}
             </a>
           <div ng-class="{
@@ -28,6 +27,7 @@
             <span ng-if="item.status == 0">Pending approval</span>
             <span ng-if="item.status == 1">Item approved</span>
             <span ng-if="item.status == 2">Item not approved</span>
+            <span>{{item.status}}</span>
           </div>
         </div>
       </div>
