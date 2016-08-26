@@ -1,4 +1,4 @@
-elephant.controller('ViewController', function($scope, $stateParams, $location, $localStorage, MessageService, elephantData_URL) {
+elephant.controller('ViewController', function($scope, $stateParams, $location, $localStorage, MessageService, elephantData_URL, UIfactory) {
   $scope.item_name = $stateParams.itemName;
   $scope.item_description = $stateParams.itemDesc;
   $scope.item_date = $stateParams.itemDate;
@@ -15,6 +15,7 @@ elephant.controller('ViewController', function($scope, $stateParams, $location, 
   $scope.approveItem = function() {
     var dataString = {
       itemId: itemId,
+      itemname: $scope.item_name,
       username: $scope.item_ownername,
       useremail: $scope.item_owneremail,
       code: $localStorage.user_activation
@@ -26,6 +27,7 @@ elephant.controller('ViewController', function($scope, $stateParams, $location, 
   $scope.declineItem = function() {
     var dataString = {
       itemId: itemId,
+      itemname: $scope.item_name,
       username: $scope.item_ownername,
       useremail: $scope.item_owneremail,
       code: $localStorage.user_activation
@@ -35,7 +37,12 @@ elephant.controller('ViewController', function($scope, $stateParams, $location, 
   }
 
   $scope.submitResponse = function(response) {
-    console.log(response)
+    if(response.status == 1) {
+      UIfactory.showAlert('Success')
+    }
+    else{
+      UIfactory.showAlert('Error')
+    }
   }
 
 

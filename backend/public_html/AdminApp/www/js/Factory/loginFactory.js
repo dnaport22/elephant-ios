@@ -45,7 +45,6 @@ elephant.factory('loginFactory', function(UIfactory, $ionicHistory, elephantData
   }
 
   loginFactory.prototype.submitResponse = function(response) {
-    console.log(response)
     if (response.status == 0) {
       UIfactory.showAlert('Alert', 'Invalid account');
     }
