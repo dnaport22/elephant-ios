@@ -57,12 +57,14 @@
    }
 
    public function sendEmail($email, $key) {
-     $subject = 'Reset password for elephant app';
+     $subject = 'Reset password for the elephant app';
      $link = $this->getResetPasswordUrl($key);
      $message = <<<HTML
+<b>This is an automated email sent by the elephant app:</b><hr>
 A password reset has been requested for an elephant app account associated with this email address.<br/>
 Please follow this link to reset your password:
-<a href="{$link}">{$link}</a><hr><br><br>
+<a href="{$link}">{$link}</a><br><br>
+Regards,<br>the elephant app team.<br><br><hr>
 HTML;
 
      $header  = "From: noreply@maddna.xyz \r\n";
