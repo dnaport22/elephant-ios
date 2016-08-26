@@ -42,9 +42,9 @@ elephant.controller('MainpageCtrl', function($scope, $http, $ionicPlatform,$ioni
   }
 
 
-  $scope.trafficLight = function(route, item_name, item_desc, item_date, item_uid, item_img, item_id, item_status) {
+  $scope.trafficLight = function(route, item_name, item_desc, item_date, item_uid, item_img, item_id, item_status, item_ownername, item_owneremail) {
     if (route == 'getitem') {
-      $location.path("/app/getitem/" + item_name + "/" + item_desc + "/" + item_date + "/" + item_uid + "/" + item_img + "/" + item_id + "/" + item_status)
+      $location.path("/app/getitem/" + item_name + "/" + item_desc + "/" + item_date + "/" + item_uid + "/" + item_img + "/" + item_id + "/" + item_status + "/" + item_ownername + "/" + item_owneremail)
     }
   }
 

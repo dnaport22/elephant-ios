@@ -267,8 +267,7 @@ SQL;
       $item->load($data);
       $list[] = $item;
     }
-    print_r($list);
-    //return $list;
+    return $list;
   }
 
   /**

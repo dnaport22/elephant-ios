@@ -3,13 +3,16 @@
     <div class="list card">
       <div class="item item-image" style="background-image: url('http://maddna.xyz/images/{{::item_img}}')"></div>
       <div class="item item-body">
-        {{::item_name}} <br> Posted on: {{::item_date}}
+        {{item_name}} <br> Posted on: {{item_date}}
       </div>
       <div class="item item-body">
-        {{::item_name}}
+        Username: {{item_ownername}}
       </div>
       <div class="item item-body">
-        Description: <br> {{::item_description}}
+        User email: {{item_owneremail}}
+      </div>
+      <div class="item item-body">
+        Description: <br> {{item_description}}
       </div>
       <div ng-class="{
         'bar bar-energized item item-divider': status == 0,

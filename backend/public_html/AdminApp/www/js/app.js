@@ -68,7 +68,7 @@ var elephant = angular.module('elephant',
 
 
   .state('app.getitem', {
-    url: '/getitem/:itemName/:itemDesc/:itemDate/:itemUid/:itemImg/:itemId/:itemStatus',
+    url: '/getitem/:itemName/:itemDesc/:itemDate/:itemUid/:itemImg/:itemId/:itemStatus/:item_ownername/:item_owneremail',
     views: {
       'menuContent': {
         templateUrl: 'templates/getitem.html',
