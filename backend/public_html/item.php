@@ -191,8 +191,10 @@ SQL;
     global $mysql_db;
     $query = <<<SQL
       SELECT * FROM items WHERE
-        (CONCAT(' ', LOWER(item_name), ' ') LIKE LOWER(:filter) OR
-        (CONCAT(' ', LOWER(description), ' ') LIKE LOWER(:filter)
+        (CONCAT(' ', LOWER(item_name), ' ') LIKE LOWER(:filter) AND
+        status = :status) OR
+        (CONCAT(' ', LOWER(description), ' ') LIKE LOWER(:filter) AND
+        status = :status)
       ORDER BY itemID DESC LIMIT :limit OFFSET :offset
 SQL;
 
@@ -203,6 +205,7 @@ SQL;
       ':offset' => (int) $offset ?: 0,
       ':limit' => (int) $limit ?: 10,
       ':filter' => '%' . $filter . '%',
+      ':status' => '1',
     ]);
     return self::loadList($results);
   }
