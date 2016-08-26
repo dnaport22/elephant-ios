@@ -4,14 +4,15 @@ elephant.controller('ViewController', function($scope, $stateParams, $location, 
   $scope.item_date = $stateParams.itemDate;
   $scope.item_img = $stateParams.itemImg;
   $scope.status = $stateParams.itemStatus;
-  $scope.item_ownername = $stateParams.item_ownername;
-  $scope.item_owneremail = $stateParams.item_owneremail;
+  $scope.item_ownername = $stateParams.item_owneremail;
+  $scope.item_owneremail = $stateParams.item_ownername;
   var itemId = $stateParams.itemId;
   // var item_uid = $stateParams.itemUid;
   // var email = $localStorage.user_email;
   // var username = $localStorage.user_username;
 
   $scope.approveItem = function() {
+    UIfactory.showSpinner();
     var dataString = {
       itemId: itemId,
       itemname: $scope.item_name,
@@ -24,11 +25,12 @@ elephant.controller('ViewController', function($scope, $stateParams, $location, 
   }
 
   $scope.declineItem = function() {
+    UIfactory.showSpinner();
     var dataString = {
       itemId: itemId,
       itemname: $scope.item_name,
-      username: $scope.item_ownername,
-      useremail: $scope.item_owneremail,
+      username: $stateParams.item_owneremail,
+      useremail: $stateParams.item_ownername,
       code: $localStorage.user_activation
     }
     var approveRequest = new Submitform(elephantData_URL.DECLINE_ADMIN_ITEM_TYPE, elephantData_URL.DECLINE_ADMIN_ITEM_URL, dataString, false)
@@ -36,6 +38,7 @@ elephant.controller('ViewController', function($scope, $stateParams, $location, 
   }
 
   $scope.submitResponse = function(response) {
+    UIfactory.hideSpinner();
     if(response.status == 1) {
       UIfactory.showAlert('Success')
     }
