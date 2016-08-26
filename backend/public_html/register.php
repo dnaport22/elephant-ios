@@ -65,7 +65,7 @@ HTML;
   }
 
   protected function getActivationUrl(User $user) {
-    return 'http://' . $_SERVER['HTTP_HOST'] . '/WebApp/#/app/activation/' . $user->getActivation();
+    return 'http://' . $_SERVER['HTTP_HOST'] . '/WebApp/www/#/app/activation/' . $user->getActivation();
   }
 
   public function test() {

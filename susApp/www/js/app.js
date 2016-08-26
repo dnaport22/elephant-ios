@@ -27,9 +27,9 @@ var elephant = angular.module('elephant',
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
-  $ionicConfigProvider.views.transition('android');
+  //$ionicConfigProvider.views.transition('android');
   $ionicConfigProvider.scrolling.jsScrolling(false);
-  $ionicConfigProvider.spinner.icon('android');
+  //$ionicConfigProvider.spinner.icon('android');
 
   $stateProvider
 
@@ -87,16 +87,6 @@ var elephant = angular.module('elephant',
     }
   })
 
-  .state('app.resetpassword', {
-    url: '/resetpassword/:key',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/resetpassword.html',
-        controller: 'ResetPassController'
-      }
-    }
-  })
-
   .state('app.requestreset', {
     url: '/requestreset',
     views: {
@@ -135,32 +125,12 @@ var elephant = angular.module('elephant',
     }
   })
 
-  .state('app.test', {
-    url: '/test',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/test.html',
-        controller: 'testCtrl'
-      }
-    }
-  })
-
   .state('app.userguide', {
     url: '/userguide',
     views: {
       'menuContent': {
         templateUrl: 'templates/userguide.html',
         controller: 'UserguideController'
-      }
-    }
-  })
-
-  .state('app.useraccount', {
-    url: '/activation/:uniqueId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/activateaccount.html',
-        controller: 'UseraccountController'
       }
     }
   })

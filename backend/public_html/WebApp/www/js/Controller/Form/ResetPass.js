@@ -10,9 +10,9 @@ elephant.controller('ResetPassController', function($state, $stateParams, $scope
       pass: inputVal.getValue(PassId),
       key: key
     }
-    var resetVerify = new UserFactory;
-    var cleanEmail = resetVerify.cleanEmail();
-    if(resetVerify.validatePassword(cleanEmail) == true) {
+    var resetVerify = new UserFactory();
+    resetVerify.resetPasswordCredentials(inputVal.getValue(PassId), inputVal.getValue(Pass2Id));
+    if(resetVerify.validatePassword() == true) {
       var resetVerifyFormSubmit = new Submitform('POST', BASE_URL, resetPassword_data, false);
       resetVerifyFormSubmit.ajaxSubmit(this)
     }

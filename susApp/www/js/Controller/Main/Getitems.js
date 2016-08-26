@@ -1,4 +1,4 @@
-elephant.controller('MainpageCtrl', function($ionicHistory, $scope, $http, $ionicPlatform,$ionicModal,$location, $timeout, $state, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics, $templateCache, $ionicScrollDelegate, $rootScope) {
+elephant.controller('MainpageCtrl', function($state, $ionicHistory, $scope, $http, $ionicPlatform,$location, $timeout, $state, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics, $templateCache, $ionicScrollDelegate, $rootScope) {
   $rootScope.slideHeader = false;
   $rootScope.pixelLimit = 0;
 
@@ -94,9 +94,20 @@ elephant.controller('MainpageCtrl', function($ionicHistory, $scope, $http, $ioni
     }
   }
 
-  $scope.$on('$stateChangeSuccess', function() {
-    $scope.loadMore();
-  });
+  /**
+   * This loads the items before user enters the page.
+   */
+  if($localStorage.app_launch_activity == 0) {
+    $scope.$on('$ionicView.beforeEnter', function() {
+      $scope.loadMore();
+    });
+  }
+  else {
+    $scope.$on('$stateChangeSuccess', function() {
+      $scope.loadMore();
+    });
+  }
+
 
   $scope.reloadData = function() {
     $state.go($state.current, {reload: true, inherit: false})
@@ -113,5 +124,15 @@ elephant.controller('MainpageCtrl', function($ionicHistory, $scope, $http, $ioni
     offset = 0
     $scope.loadMore();
   }
+
+  /**
+   * This is redirect the user to app.userguide state,
+   * if the user has open the app for first time.
+   */
+  if($localStorage.app_launch_activity == 0) {
+    UIfactory.showSpinner();
+    $state.go('app.userguide');
+  }
+
 
  });

@@ -1,46 +1,18 @@
 <ion-view view-title="User Guide" class="terms">
-  </ion-nav-buttons>
+  <ion-nav-bar class="bar-calm">
+    <ion-nav-buttons side="left">
+      <button ng-click="closeUserGuide()" class="button button-icon button-clear ion-navicon">
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
   <ion-content>
-    <ion-slide-box on-slide-changed=slideIndex($index)>
-      <ion-slide>
-        <div class="list card">
-          <div class="item">
-            <h1>Intro to elephant app</h1>
-            <div class="item item-image">
-              <img src="./../img/ionic.png">
-            </div>
-          </div>
-        </div>
-      </ion-slide>
-      <ion-slide>
-        <div class="list card">
-          <div class="item">
-            <h1>Intro to elephant app</h1>
-            <div class="item item-image">
-              <img src="./../img/ionic.png">
-            </div>
-          </div>
-        </div>
-      </ion-slide>
-      <ion-slide>
-        <div class="list card">
-          <div class="item">
-            <h1>Intro to elephant app</h1>
-            <div class="item item-image">
-              <img src="./../img/ionic.png">
-            </div>
-          </div>
-        </div>
-      </ion-slide>
-
-    </ion-slide-box>
-    <div class="row">
-      <div class="col col-center text-center" ng-if="index == true">
-        <button class="button button-assertive" ng-click="previousSlide()">Previous</button>
-      </div>
-      <div class="col col-center text-center">
-        <button class="button button-balanced" ng-click="nextSlide()">{{progress}}</button>
-      </div>
+    <div class="item item-body">
+      Here you can place your T&C text. This page will be linked from the registration page, but there's nothing special needed here (the T&C acceptance checkbox should be on the registration page)
     </div>
   </ion-content>
+  <div class="tab-striped  tabs-background-calm" ng-if="$storage.app_launch_activity == 0">
+    <div class="tabs tabs-color-light ">
+      <button class="button button-balanced" ng-click="closeUserGuide()">Start using the app</button>
+  </div>
+</div>
 </ion-view>
