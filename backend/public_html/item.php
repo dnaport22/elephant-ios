@@ -94,8 +94,8 @@ class Item implements JsonSerializable {
       $this->setImage($data['image_src']);
       $this->setStatus($data['status']);
       $this->setPostDate($data['post_date']);
-      // $this->setUserEmail($data['email']);
-      // $this->setUsername($data['name']);
+      $this->setUserEmail($data['email']);
+      $this->setUsername($data['name']);
       return TRUE;
     }
     return FALSE;
@@ -267,7 +267,8 @@ SQL;
       $item->load($data);
       $list[] = $item;
     }
-    return $list;
+    print_r($list);
+    //return $list;
   }
 
   /**
