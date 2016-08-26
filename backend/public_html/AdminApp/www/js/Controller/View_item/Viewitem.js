@@ -15,6 +15,8 @@ elephant.controller('ViewController', function($scope, $stateParams, $location, 
   $scope.approveItem = function() {
     var dataString = {
       itemId: itemId,
+      username: $scope.item_ownername,
+      useremail: $scope.item_owneremail,
       code: $localStorage.user_activation
     }
     var approveRequest = new Submitform(elephantData_URL.APPROVE_ADMIN_ITEM_TYPE, elephantData_URL.APPROVE_ADMIN_ITEM_URL, dataString, false)
@@ -24,6 +26,8 @@ elephant.controller('ViewController', function($scope, $stateParams, $location, 
   $scope.declineItem = function() {
     var dataString = {
       itemId: itemId,
+      username: $scope.item_ownername,
+      useremail: $scope.item_owneremail,
       code: $localStorage.user_activation
     }
     var approveRequest = new Submitform(elephantData_URL.DECLINE_ADMIN_ITEM_TYPE, elephantData_URL.DECLINE_ADMIN_ITEM_URL, dataString, false)
