@@ -20,7 +20,7 @@ elephant.controller('RequestResetController', function($scope, UIfactory, UserFa
   $scope.onSuccess = function(response) {
     if (response.status == 0) {
       UIfactory.hideSpinner();
-      UIfactory.showAlert('Alert', 'The password could not be reset. Please try again in few minutes or contact elephant team.');
+      UIfactory.showAlert('Alert', 'Your password could not be reset. Please try again in a few minutes or email us on hello@myelephant.xyz');
     }
     else if(response.status == 1) {
       UIfactory.hideSpinner();

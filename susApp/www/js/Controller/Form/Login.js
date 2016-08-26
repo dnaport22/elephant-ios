@@ -29,7 +29,7 @@ elephant.controller('LoginController', function($scope, $state, $ionicSideMenuDe
     else if(response.status == 1) {
       if(response.user.status == 0) {
         UIfactory.hideSpinner();
-        return UIfactory.showAlert('Alert', 'Please activate your account');
+        return UIfactory.showAlert('Alert', 'Please click on the activation link sent to your LSBU email address.');
       }
       else {
         return userStorage(response.user);
@@ -71,13 +71,13 @@ elephant.controller('LoginController', function($scope, $state, $ionicSideMenuDe
 
   //Login intent message
   if (path == 'main') {
-    $scope.loginMessage = 'Log in to get or post items';
+    $scope.loginMessage = 'Log in to get or post items.';
   }
   else if(path == 'postitem') {
-    $scope.loginMessage = 'Log in to post items';
+    $scope.loginMessage = 'Log in to post items.';
   }
   else if (path == 'getitem') {
-    $scope.loginMessage = 'Log in to send message';
+    $scope.loginMessage = 'Log in to send a message.';
   }
 
 });

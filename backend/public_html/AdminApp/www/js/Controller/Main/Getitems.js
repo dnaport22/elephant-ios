@@ -14,7 +14,6 @@ elephant.controller('MainpageCtrl', function($scope, $http, $ionicPlatform,$ioni
         limit: limit,
         filter: inputVal.getValue('search'),
       }}).success(function(response) {
-        console.log(response)
         $scope.items = $scope.items.concat(response.items)
         retrieved = response.items.length
         offset += retrieved

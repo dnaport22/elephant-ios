@@ -28,7 +28,7 @@ elephant.controller('RegisterController', function($scope, UIfactory, $ionicHist
         }
         else {
           UIfactory.hideSpinner();
-          UIfactory.showAlert('Alert', 'Agree terms and conditions.');
+          UIfactory.showAlert('Alert', 'Please confirm you accept the terms and conditions.');
         }
       }
     }
@@ -37,12 +37,12 @@ elephant.controller('RegisterController', function($scope, UIfactory, $ionicHist
   $scope.onSuccess = function(response) {
     if (response.status == 1) {
       UIfactory.hideSpinner();
-      UIfactory.showAlert('Registered successfully', 'A validation email has been sent to your LSBU email account. Please validate your email to start using your account.');
+      UIfactory.showAlert('Alert', 'To complete your registration, please go to your LSBU email account to verify your email address.');
       reloadForm();
     }
     else if(response.status == 0) {
       UIfactory.hideSpinner();
-      UIfactory.showAlert('Alert', 'Email already registred');
+      UIfactory.showAlert('Alert', 'There is already an account registered with this email address.');
     }
   }
 
