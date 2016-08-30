@@ -17,7 +17,7 @@
                ng-model="searchValue"
                style="color:white;">
       </label>
-      <button class="button button-small button-assertive" ng-click="clearInput()" ng-if="inputVal == true">Clear</button>
+      <button class="button button-small" ng-click="clearInput()" ng-if="inputVal == true">Clear</button>
     </div>
   </ion-subheader-bar>
   <!-- Main ion-content directive -->
@@ -33,6 +33,11 @@
       <div class="row" ng-show="items.length == 0">
         <div class="col col-center text-center">
           No items found for {{searchValue}}
+        </div>
+      </div>
+      <div class="row" ng-show="items.length == 0">
+        <div class="col col-center text-center">
+          <ion-spinner></ion-spinner>
         </div>
       </div>
      <!-- Card view of the items -->
