@@ -11,12 +11,11 @@ elephant.controller('ViewController', function($scope, $stateParams, $location, 
 
 
   $scope.messageCheck = function() {
+    UIfactory.showSpinner();
     if ($localStorage.user_login_id == 1) {
       var item_uid = $stateParams.itemUid;
       var email = $localStorage.user_email;
       var username = $localStorage.user_username;
-      //Ionic analytics below
-      //$ionicAnalytics.track('Item Request', {item_name: $scope.item_name, request_user: email})
       var itemRequest = MessageService;
       itemRequest.constructor(item_uid, $scope.item_name, email, username)
       itemRequest.processInput();

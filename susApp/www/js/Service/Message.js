@@ -12,6 +12,7 @@ elephant.service('MessageService', function(UIfactory, elephantData_URL, $ionicA
 
   this.processInput = function() {
     if (this.msg == '') {
+      UIfactory.hideSpinner();
       UIfactory.showAlert('Alert', 'Please enter your message.');
     } else {
       return this.sendMessage();
@@ -33,12 +34,14 @@ elephant.service('MessageService', function(UIfactory, elephantData_URL, $ionicA
 
   this.onSuccess = function(response) {
     //Ionic analytics below
-    $ionicAnalytics.track('Item Request', {item_name: $scope.item_name, request_user: this.toUserId})
+    $ionicAnalytics.track('Item Request', {item_name: this.item_name, request_user: this.toUserId})
     if (response == '1') {
+      UIfactory.hideSpinner();
       UIfactory.showAlert('Message Sent', 'Response will be sent to your LSBU email account.');
       this.reloadForm();
     }
     else {
+      UIfactory.hideSpinner();
       UIfactory.showAlert('Error occurred', 'Please check your internet connection.');
     }
   }

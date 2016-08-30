@@ -35,11 +35,6 @@
           No items found for {{searchValue}}
         </div>
       </div>
-      <div class="row" ng-show="items.length == 0">
-        <div class="col col-center text-center">
-          <ion-spinner></ion-spinner>
-        </div>
-      </div>
      <!-- Card view of the items -->
       <div class="grid-two-to-three-to-four-col" ng-repeat="item in items track by item.id" ng-if="viewType == 'grid'">
         <div href="#" class="list card" ng-click="trafficLight('getitem',item.name,item.description,item.postDate,item.uid,item.image)">

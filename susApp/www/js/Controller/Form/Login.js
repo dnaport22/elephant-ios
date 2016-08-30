@@ -1,4 +1,5 @@
 elephant.controller('LoginController', function($scope, $state, $ionicSideMenuDelegate, $ionicHistory, $stateParams, $localStorage, elephantData_AUTH, elephantData_URL, UserFactory, UIfactory, LoginNotifications) {
+  UIfactory.hideSpinner();
   $scope.loginMessage = null;
 
   var path = $stateParams.path;
