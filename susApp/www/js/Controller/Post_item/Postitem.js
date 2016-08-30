@@ -12,9 +12,11 @@ elephant.controller('PostitemController', function($state, $scope, $ionicHistory
       titleText: 'How would you like to select picture?',
       buttonClicked: function(index) {
         if (index == 0) {
+          hideSheet();
           $scope.takePicture(Camera.PictureSourceType.CAMERA);
         }
         else if (index == 1) {
+          hideSheet();
           $scope.takePicture(Camera.PictureSourceType.PHOTOLIBRARY);
         }
         else if (index == 2) {

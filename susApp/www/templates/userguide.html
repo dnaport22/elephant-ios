@@ -7,7 +7,39 @@
   </ion-nav-bar>
   <ion-content>
     <div class="item item-body">
-      Here you can place your T&C text. This page will be linked from the registration page, but there's nothing special needed here (the T&C acceptance checkbox should be on the registration page)
+      <h2>Welcome to elephant!</h2>
+      <p><em class="calm">elephant</em> is a sustainability app developed for LSBU staff
+        and students <em class="assertive">(it can only be used with your <b>@lsbu.ac.uk</b> email address)</em>.
+        Our nonprofit movement is for people at our university who want to give
+        and get stuff for free.</p>
+      <p><em class="calm">elephant</em> allows you to <b class="balanced">upload or preview</b> available items <b class="assertive">FOR FREE!</b>
+         Please note that the App is moderated for your safety and the items are not immediately visible
+         (until our administrator approves them). To sign up, simply register with
+         your @lsbu.ac.uk email address and log in.</p>
+    </div>
+    <div class="item item-calm" ng-click="showDetail('show_get')">
+      <h2>If you want to get something for free</h2>
+    </div>
+    <div class="item item-body" ng-if="show_get == 1">
+      <li>Open the app to browse through the available items.</li>
+      <li>When you see something that you like, click on the image, title or description to find out more about the item.</li>
+      <li>If you are interested in the item, write a message to its owner.</li>
+      <li>When the item is no longer available, the owner will delete the item from the app (nothing for you to worry about!).</li>
+    </div>
+    <div class="item item-balanced" ng-click="showDetail('show_post')">
+      <h2>If you want to give something for free</h2>
+    </div>
+    <div class="item item-body" ng-if="show_post == 1">
+      <li>Log in with your @lsbu.ac.uk email address.</li>
+      <li>At the bottom of the screen click on the <b>post item</b> button.</li>
+      <li>The item will now be visible to our administration for approval.</li>
+    </div>
+    <div class="item item-body">
+      Should you have an issues whilst using the app, please do get in touch at <b>hello@myelephant.xyz</b>
+      We hope you will enjoy using elephant and thank you for your help in building a more sustainable world!
+    </div>
+    <div class="item">
+      Best wishes from the elephant & LSBU teams
     </div>
   </ion-content>
   <div class="tab-striped  tabs-background-calm" ng-if="$storage.app_launch_activity == 0">

@@ -1,4 +1,4 @@
-elephant.controller('LoginController', function($scope, $state, $ionicSideMenuDelegate, $ionicHistory, $stateParams, $localStorage, elephantData_AUTH, elephantData_URL, UserFactory, UIfactory) {
+elephant.controller('LoginController', function($scope, $state, $ionicSideMenuDelegate, $ionicHistory, $stateParams, $localStorage, elephantData_AUTH, elephantData_URL, UserFactory, UIfactory, LoginNotifications) {
   $scope.loginMessage = null;
 
   var path = $stateParams.path;
@@ -24,12 +24,12 @@ elephant.controller('LoginController', function($scope, $state, $ionicSideMenuDe
   $scope.onSuccess = function(response) {
     if (response.status == 0) {
       UIfactory.hideSpinner();
-      return UIfactory.showAlert('Alert', 'Invalid account');
+      return UIfactory.showAlert('Alert', LoginNotifications.INVALID_ACCOUNT);
     }
     else if(response.status == 1) {
       if(response.user.status == 0) {
         UIfactory.hideSpinner();
-        return UIfactory.showAlert('Alert', 'Please click on the activation link sent to your LSBU email address.');
+        return UIfactory.showAlert('Alert', LoginNotifications.INACTIVE_ACCOUNT);
       }
       else {
         return userStorage(response.user);

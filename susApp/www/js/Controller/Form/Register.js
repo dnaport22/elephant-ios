@@ -1,4 +1,4 @@
-elephant.controller('RegisterController', function($scope, UIfactory, $ionicHistory, elephantData_AUTH, UserFactory, elephantData_URL) {
+elephant.controller('RegisterController', function($scope, UIfactory, $ionicHistory, elephantData_AUTH, UserFactory, elephantData_URL, RegisterNotifications) {
   $scope.isChecked = {
     checkbox: false
   }
@@ -28,7 +28,7 @@ elephant.controller('RegisterController', function($scope, UIfactory, $ionicHist
         }
         else {
           UIfactory.hideSpinner();
-          UIfactory.showAlert('Alert', 'Please confirm you accept the terms and conditions.');
+          UIfactory.showAlert('Alert', RegisterNotifications.ACCEPT_TC);
         }
       }
     }
@@ -37,12 +37,12 @@ elephant.controller('RegisterController', function($scope, UIfactory, $ionicHist
   $scope.onSuccess = function(response) {
     if (response.status == 1) {
       UIfactory.hideSpinner();
-      UIfactory.showAlert('Alert', 'To complete your registration, please go to your LSBU email account to verify your email address.');
+      UIfactory.showAlert('Alert', RegisterNotifications.COMPLETE_REGISTER);
       reloadForm();
     }
     else if(response.status == 0) {
       UIfactory.hideSpinner();
-      UIfactory.showAlert('Alert', 'There is already an account registered with this email address.');
+      UIfactory.showAlert('Alert', RegisterNotifications.DUPLICATE_ACCOUNT);
     }
   }
 

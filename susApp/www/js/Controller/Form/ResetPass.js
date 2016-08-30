@@ -1,4 +1,4 @@
-elephant.controller('ResetPassController', function($state, $stateParams, $scope, UIfactory, UserFactory, elephantData_RESETPASS, elephantData_URL){
+elephant.controller('ResetPassController', function($state, $stateParams, $scope, UIfactory, UserFactory, elephantData_RESETPASS, elephantData_URL, ResetVerifyNotification){
 
   var PassId = elephantData_RESETPASS.RESET_PASS;
   var Pass2Id = elephantData_RESETPASS.RESET_PASS_VALIDATE;
@@ -19,10 +19,10 @@ elephant.controller('ResetPassController', function($state, $stateParams, $scope
 
   $scope.onSuccess = function(response) {
     if (response.status == 1) {
-      UIfactory.showAlert('Success', 'Your password has been successfully re-set.');
+      UIfactory.showAlert('Success', ResetVerifyNotification.RESET_SUCCESS);
     }
     else if(response.status == 0) {
-      UIfactory.showAlert('Alert', 'The password could not be reset. Please try again in few minutes or contact elephant team.');
+      UIfactory.showAlert('Alert', ResetVerifyNotification.RESET_ERROR);
     }
     else {
       reloadForm();
@@ -30,7 +30,7 @@ elephant.controller('ResetPassController', function($state, $stateParams, $scope
   }
 
   $scope.onError = function (response) {
-    UIfactory.showAlert('Alert', 'The password could not be reset. Please try again in few minutes or contact elephant team.')
+    UIfactory.showAlert('Alert', ResetVerifyNotification.RESET_ERROR)
   }
 
   var reloadForm = function() {

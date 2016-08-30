@@ -1,4 +1,4 @@
-elephant.controller('RequestResetController', function($scope, UIfactory, UserFactory, elephantData_URL, elephantData_RESETPASS) {
+elephant.controller('RequestResetController', function($scope, UIfactory, UserFactory, elephantData_URL, elephantData_RESETPASS, RequestRegisterNotification) {
 
   const BASE_URL = elephantData_URL.RESET_REQUEST_URL;
   var EmailId = elephantData_RESETPASS.RESET_REQUEST;
@@ -20,22 +20,22 @@ elephant.controller('RequestResetController', function($scope, UIfactory, UserFa
   $scope.onSuccess = function(response) {
     if (response.status == 0) {
       UIfactory.hideSpinner();
-      UIfactory.showAlert('Alert', 'Your password could not be reset. Please try again in a few minutes or email us on hello@myelephant.xyz');
+      UIfactory.showAlert('Alert',RequestRegisterNotification.RESET_ERROR);
     }
     else if(response.status == 1) {
       UIfactory.hideSpinner();
-      UIfactory.showAlert('Success', 'We have emailed you an activation link.')
+      UIfactory.showAlert('Success', RequestRegisterNotification.RESET_SUCCESS)
     }
     else {
       UIfactory.hideSpinner();
-      UIfactory.showAlert('Alert', 'The password could not be reset. Please try again in few minutes or contact elephant team.')
+      UIfactory.showAlert('Alert', RequestRegisterNotification.RESET_ERROR)
     }
     return reloadForm();
   }
 
   $scope.onError = function (response) {
     UIfactory.hideSpinner();
-    UIfactory.showAlert('Alert', 'The password could not be reset. Please try again in few minutes or contact elephant team.')
+    UIfactory.showAlert('Alert', RequestRegisterNotification.RESET_ERROR)
   }
 
   var reloadForm = function() {
