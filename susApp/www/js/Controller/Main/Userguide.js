@@ -1,4 +1,4 @@
-elephant.controller('UserguideController', function($ionicHistory, $ionicModal, $scope, $ionicSlideBoxDelegate, $localStorage, $state, UIfactory) {
+elephant.controller('UserguideController', function($ionicHistory, $ionicModal, $scope, $ionicSideMenuDelegate, $localStorage, $state, UIfactory) {
   /**
    * Hides any ongoing spinners
    */
@@ -16,6 +16,7 @@ elephant.controller('UserguideController', function($ionicHistory, $ionicModal, 
   $scope.closeUserGuide = function() {
     $localStorage.app_launch_activity = 1
     $ionicHistory.goBack();
+    $ionicSideMenuDelegate.toggleLeft();
   }
 
   $scope.show_get = 0;
