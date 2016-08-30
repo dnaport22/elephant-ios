@@ -1,4 +1,4 @@
-elephant.controller('PostitemController', function($state, $scope, $ionicHistory, $localStorage ,$ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $window, UIfactory, elephantData_URL, elephantData_POSTITEM, PostitemNotification) {
+elephant.controller('PostitemController', function($state, $scope, $ionicHistory, $localStorage ,$ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $ionicAnalytics, $window, UIfactory, elephantData_URL, elephantData_POSTITEM, PostitemNotification) {
   var itemNameid = elephantData_POSTITEM.ITEM_NAME;
   var itemDescid = elephantData_POSTITEM.ITEM_DESC;
   var itemImageid = elephantData_POSTITEM.ITEM_IMAGE;
@@ -91,6 +91,8 @@ elephant.controller('PostitemController', function($state, $scope, $ionicHistory
           UIfactory.hideSpinner();
           UIfactory.showAlert('Success', PostitemNotification.UPLOAD_SUCCESS);
           $cordovaCamera.cleanup();
+          //Ionic analytics below
+          $ionicAnalytics.track('Posted Item', {item_name: itemName, post_user_activation: $localStorage.user_activation})
           reloadForm();
         }, function(err) {
           UIfactory.hideSpinner();

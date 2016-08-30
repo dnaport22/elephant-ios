@@ -1,4 +1,4 @@
-elephant.service('MessageService', function(UIfactory, elephantData_URL) {
+elephant.service('MessageService', function(UIfactory, elephantData_URL, $ionicAnalytics) {
 
   this.constructor = function(to_user, item_name, email, username) {
     this.msg = inputVal.getValue("user_message");
@@ -32,6 +32,8 @@ elephant.service('MessageService', function(UIfactory, elephantData_URL) {
   }
 
   this.onSuccess = function(response) {
+    //Ionic analytics below
+    $ionicAnalytics.track('Item Request', {item_name: $scope.item_name, request_user: this.toUserId})
     if (response == '1') {
       UIfactory.showAlert('Message Sent', 'Response will be sent to your LSBU email account.');
       this.reloadForm();
