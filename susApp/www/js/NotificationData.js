@@ -23,5 +23,21 @@ elephant.constant('ResetVerifyNotification', {
 });
 
 elephant.constant('MyitemPageNotification', {
-  
+  DELETE_ERROR: 'An error occurred while deleting your item. Please try restarting the app.',
+});
+
+elephant.constant('PostitemNotification', {
+  MENU_TITLE: 'How would you like to select your image?',
+  UPLOAD_SUCCESS: 'You will receive an email when your item has been approved. This should take no longer than 24 hours.',
+  UPLOAD_ERROR: 'An error occurred while uploading your item. Please try again. If the error persists please email us on hello@myelephant.xyz'
+});
+
+elephant.constant('UserfactoryNotification', {
+  EMPTY_FIELD_ALERT: 'Please complete all fields.',
+  EMPTY_EMAIL_ALERT: 'Please enter your email address.',
+  INVALID_EMAIL: 'Please retype your email address.',
+  EMAIL_NOT_LSBU: 'Please enter a valid LSBU email address.',
+  PASSWORD_MATCH_ERROR: 'Password do not match.',
+  PASSWORD_LENGTH_ERROR: 'Password should be at least 8 characters long.',
+  PASSWORD_STRENGTH_ERROR: 'Password should contain at least one number.'
 })

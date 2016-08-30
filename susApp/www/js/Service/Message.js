@@ -37,12 +37,12 @@ elephant.service('MessageService', function(UIfactory, elephantData_URL) {
       this.reloadForm();
     }
     else {
-      UIfactory.showAlert('Error occurred', 'Check if you internet is working');
+      UIfactory.showAlert('Error occurred', 'Please check your internet connection.');
     }
   }
 
   this.reloadForm = function() {
-    inputVal.setValue('user_message', 'Hey, I am interested in your item.');
+    inputVal.setValue('user_message', '');
     return false;
   }
 

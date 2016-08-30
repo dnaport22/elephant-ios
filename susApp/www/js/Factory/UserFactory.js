@@ -1,4 +1,4 @@
-elephant.factory('UserFactory', function(UIfactory) {
+elephant.factory('UserFactory', function(UIfactory, UserfactoryNotification) {
 
   const emailFormat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -21,7 +21,7 @@ elephant.factory('UserFactory', function(UIfactory) {
   UserFactory.prototype.loginCredentials = function(email, pass) {
     if(email == '' || pass == '') {
       UIfactory.hideSpinner();
-      UIfactory.showAlert('Alert', "Please fill all fields");
+      UIfactory.showAlert('Alert', UserfactoryNotification.EMPTY_FIELD_ALERT);
     }
     else {
       this.setEmail(email);
@@ -32,7 +32,7 @@ elephant.factory('UserFactory', function(UIfactory) {
   UserFactory.prototype.registerCredentials = function(name, email, pass_orig, pass_valid) {
     if(name == '' || email == '' || pass_orig == '' || pass_valid == '') {
       UIfactory.hideSpinner();
-      UIfactory.showAlert('Alert', "Please fill all fields");
+      UIfactory.showAlert('Alert', UserfactoryNotification.EMPTY_FIELD_ALERT);
     }
     else {
       this.setName(name);
@@ -75,7 +75,7 @@ elephant.factory('UserFactory', function(UIfactory) {
   UserFactory.prototype.requestResetCredentials = function(email) {
     if(email == '') {
       UIfactory.hideSpinner();
-      UIfactory.showAlert('Alert', "Please fill your email address");
+      UIfactory.showAlert('Alert', UserfactoryNotification.EMPTY_EMAIL_ALERT);
     }
     else {
       this.setEmail(email);
@@ -85,7 +85,7 @@ elephant.factory('UserFactory', function(UIfactory) {
   UserFactory.prototype.resetPasswordCredentials = function(pass_orig, pass_valid) {
     if(pass_orig == '' || pass_valid == '') {
       UIfactory.hideSpinner();
-      UIfactory.showAlert('Alert', "Please fill all fields");
+      UIfactory.showAlert('Alert', UserfactoryNotification.EMPTY_FIELD_ALERT);
     }
     else {
       this.setPass_orig(pass_orig);
@@ -102,11 +102,11 @@ elephant.factory('UserFactory', function(UIfactory) {
     var ext = cleanEmail.split("@");
     if(emailMatching == false){
       UIfactory.hideSpinner();
-      return UIfactory.showAlert('Alert', 'Invalid Email');
+      return UIfactory.showAlert('Alert', UserfactoryNotification.INVALID_EMAIL);
     }
     else if (ext[1] != 'lsbu.ac.uk') {
       UIfactory.hideSpinner();
-      return UIfactory.showAlert('Alert', 'Plase enter valid lsbu email');
+      return UIfactory.showAlert('Alert', UserfactoryNotification.EMAIL_NOT_LSBU);
     }
     else {
       return true;
@@ -129,15 +129,15 @@ elephant.factory('UserFactory', function(UIfactory) {
   UserFactory.prototype.validatePassword = function() {
     if(this.getPass_orig() != this.getPass_valid()) {
       UIfactory.hideSpinner();
-      return UIfactory.showAlert('Alert', 'Password does not match');
+      return UIfactory.showAlert('Alert', UserfactoryNotification.PASSWORD_MATCH_ERROR);
     }
     else if(this.getPass_orig().length < 8) {
       UIfactory.hideSpinner();
-      return UIfactory.showAlert('Alert', 'Password should be atleast 8 characters long.')
+      return UIfactory.showAlert('Alert', UserfactoryNotification.PASSWORD_LENGTH_ERROR)
     }
     else if(this.getPass_orig().search(/[0-9]/) < 0){
       UIfactory.hideSpinner();
-      return UIfactory.showAlert('Alert', 'Password should contain atleast one digit.')
+      return UIfactory.showAlert('Alert', UserfactoryNotification.PASSWORD_STRENGTH_ERROR)
     }
     // else if(this.getPass_orig().search(/a-z/i) < 0) {
     //   return UIfactory.showAlert('Alert', 'Password should contain atleast one letter.')

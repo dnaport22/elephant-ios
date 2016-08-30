@@ -1,4 +1,4 @@
-elephant.controller('PostitemController', function($state, $scope, $ionicHistory, $localStorage ,$ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $window, UIfactory, elephantData_URL, elephantData_POSTITEM) {
+elephant.controller('PostitemController', function($state, $scope, $ionicHistory, $localStorage ,$ionicActionSheet, $timeout, $cordovaCamera, $cordovaFileTransfer, $window, UIfactory, elephantData_URL, elephantData_POSTITEM, PostitemNotification) {
   var itemNameid = elephantData_POSTITEM.ITEM_NAME;
   var itemDescid = elephantData_POSTITEM.ITEM_DESC;
   var itemImageid = elephantData_POSTITEM.ITEM_IMAGE;
@@ -9,7 +9,7 @@ elephant.controller('PostitemController', function($state, $scope, $ionicHistory
         { text: '<i class="icon ion-camera"></i>Capture using camera'},
         { text: '<i class="icon ion-images"></i>Select from gallery' }
       ],
-      titleText: 'How would you like to select picture?',
+      titleText: 'How would you like to select your image?',
       buttonClicked: function(index) {
         if (index == 0) {
           hideSheet();
@@ -53,7 +53,7 @@ elephant.controller('PostitemController', function($state, $scope, $ionicHistory
       image.style.backgroundImage = "url('" + imageURI + "')";
       imageToUpload = imageURI;
       document.getElementById("upload-image-container").style.display = "block";
-      document.getElementById("select-image-button").innerHTML= "Reselect Image";
+      document.getElementById("select-image-button").innerHTML= "Reselect image";
     }, function(err) {
       //Show an event or run analytics functions if required...
     });
@@ -71,7 +71,7 @@ elephant.controller('PostitemController', function($state, $scope, $ionicHistory
     var itemDesc = inputVal.getValue(itemDescid);
     if(itemName === "" || itemDesc === "" || fileURL == null) {
       UIfactory.hideSpinner();
-      UIfactory.showAlert('Alert', 'Please fill all fields and select an image');
+      UIfactory.showAlert('Alert', 'Please complete all fields and select an image.');
     }
     else {
       var imageSrc = $scope.getFileName(fileURL);
@@ -89,12 +89,12 @@ elephant.controller('PostitemController', function($state, $scope, $ionicHistory
       $cordovaFileTransfer.upload(serverURL, fileURL, options)
         .then(function(result) {
           UIfactory.hideSpinner();
-          UIfactory.showAlert('Success', 'Your ' + itemName + ' will be posted on the elephant app soon after approval by our team within 24 hours.');
+          UIfactory.showAlert('Success', PostitemNotification.UPLOAD_SUCCESS);
           $cordovaCamera.cleanup();
           reloadForm();
         }, function(err) {
           UIfactory.hideSpinner();
-          UIfactory.showAlert('Alert', 'An error occured file uploading the item, please contact app admintrantion team if error presist');
+          UIfactory.showAlert('Error', PostitemNotification.UPLOAD_ERROR);
           $cordovaCamera.cleanup();
         }
       )
@@ -106,7 +106,7 @@ elephant.controller('PostitemController', function($state, $scope, $ionicHistory
     inputVal.setValue(itemDescid, '');
     imageToUpload = null;
     document.getElementById("upload-image-container").style.display = "none";
-    document.getElementById("select-image-button").innerHTML= "Select Image";
+    document.getElementById("select-image-button").innerHTML= "Select image";
   }
 
   // var redirectUser = function() {

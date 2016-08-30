@@ -1,4 +1,4 @@
-elephant.controller('MyitemsController', function($scope, $http, $timeout, $localStorage, $ionicActionSheet, elephantData_URL, UIfactory, $templateCache) {
+elephant.controller('MyitemsController', function($scope, $http, $timeout, $localStorage, $ionicActionSheet, elephantData_URL, UIfactory, $templateCache, MyitemPageNotification) {
   $scope.myitems = [];
   var offset = 0;
   var limit = 10;
@@ -26,7 +26,7 @@ elephant.controller('MyitemsController', function($scope, $http, $timeout, $loca
               $scope.myitems.splice(index, 1);
             },
             error: function(error) {
-              UIfactory.showAlert('Error occured', 'An error occured while deleting your item')
+              UIfactory.showAlert('Error', MyitemPageNotification.DELETE_ERROR)
             }
           })
         }
