@@ -52,6 +52,11 @@
      return (bool) $result->rowCount();
    }
 
+   public function removeRequest() {
+     $result = $this->db->query('DELETE FROM forgotpass WHERE expires < DATE_SUB(NOW(), INTERVAL 24 HOUR)');
+     return (bool) $result->rowCount();
+   }
+
    protected function getResetPasswordUrl($key) {
      return 'http://' . $_SERVER['HTTP_HOST'] . '/WebApp/www/#/app/resetpassword/' . $key;
    }
