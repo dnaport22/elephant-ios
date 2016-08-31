@@ -58,7 +58,7 @@ Please click the link below to confirm that this email address will be associate
 <a href="{$activation_link}">{$activation_link}</a><br><br>
 Regards,<br>the elephant app team.<br><br><hr>
 HTML;
-    $header  = "From: noreply@maddna.xyz \r\n";
+    $header  = "From: no-reply@myelephant.xyz \r\n";
     $header .= "MIME-Version: 1.0\r\n";
     $header .= "Content-type: text/html\r\n";
     return mail($to, $subject, $message, $header) == TRUE;

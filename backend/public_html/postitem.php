@@ -95,7 +95,7 @@ Thank you.<br/>
 Regards, Sustainability all Team.
 HTML;
 
-		$header  = "From:noreply@maddna.xyz \r\n";
+		$header  = "From:no-reply@myelephant.xyz \r\n";
 		$header .= "MIME-Version: 1.0\r\n";
 		$header .= "Content-type: text/html\r\n";
 		if (mail($user->getEmail(), $subject, $message, $header) == True) {

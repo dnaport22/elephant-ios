@@ -36,13 +36,13 @@ class requestItem
     return $recieverName;
   }
   public function generateDefaultMessageBody($toName) {
-    $message =  "Hi <b>" . $this->findtoUserName() . "</b>, <br><br> elephant app is sending you this email on the behalf of <b> " . $this->senderName . " </b> for<b> " . $this->itemName . " </b> <hr>" . $this->requestMsg;
+    $message =  "Hi <b>" . $this->findtoUserName() . "</b>, <br><br> The elephant app is sending you this email on the behalf of <b> " . $this->senderName . " </b> for<b> " . $this->itemName . " </b> <hr>" . $this->requestMsg;
     return $message;
   }
   public function sendMsg($message, $toEmail)
   {
     $to = $toEmail;
-    $subject= "elephant app item request";
+    $subject= "The elephant app item request";
     $body = "<html>".
          "<body>".
          "$message <br><br><br>";
@@ -50,6 +50,7 @@ class requestItem
         "</html>";
     $from_user = 'elephant app User';
     $headers = "From: \"$from_user\" <$this->sender>\r\n".
+               "Sender: itemrequestemail@myelephant.xyz" . "\r\n" .
                "MIME-Version: 1.0" . "\r\n" .
                "Content-type: text/html; charset=UTF-8" . "\r\n";
         if(mail($to,$subject,$body,$headers)==True){

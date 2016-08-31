@@ -72,7 +72,7 @@ Please follow this link to reset your password:
 Regards,<br>the elephant app team.<br><br><hr>
 HTML;
 
-     $header  = "From: noreply@maddna.xyz \r\n";
+     $header  = "From: no-reply@myelephant.xyz \r\n";
      $header .= "MIME-Version: 1.0\r\n";
      $header .= "Content-type: text/html\r\n";
 
