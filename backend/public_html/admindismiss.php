@@ -9,12 +9,16 @@ function emailUser() {
   $to_email = $_POST['useremail'];
   $to_username = $_POST['username'];
   $itemname = $_POST['itemname'];
-  $subject = "The elephant app item upload request.";
+  $subject = "The elephant app item approved";
   $message = <<<HTML
 <b>This is an automated email sent by the elephant app:</b><hr>
-Dear {$to_username},<br/><br/>
-Your {$itemname} has been declined.<br><br>
-Regards,<br>the elephant app team.<br><br><hr>
+Hello {$to_username},<br/><br/>
+Your request for posting {$itemname} was declined. It may have been declined for one of the following reasons:
+<ul><li>poor image quality</li><li>title or description does not match the image</li>
+<li>image, title or description is inaccurate or offensive</li></ul><br><br>
+Please visit the elephant app to delete your item from your 'My items' page and then reupload, taking the above points
+into consideration.<br><br>
+Cheers,<br>The elephant team<br><br><hr>
 HTML;
   $header  = "From: no-reply@myelephant.xyz \r\n";
   $header .= "MIME-Version: 1.0\r\n";

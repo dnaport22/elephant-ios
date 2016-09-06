@@ -9,12 +9,12 @@ function emailUser() {
   $to_email = (@$_POST['useremail']);
   $to_username = (@$_POST['username']);
   $itemname = (@$_POST['itemname']);
-  $subject = "The elephant app item upload request.";
+  $subject = "The elephant app item approved";
   $message = <<<HTML
 <b>This is an automated email sent by the elephant app:</b><hr>
-Dear {$to_username},<br/><br/>
-Your {$itemname} has been approved.<br><br>
-Regards,<br>the elephant app team.<br><br><hr>
+Hello {$to_username},<br/><br/>
+Your request for posting {$itemname} has been approved. Your item is now posted on the elephant app.<br><br>
+Cheers,<br>The elephant team.<br><br><hr>
 HTML;
   $header  = "Sender: no-reply@myelephant.xyz \r\n";
   $header .= "MIME-Version: 1.0\r\n";

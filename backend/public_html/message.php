@@ -36,7 +36,7 @@ class requestItem
     return $recieverName;
   }
   public function generateDefaultMessageBody($toName) {
-    $message =  "Hi <b>" . $this->findtoUserName() . "</b>, <br><br> The elephant app is sending you this email on the behalf of <b> " . $this->senderName . " </b> for<b> " . $this->itemName . " </b> <hr>" . $this->requestMsg;
+    $message =  "Hi <b>" . $this->findtoUserName() . "</b>, <br><br> The elephant app is sending you this email on the behalf of <b> " . $this->senderName . " </b> for your item<b> " . $this->itemName . " </b> The message is below:<hr>" . $this->requestMsg;
     return $message;
   }
   public function sendMsg($message, $toEmail)

@@ -49,14 +49,13 @@ class registerUser {
 
   public function emailUser(User $user) {
     $to = $user->getEmail();
-    $subject = "Verify your email address for the elephant app";
+    $subject = "The elephant app account confirmation";
     $activation_link = $this->getActivationUrl($user);
     $message = <<<HTML
-<b>This is an automated email sent by the elephant app:</b><hr>
-Dear {$user->getName()},<br/><br/>
-Please click the link below to confirm that this email address will be associated with your elephant app user account:<br/><hr>
-<a href="{$activation_link}">{$activation_link}</a><br><br>
-Regards,<br>the elephant app team.<br><br><hr>
+Hello {$user->getName()},<br/><br/>
+To complete the registration, verify your email address by clicking on the link below:<br/>
+<a href="{$activation_link}"><b>Click here to verify</b></a><br><br>
+Cheers,<br>The elephant team.<br><br><hr>
 HTML;
     $header  = "From: no-reply@myelephant.xyz \r\n";
     $header .= "MIME-Version: 1.0\r\n";
