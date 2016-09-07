@@ -68,7 +68,9 @@
 <b>This is an automated email sent by the elephant app:</b><hr>
 A password reset has been requested for an elephant app account associated with this email address.<br/>
 Please follow this link to reset your password:
-<a href="{$link}">{$link}</a><br><br>
+<a href="{$link}"><b>Click here to reset your password.</b></a><br>
+If you haven't requested a password reset for the elephant app, please contact us on the following
+email <a href="mailto:myelephant.xyz@gmail.com">myelephant.xyz@gmail.com</a><br>
 Regards,<br>the elephant app team.<br><br><hr>
 HTML;
 

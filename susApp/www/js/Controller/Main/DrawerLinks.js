@@ -55,4 +55,11 @@ elephant.controller('DrawerController', function($state, $scope, $location, $loc
   }
   loginexpiryCheck();
 
+  $scope.goToPP = function() {
+    $state.go('app.pp')
+  }
+  $scope.goToEULA = function() {
+    $state.go('app.eula')
+  }
+
 });

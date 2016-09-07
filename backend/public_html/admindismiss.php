@@ -9,7 +9,7 @@ function emailUser() {
   $to_email = $_POST['useremail'];
   $to_username = $_POST['username'];
   $itemname = $_POST['itemname'];
-  $subject = "The elephant app item approved";
+  $subject = "The elephant app item declined";
   $message = <<<HTML
 <b>This is an automated email sent by the elephant app:</b><hr>
 Hello {$to_username},<br/><br/>
