@@ -165,6 +165,26 @@ var elephant = angular.module('elephant',
     }
   })
 
+  .state('app.eula', {
+    url: '/eula',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/eula.html',
+        controller: 'DrawerController'
+      }
+    }
+  })
+
+  .state('app.pp', {
+    url: '/pp',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/pp.html',
+        controller: 'DrawerController'
+      }
+    }
+  })
+
   .state('app.postitem', {
     url: '/postitem',
     views: {
