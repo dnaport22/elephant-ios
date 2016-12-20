@@ -1,31 +1,45 @@
-elephant.controller('UserguideController', function($ionicModal, $scope, $ionicSlideBoxDelegate) {
+elephant.controller('UserguideController', function($ionicHistory, $ionicModal, $scope, $ionicSideMenuDelegate, $localStorage, $state, UIfactory) {
+  /**
+   * Hides any ongoing spinners
+   */
+  UIfactory.hideSpinner();
 
-  $scope.index = false;
-  $scope.lastSlide = false;
-  $scope.progress = 'Next';
-
-  $scope.closeModal = function() {
-    //Set app_launch_activity = 1
-    $scope.modal.hide();
-  };
-
-  $scope.nextSlide = function() {
-    $ionicSlideBoxDelegate.next();
+  /**
+   * Init localStorage app_launch_activity objectß
+   */
+  $scope.$storage = $localStorage.$default({
+    app_launch_activity: 0
+  });
+  /**
+   * Return back to home back
+   */
+  $scope.closeUserGuide = function() {
+    $localStorage.app_launch_activity = 1
+    $ionicHistory.goBack();
+    $ionicSideMenuDelegate.toggleLeft();
   }
 
-  $scope.previousSlide = function() {
-    $ionicSlideBoxDelegate.previous();
-  }
+  $scope.show_get = 0;
+  $scope.show_post = 0;
 
-  $scope.slideIndex = function(index) {
-    console.log(index)
-    if(index > 0) {
-      $scope.index = true;
+  $scope.showDetail = function(view) {
+    if(view == 'show_get') {
+      if($scope.show_get == 0) {
+        $scope.show_get = 1;
+      }
+      else if($scope.show_get == 1){
+        $scope.show_get = 0;
+      }
     }
-    else if(index == 2) {
-      $scope.progress = 'Start app';
-      $scope.lastSlide = true;
+    else if (view == 'show_post') {
+      if($scope.show_post == 0) {
+        $scope.show_post = 1;
+      }
+      else if($scope.show_post == 1) {
+        $scope.show_post = 0;
+      }
     }
   }
-  //Destroy cache
+
+
 })
