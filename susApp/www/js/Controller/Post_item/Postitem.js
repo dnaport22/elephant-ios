@@ -48,10 +48,10 @@ elephant.controller('PostitemController', function($state, $scope, $ionicHistory
 
     $cordovaCamera.getPicture(options)
     .then(function(imageURI){
+      imageToUpload = imageURI;
       var image = document.getElementById('upImage');
       var photo = 'data:image/jpeg;base64,' + imageURI;
       image.style.backgroundImage = "url('" + imageURI + "')";
-      imageToUpload = imageURI;
       document.getElementById("upload-image-container").style.display = "block";
       document.getElementById("select-image-button").innerHTML= "Reselect image";
     }, function(err) {
