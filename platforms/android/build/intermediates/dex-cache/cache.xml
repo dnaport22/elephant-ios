@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/Nav/Documents/ionicApp/susApp/platforms/android/build/intermediates/exploded-aar/android/CordovaLib/unspecified/release/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="958fdb328b0c03c7c3f779b638b826b5225194e8">
+        <dex dex="/Users/Nav/Documents/ionicApp/susApp/platforms/android/build/intermediates/pre-dexed/release/CordovaLib-unspecified-release_fd6c271e30eb4ac038d785f722f50eec585de704.jar" />
+    </item>
+    <item
+        jar="/Users/Nav/Documents/ionicApp/susApp/platforms/android/build/intermediates/exploded-aar/android/CordovaLib/unspecified/debug/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="f9979c00938ac67f7f7bc1459e03742f3c35c636">
+        <dex dex="/Users/Nav/Documents/ionicApp/susApp/platforms/android/build/intermediates/pre-dexed/debug/CordovaLib-unspecified-debug_19200b7f0effcdc2e09d554ec5819270b521a139.jar" />
+    </item>
+
+</items>
