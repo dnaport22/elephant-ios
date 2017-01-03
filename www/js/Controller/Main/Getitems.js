@@ -42,7 +42,7 @@ elephant.controller('MainpageCtrl', function($state, $ionicHistory, $scope, $htt
         limit: limit,
         filter: inputVal.getValue('search'),
       }}).success(function(response) {
-        $scope.items = $scope.items.concat(response.items)
+        $scope.processData(response.items)
         retrieved = response.items.length
         offset += retrieved
         $scope.$broadcast('scroll.refreshComplete');
@@ -53,6 +53,13 @@ elephant.controller('MainpageCtrl', function($state, $ionicHistory, $scope, $htt
     });
   };
 
+  $scope.processData = function(data) {
+    console.log(data)
+    for (i = 0; i < data.length; i++) {
+      data[i]['image_url'] = 'http://service.myelephant.xyz/images/'+data[i]['image']
+      $scope.items = $scope.items.concat(data[i])
+    }
+  }
   /**
    * Description: search() function is called on ng-change in search input field,
    * it calls the loadMore() function and display clear button in the input field.
