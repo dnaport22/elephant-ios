@@ -60,6 +60,7 @@ elephant.controller('MainpageCtrl', function($state, $ionicHistory, $scope, $htt
       $scope.items = $scope.items.concat(data[i])
     }
   }
+  
   /**
    * Description: search() function is called on ng-change in search input field,
    * it calls the loadMore() function and display clear button in the input field.
