@@ -2,7 +2,7 @@ elephant.controller('ViewController', function($scope, $stateParams, $location, 
   $scope.item_name = $stateParams.itemName;
   $scope.item_description = $stateParams.itemDesc;
   $scope.item_date = $stateParams.itemDate;
-  $scope.item_img = $stateParams.itemImg;
+  $scope.item_img = 'http://service.myelephant.xyz/images/'+$stateParams.itemImg;
 
   $scope.$storage = $localStorage.$default({
     user_email: null,
