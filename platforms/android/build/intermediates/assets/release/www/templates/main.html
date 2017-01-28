@@ -6,9 +6,10 @@
         <i class="icon ion-ios-list-outline" ng-if="viewType == 'grid'"></i>
       </button>
     </ion-nav-buttons>
-  <!-- Custom subheader to make search-box fixed/unscrollable -->
-  <ion-subheader-bar>
-    <h3>Search bar</h3>
+
+  <ion-content>
+    <!-- Pull to refresh direvctive -->
+
     <div class="item item-input-inset" scroll="false">
       <label class="item-input-wrapper" style="background-color:grey;">
         <i class="icon ion-search placeholder-icon" style="color:white;"></i>
@@ -19,10 +20,7 @@
       </label>
       <button class="button button-small" ng-click="clearInput()" ng-if="inputVal == true">Clear</button>
     </div>
-  </ion-subheader-bar>
-  <!-- Main ion-content directive -->
-  <ion-content class="has-subheader">
-    <!-- Pull to refresh direvctive -->
+
     <ion-refresher
     pulling-text="Pull to load new items..."
     on-refresh="pullToRefresh()">
@@ -38,7 +36,7 @@
      <!-- Card view of the items -->
       <div class="grid-two-to-three-to-four-col" ng-repeat="item in items track by item.id" ng-if="viewType == 'grid'">
         <div href="#" class="list card" ng-click="trafficLight('getitem',item.name,item.description,item.postDate,item.uid,item.image)">
-          <div class="item item-image" style="background-image: url('http://maddna.xyz/images/{{::item.image}}')"></div>
+          <div class="item item-image" style="background-image: url('{{::item.image_url}}')"></div>
             <a class="item item-icon-right">
                 {{::item.name}}
             </a>
@@ -49,7 +47,7 @@
         <ion-item ng-repeat="item in items track by item.id"
                   class="item-thumbnail-left" ng-if="viewType == 'list'"
                   ng-click="trafficLight('getitem',item.name,item.description,item.postDate,item.uid,item.image)">
-          <img ng-src="http://maddna.xyz/images/{{::item.image}}">
+          <img ng-src="{{::item.image_url}}">
           <h2>{{::item.name}}</h2>
           <p>{{::item.description}}<p>
       </ion-list>

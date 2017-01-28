@@ -48,10 +48,10 @@ elephant.controller('PostitemController', function($state, $scope, $ionicHistory
 
     $cordovaCamera.getPicture(options)
     .then(function(imageURI){
+      imageToUpload = imageURI;
       var image = document.getElementById('upImage');
       var photo = 'data:image/jpeg;base64,' + imageURI;
       image.style.backgroundImage = "url('" + imageURI + "')";
-      imageToUpload = imageURI;
       document.getElementById("upload-image-container").style.display = "block";
       document.getElementById("select-image-button").innerHTML= "Reselect image";
     }, function(err) {
@@ -94,6 +94,8 @@ elephant.controller('PostitemController', function($state, $scope, $ionicHistory
           //Ionic analytics below
           $ionicAnalytics.track('Posted Item', {item_name: itemName, post_user_activation: $localStorage.user_activation})
           reloadForm();
+          $state.go("app.main");
+          $ionicSideMenuDelegate.toggleLeft();
         }, function(err) {
           UIfactory.hideSpinner();
           UIfactory.showAlert('Error', PostitemNotification.UPLOAD_ERROR);
