@@ -3033,7 +3033,7 @@ script {
  *  user zoom.
  */
 html {
-  -webkit-user-select: none;
+  -webkit-user-select: text;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
@@ -3308,7 +3308,7 @@ body,
   text-size-adjust: none;
   -webkit-tap-highlight-color: transparent;
   -webkit-tap-highlight-color: transparent;
-  -webkit-user-select: none;
+  -webkit-user-select: auto !important;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;

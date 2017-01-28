@@ -5,7 +5,7 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>English</string>
 		<key>CFBundleIdentifier</key>
-		<string>com.apple.xcode.dsym.com.elephant.app</string>
+		<string>com.apple.xcode.dsym.com.elephant_beta.app</string>
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
 		<key>CFBundlePackageType</key>
@@ -13,8 +13,8 @@
 		<key>CFBundleSignature</key>
 		<string>????</string>
 		<key>CFBundleShortVersionString</key>
-		<string>0.0.5</string>
+		<string>0.0.7</string>
 		<key>CFBundleVersion</key>
-		<string>0.0.5</string>
+		<string>0.0.7</string>
 	</dict>
 </plist>

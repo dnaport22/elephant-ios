@@ -1,7 +1,8 @@
 var elephant = angular.module('elephant',
 [
-  'ionic','ionic.service.core',
-  'ngCordova',
+  'ionic',
+  'ionic.service.core',
+  'ngCordova'
   'ngStorage',
   'ionic.service.core',
   'ionic.service.analytics'
