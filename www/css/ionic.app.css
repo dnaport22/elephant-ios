@@ -3033,7 +3033,7 @@ script {
  *  user zoom.
  */
 html {
-  -webkit-user-select: text;
+  -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
@@ -3308,7 +3308,7 @@ body,
   text-size-adjust: none;
   -webkit-tap-highlight-color: transparent;
   -webkit-tap-highlight-color: transparent;
-  -webkit-user-select: auto !important;
+  -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
@@ -9881,6 +9881,22 @@ img {
 
 .list-inset.search-container {
   margin: 15px 10px 5px; }
+
+.side-menu-container {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px; }
+
+.small-label {
+  background-color: #444;
+  color: #fff;
+  margin: 0;
+  padding: 4px; }
+
+.big-logo {
+  height: 15vh;
+  padding: 5px; }
 
 .main .grid-container {
   padding-bottom: 55px; }
