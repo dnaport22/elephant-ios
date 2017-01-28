@@ -113,23 +113,6 @@ elephant.controller('PostitemController', function($state, $scope, $ionicHistory
     document.getElementById("select-image-button").innerHTML= "Select image";
   }
 
-  // var redirectUser = function() {
-  //   UIfactory.showSpinner();
-  //   if (path == 'main') {
-  //       UIfactory.hideSpinner();
-  //       $ionicHistory.goBack();
-  //   }
-  //   else if (path == 'menu') {
-  //       UIfactory.hideSpinner();
-  //       $state.go('app.main');
-  //       $ionicSideMenuDelegate.toggleLeft();
-  //   }
-  //   else if (path == 'postitem') {
-  //     UIfactory.hideSpinner();
-  //     $ionicHistory.goBack();
-  //   }
-  // }
-
   $scope.getFileName = function(fileName) {
     file = fileName.substr(fileName.lastIndexOf('/')+1);
     finalName = null;
