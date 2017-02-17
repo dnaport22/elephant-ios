@@ -194,5 +194,4 @@ elephant.controller('MyitemsController', function($scope, $http, $timeout, $loca
     $scope.loadMore();
   });
 
-
  });
