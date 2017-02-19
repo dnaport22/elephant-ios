@@ -31,7 +31,7 @@
       </ion-list>
 
       <ion-list ng-repeat = "link in drawerLinks_loggedIn" ng-if="$storage.user_login_id == 1">
-        <ion-item style="height: 50px;" menu-close ng-href="{{::link.href}}">
+        <ion-item menu-close ng-href="{{::link.href}}">
            <i ng-class="{ '{{::link.class}}': 1 }"></i>
           {{::link.title}}
         </ion-item>
