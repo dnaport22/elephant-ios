@@ -1,6 +1,7 @@
 var elephant = angular.module('elephant',
 [
-  'ionic','ionic.service.core',
+  'ionic',
+  'ionic.service.core',
   'ngCordova',
   'ngStorage',
   'ionic.service.core',
@@ -160,6 +161,15 @@ var elephant = angular.module('elephant',
       'menuContent': {
         templateUrl: 'templates/postitem.html',
         controller: 'PostitemController'
+      }
+    }
+  })
+
+  .state('app.recycling-guide', {
+    url: '/recyclingguide',
+    views: {
+      'menuContent': {
+        templateUrl: "templates/recyclingguide.html"
       }
     }
   });
