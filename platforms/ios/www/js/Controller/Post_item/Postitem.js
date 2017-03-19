@@ -62,8 +62,6 @@ elephant.controller('PostitemController', function($state, $scope, $ionicHistory
   }
 
   $scope.uploadItem = function() {
-    //$ionicHistory.goBack()
-    //$state.go('app.main')
     UIfactory.showSpinner();
     var fileURL = imageToUpload;
     var serverURL = elephantData_URL.POST_ITEM_URL;

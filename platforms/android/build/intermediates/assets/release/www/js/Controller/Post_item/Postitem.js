@@ -62,8 +62,6 @@ elephant.controller('PostitemController', function($state, $scope, $ionicHistory
   }
 
   $scope.uploadItem = function() {
-    //$ionicHistory.goBack()
-    //$state.go('app.main')
     UIfactory.showSpinner();
     var fileURL = imageToUpload;
     var serverURL = elephantData_URL.POST_ITEM_URL;
@@ -112,23 +110,6 @@ elephant.controller('PostitemController', function($state, $scope, $ionicHistory
     document.getElementById("upload-image-container").style.display = "none";
     document.getElementById("select-image-button").innerHTML= "Select image";
   }
-
-  // var redirectUser = function() {
-  //   UIfactory.showSpinner();
-  //   if (path == 'main') {
-  //       UIfactory.hideSpinner();
-  //       $ionicHistory.goBack();
-  //   }
-  //   else if (path == 'menu') {
-  //       UIfactory.hideSpinner();
-  //       $state.go('app.main');
-  //       $ionicSideMenuDelegate.toggleLeft();
-  //   }
-  //   else if (path == 'postitem') {
-  //     UIfactory.hideSpinner();
-  //     $ionicHistory.goBack();
-  //   }
-  // }
 
   $scope.getFileName = function(fileName) {
     file = fileName.substr(fileName.lastIndexOf('/')+1);

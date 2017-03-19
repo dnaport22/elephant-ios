@@ -2,7 +2,7 @@
 manifest
 ADDED from /Users/Nav/Documents/elephant/SusApp/platforms/android/AndroidManifest.xml:2:1-16:12
 	package
-		ADDED from /Users/Nav/Documents/elephant/SusApp/platforms/android/AndroidManifest.xml:2:98-124
+		ADDED from /Users/Nav/Documents/elephant/SusApp/platforms/android/AndroidManifest.xml:2:98-129
 		INJECTED from /Users/Nav/Documents/elephant/SusApp/platforms/android/AndroidManifest.xml
 		INJECTED from /Users/Nav/Documents/elephant/SusApp/platforms/android/AndroidManifest.xml
 	android:versionName
@@ -16,7 +16,7 @@ ADDED from /Users/Nav/Documents/elephant/SusApp/platforms/android/AndroidManifes
 		INJECTED from /Users/Nav/Documents/elephant/SusApp/platforms/android/AndroidManifest.xml
 		INJECTED from /Users/Nav/Documents/elephant/SusApp/platforms/android/AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/Nav/Documents/elephant/SusApp/platforms/android/AndroidManifest.xml:2:125-183
+		ADDED from /Users/Nav/Documents/elephant/SusApp/platforms/android/AndroidManifest.xml:2:130-188
 supports-screens
 ADDED from /Users/Nav/Documents/elephant/SusApp/platforms/android/AndroidManifest.xml:3:5-191
 	android:largeScreens
@@ -41,7 +41,7 @@ ADDED from /Users/Nav/Documents/elephant/SusApp/platforms/android/AndroidManifes
 		ADDED from /Users/Nav/Documents/elephant/SusApp/platforms/android/AndroidManifest.xml:4:18-52
 	android:icon
 		ADDED from /Users/Nav/Documents/elephant/SusApp/platforms/android/AndroidManifest.xml:4:53-82
-activity#com.elephant.app.MainActivity
+activity#com.elephant_beta.app.MainActivity
 ADDED from /Users/Nav/Documents/elephant/SusApp/platforms/android/AndroidManifest.xml:5:9-10:20
 	android:label
 		ADDED from /Users/Nav/Documents/elephant/SusApp/platforms/android/AndroidManifest.xml:5:97-134
