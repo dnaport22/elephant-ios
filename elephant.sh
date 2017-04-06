@@ -2,7 +2,7 @@
 build() {
 	echo "Building App"
 	echo "============"
-	# ionic build ios
+	ionic build ios
 	echo "Optimising App"
 	cp -r platforms/ios\
 	Archive/
@@ -13,4 +13,9 @@ build() {
 	Find it here, Archive/elephant_`date +%s`"
 }
 
-$1
+run() {
+	echo "Running App..."
+	ionic run ios
+}
+
+$1 $2
