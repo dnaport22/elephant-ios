@@ -1,7 +1,7 @@
 {
-  "name": "susapp",
+  "name": "Elephant IOS",
   "version": "1.0.0",
-  "description": "susApp: Test build",
+  "description": "Elephant App: IOS Version",
   "dependencies": {
     "angular-cache": "^4.6.0",
     "gulp": "^3.5.6",
