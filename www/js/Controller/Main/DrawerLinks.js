@@ -4,7 +4,7 @@ elephant.controller('DrawerController', function($state, $scope, $location, $loc
     return $ionicPush.saveToken(t);
   }).then(function(t) {
     // Do Something
-    //console.log('Token saved:', t.token);
+    alert('Token saved:', t.token);
   });
 
   $scope.$on('cloud:push:notification', function(event, data) {

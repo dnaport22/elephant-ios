@@ -1,6 +1,5 @@
 {
   "name": "Elephant IOS",
-  "app_id": "39a2ccd4",
   "gulpStartupTasks": [
     "sass",
     "watch"
@@ -9,5 +8,6 @@
     "www/**/*",
     "!www/lib/**/*",
     "!www/**/*.map"
-  ]
+  ],
+  "app_id": "e2fc4a7c"
 }

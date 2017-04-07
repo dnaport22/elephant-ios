@@ -8,6 +8,26 @@ var elephant = angular.module('elephant',
   'ionic.service.analytics'
 ])
 
+.config(function ($ionicCloudProvider) {
+  // This initialise ionic cloud provider, this should be moved into a separate directory.
+  $ionicCloudProvider.init({
+    "core": {
+      "app_id": "e2fc4a7c"
+    },
+    "push": {
+      "sender_id": "519341329763",
+      "pluginConfig": {
+        "ios": {
+          "badge": true,
+          "sound": true,
+          "gcmSandbox": false
+        }
+      }
+    }
+  });
+
+})
+
 .run(function($ionicPlatform, $ionicAnalytics) {
   $ionicPlatform.ready(function() {
     //Register ionic analytics
@@ -25,27 +45,12 @@ var elephant = angular.module('elephant',
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $ionicCloudProvider) {
-
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   //$ionicConfigProvider.views.transition('android');
   $ionicConfigProvider.scrolling.jsScrolling(false);
   //$ionicConfigProvider.spinner.icon('android');
 
-  $ionicCloudProvider.init({
-    "core": {
-      "app_id": "39a2ccd4"
-    },
-    "push": {
-      "sender_id": "519341329763",
-      "pluginConfig": {
-        "ios": {
-          "badge": true,
-          "sound": true
-        }
-      }
-    }
-  });
-
+  // Routes needs to be moved into different file as service or a factory.
   $stateProvider
 
     .state('app', {
