@@ -1,4 +1,16 @@
-elephant.controller('DrawerController', function($state, $scope, $location, $localStorage, UIfactory, $ionicPopover, $ionicHistory) {
+elephant.controller('DrawerController', function($state, $scope, $location, $localStorage, UIfactory, $ionicPopover, $ionicHistory, $ionicPush) {
+
+  $ionicPush.register().then(function(t) {
+    return $ionicPush.saveToken(t);
+  }).then(function(t) {
+    // Do Something
+    //console.log('Token saved:', t.token);
+  });
+
+  $scope.$on('cloud:push:notification', function(event, data) {
+    var msg = data.message;
+    alert(msg.title + ': ' + msg.text);
+  });
 
   $scope.username = $localStorage.user_username;
   $scope.$storage = $localStorage.$default({
