@@ -4,12 +4,11 @@ elephant.controller('DrawerController', function($state, $scope, $location, $loc
     return $ionicPush.saveToken(t);
   }).then(function(t) {
     // Do Something
-    alert('Token saved:', t.token);
+    //console.log('Token saved:', t.token);
   });
 
   $scope.$on('cloud:push:notification', function(event, data) {
-    var msg = data.message;
-    alert(msg.title + ': ' + msg.text);
+    // Do Something
   });
 
   $scope.username = $localStorage.user_username;
