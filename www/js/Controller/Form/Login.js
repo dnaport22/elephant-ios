@@ -51,7 +51,7 @@ elephant.controller('LoginController', function($scope, $state, $ionicSideMenuDe
     inputVal.setValue(EmailId, '');
     inputVal.setValue(PassId, '');
     return redirectUser();
-  }
+  };
 
   var redirectUser = function() {
     UIfactory.showSpinner();
@@ -68,7 +68,7 @@ elephant.controller('LoginController', function($scope, $state, $ionicSideMenuDe
       UIfactory.hideSpinner();
       $ionicHistory.goBack();
     }
-  }
+  };
 
   //Login intent message
   if (path == 'main') {

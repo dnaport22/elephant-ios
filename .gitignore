@@ -3,3 +3,4 @@
 *.orig
 platforms/
 node_modules/
+Archive/*
