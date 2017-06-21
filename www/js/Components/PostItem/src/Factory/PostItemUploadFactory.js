@@ -24,7 +24,7 @@ PostReport.factory('PostItemUploadFactory', function ($q, $cordovaFileTransfer, 
   var uploadImage = function (data, name) {
     var newImage = {};
     newImage.file = data.split(',').pop();
-    newImage.filename = name;
+    newImage.filename = new Date().getTime() + '.jpg';
     newImage.filesize = newImage.file.length;
     newImage.filepath = 'field/image/';
     newImage.filemime = "image/jpeg";
@@ -34,15 +34,15 @@ PostReport.factory('PostItemUploadFactory', function ($q, $cordovaFileTransfer, 
   };
 
   var uploadNode = function (name) {
-    uploadImage(newPostData.field_image.base64, name)
+    uploadImage(newPostData.field_item_image.base64, name)
     .then(function (response) {
-      data.field_image = DrupalHelperService.structureField({fid: response.data.fid});
+      newPostData.field_item_image = DrupalHelperService.structureField({fid: response.data.fid});
     }, function (error) {
       UIfactory.hideSpinner();
       UIfactory.showAlert('Alert', 'Error occurred while uploading report!');
     })
     .finally(function () {
-      NodeResource.create(data)
+      NodeResource.create(newPostData)
       .then(function (res) {
         $rootScope.$emit('$onUploadFinished');
         UIfactory.hideSpinner();

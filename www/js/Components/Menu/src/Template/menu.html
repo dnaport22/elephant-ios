@@ -19,18 +19,18 @@
     </ion-header-bar>
     <ion-content>
 
-      <ion-list ng-if="$storage.user_login_id == 1">
+      <ion-list ng-if="state.LoggedIn">
         <ion-item>
-          Logged in as {{::$storage.user_username}}
+          Logged in as {{::userdata['name']}}
         </ion-item>
       </ion-list>
-      <ion-list ng-if="$storage.user_login_id == 0">
+      <ion-list ng-if="state.anonymous">
         <ion-item>
           Log in to view more options
         </ion-item>
       </ion-list>
 
-      <ion-list ng-repeat = "link in drawerLinks_loggedIn" ng-if="$storage.user_login_id == 1">
+      <ion-list ng-repeat = "link in drawerLinks_loggedIn" ng-if="state.LoggedIn">
         <ion-item menu-close ng-href="{{::link.href}}">
           <i ng-class="{ '{{::link.class}}': 1 }"></i>
           {{::link.title}}
@@ -38,7 +38,7 @@
 
       </ion-list>
 
-      <ion-list ng-repeat = "link in drawerLinks_loggedOut" ng-if="$storage.user_login_id == 0">
+      <ion-list ng-repeat = "link in drawerLinks_loggedOut" ng-if="state.anonymous">
         <ion-item style="height: 50px;" menu-close ng-href="{{::link.href}}">
           <i ng-class="{ '{{::link.class}}': 1 }"></i>
           {{::link.title}}
@@ -57,12 +57,12 @@
     <ion-footer-bar
         align-title="left"
         ng-class = "{
-        'bar-assertive': $storage.user_login_id === 1,
-        'bar-balanced': $storage.user_login_id === 0,
+        'bar-assertive': state.LoggedIn,
+        'bar-balanced': state.anonymous,
       }"
         menu-close>
-      <a href=""><h1 class="title" ng-if = "$storage.user_login_id == 1" ng-click="logout()" menu-close>Log out</h1></a>
-      <a href=""><h1 class="title" ng-if="$storage.user_login_id == 0" ng-click="loginMainuser()">Log in</h1></a>
+      <a href=""><h1 class="title" ng-if = "state.LoggedIn" ng-click="logoutUser()" menu-close>Log out</h1></a>
+      <a href=""><h1 class="title" ng-if="state.anonymous" ng-click="login()">Log in</h1></a>
     </ion-footer-bar>
   </ion-side-menu>
 </ion-side-menus>

@@ -1,19 +1,17 @@
 elephant.factory('CurrentUserfactory', function ($localStorage) {
+  const STATUS_AUTHENTICATED = 1;
+  const STATUS_ANONYMOUS = 0;
   return {
-    STATUS_AUTHENTICATED: 1,
-    STATUS_ANONYMOUS: 0,
+    initStorage: function () {
+      return $localStorage.$default({
+        anonymous: true
+      });
+    },
     setCurrentUser: function (user) {
       $localStorage.CurrentUser = JSON.stringify({
         "uid": user['uid'] || "",
         "mail": user['mail'] || "",
-        "name": user['name'] || "",
-        "phone": user['field_phone_number'] || "",
-        "institute": user['field_engineerng_professional_in'] || "",
-        "discipline": user['field_engineering_discipline']|| "",
-        "grade": user['field_membership_grade'] || "",
-        "company": user['field_company'] || "",
-        "position": user['field_position_job_title'] || "",
-        "address": user['field_work_address'] || ""
+        "name": user['name'] || ""
       });
     },
     setUserSecret: function (id, name, token) {
@@ -23,7 +21,7 @@ elephant.factory('CurrentUserfactory', function ($localStorage) {
       return $localStorage.CurrentUser;
     },
     getCurrentUserObject: function () {
-      return JSON.parse($localStorage.CurrentUser);
+      return JSON.parse($localStorage.CurrentUser) || "";
     },
     getCurrentUserName: function () {
       return this.getCurrentUser()['name'];
@@ -35,13 +33,18 @@ elephant.factory('CurrentUserfactory', function ($localStorage) {
       $localStorage.LoggedIn = status;
     },
     isLoggedIn: function () {
-      return $localStorage.LoggedIn || this.STATUS_ANONYMOUS;
+      return $localStorage.LoggedIn || STATUS_ANONYMOUS;
+    },
+    isAnonymous: function () {
+      return this.isLoggedIn() ? false:true;
     },
     setStatusAnonymous: function () {
-      this.setLoggedInStatus(this.STATUS_ANONYMOUS);
+      $localStorage.anonymous = true;
+      this.setLoggedInStatus(STATUS_ANONYMOUS);
     },
     setStatusAuthenticated: function () {
-      this.setLoggedInStatus(this.STATUS_AUTHENTICATED);
+      $localStorage.anonymous = false;
+      this.setLoggedInStatus(STATUS_AUTHENTICATED);
     }
   }
 });

@@ -3,7 +3,7 @@ var Login = angular.module('Login', ['d7-services'])
   const TEMPLATE_DIR = 'js/Components/';
   $stateProvider
   .state('app.login', {
-    url: '/login',
+    url: '/login/:path',
     views: {
       'menuContent': {
         templateUrl: TEMPLATE_DIR + 'Login/src/Template/login.html',

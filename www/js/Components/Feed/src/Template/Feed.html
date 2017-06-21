@@ -55,6 +55,7 @@
     <!-- End Main grid -->
     <!-- Infinite scroll directive -->
     <ion-infinite-scroll
+        ng-if="check()"
         on-infinite="loadInfiniteScroll()"
         distance="10%">
     </ion-infinite-scroll>
@@ -63,12 +64,12 @@
   <div class="tab-striped  tabs-background-calm">
     <div class="tabs tabs-icon-top tabs-color-light">
       <!-- Show if the user is logged in -->
-      <a  class="tab-item active" ng-href="#/app/postitem" ng-if="$storage.user_login_id == 1">
+      <a  class="tab-item active" ng-href="#/app/post-item" ng-if="state.LoggedIn">
         <i class="icon ion-upload"></i>
         Post item
       </a>
       <!-- Show if the user is logged out -->
-      <a  class="tab-item active" ng-href="#/app/post-item" ng-if="$storage.user_login_id == 0">
+      <a  class="tab-item active" ng-href="#/app/login/postitem" ng-if="state.anonymous">
         <i class="icon ion-log-in"></i>
         Log in to post item
       </a>

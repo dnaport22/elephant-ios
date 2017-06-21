@@ -36,7 +36,7 @@ var elephant = angular.module('elephant',
 //
 // })
 
-.run(function($ionicPlatform, $ionicAnalytics) {
+.run(function($ionicPlatform, $ionicAnalytics, $localStorage) {
   $ionicPlatform.ready(function() {
     //Register ionic analytics
     //$ionicAnalytics.register();
@@ -54,7 +54,7 @@ var elephant = angular.module('elephant',
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, DrupalApiConstant) {
-  DrupalApiConstant.drupal_instance = "http://elev2.local/";
+  DrupalApiConstant.drupal_instance = "http://elev2dev.sytes.net/";
   DrupalApiConstant.api_endpoint = "api/elev2/";
   //$ionicConfigProvider.views.transition('android');
   $ionicConfigProvider.scrolling.jsScrolling(false);

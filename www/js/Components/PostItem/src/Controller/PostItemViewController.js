@@ -9,14 +9,19 @@ PostReport.controller('PostItemViewController', function($timeout, $state, $scop
     updateViewImage(IMAGE_URI);
   });
 
+  $rootScope.$on('$onUploadFinished', function () {
+    reloadForm();
+  });
+
   var readyToCapture = function (source, quality) {
     var options = PostItemDataFactory.prepareCameraOptions(source, quality);
     PostItemDataFactory.executeCapture(options);
   };
 
-  var updateViewImage = function (src) {
+  var updateViewImage = function (URI) {
     var image = document.getElementById('upImage');
-    image.style.backgroundImage = "url('" + src + "')";
+    var photo = 'data:image/jpeg;base64,' + URI;
+    image.style.backgroundImage = "url('" + photo + "')";
     document.getElementById("upload-image-container").style.display = "block";
     document.getElementById("select-image-button").innerHTML= "Reselect image";
   };
@@ -62,7 +67,7 @@ PostReport.controller('PostItemViewController', function($timeout, $state, $scop
    */
   $scope.onPostItem = function () {
     if (validateMandatoryFields()) {
-      PostItemDataFactory.postReportData(IMAGE_URI);
+      PostItemDataFactory.postReportData();
     }
   };
 
@@ -75,14 +80,15 @@ PostReport.controller('PostItemViewController', function($timeout, $state, $scop
       return false;
     }
     PostItemDataFactory.newPostData.title = title;
+    PostItemDataFactory.newPostData.field_item_image.base64 = IMAGE_URI;
     return true;
   };
   /**
    * Clear fields in the form.
    */
   var reloadForm = function() {
-    inputVal.setValue('title', '');
-    inputVal.setValue('body', '');
+    inputVal.setValue('name', '');
+    inputVal.setValue('desc', '');
     IMAGE_URI = null;
     document.getElementById("upload-image-container").style.display = "none";
     document.getElementById("select-image-button").innerHTML= "Select image";

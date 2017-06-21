@@ -1,7 +1,7 @@
 <ion-view view-title="{{::item.title}}" class="get-item">
   <ion-content overflow-scroll="false">
     <div class="list card">
-      <div class="item item-image" style="background-image: url('{{::item_img}}')"></div>
+      <div class="item item-image" style="background-image: url('{{::item.field_item_image.und[0].imgPath}}')"></div>
       <div class="item item-body">
         {{::item.title}} <br> Posted on: {{::item.created | date:'medium'}}
       </div>

@@ -7,7 +7,7 @@ PostReport.factory('PostItemDataFactory', function ($cordovaCamera, $rootScope, 
       type: 'items',
       title: null,
       body: null,
-      field_image: {base64: null}
+      field_item_image: {base64: null}
     },
     prepareCameraOptions: function (source, quality) {
       return options = {
@@ -37,11 +37,10 @@ PostReport.factory('PostItemDataFactory', function ($cordovaCamera, $rootScope, 
     getImageUri: function () {
       return IMAGE_URI;
     },
-    postReportData: function (imageuri) {
-      var filename = PostItemUploadFactory.prepareFileName(imageuri);
+    postReportData: function () {
       PostItemUploadFactory.setUploadType(1);
       PostItemUploadFactory.setUploadData(this.newPostData);
-      PostItemUploadFactory.uploadData(filename);
+      PostItemUploadFactory.uploadData();
     }
   }
 });

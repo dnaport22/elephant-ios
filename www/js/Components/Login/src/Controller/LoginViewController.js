@@ -1,6 +1,5 @@
-Login.controller('LoginViewController', function($stateParams, $scope, $ionicSideMenuDelegate, UIfactory, AuthenticationService, $state, $ionicHistory, $rootScope) {
+Login.controller('LoginViewController', function($stateParams, $scope, $ionicSideMenuDelegate, UIfactory, AuthenticationService, $state, $ionicHistory, $rootScope, CurrentUserfactory) {
   UIfactory.hideSpinner();
-  $ionicSideMenuDelegate.canDragContent(false);
   $scope.loginData = {username: null, password: null};
   $scope.loginMessage = null;
 
@@ -58,11 +57,7 @@ Login.controller('LoginViewController', function($stateParams, $scope, $ionicSid
       response.data.token
     );
     CurrentUserfactory.setCurrentUser(response.data.user);
-    UIfactory.hideSpinner();
-    $ionicHistory.nextViewOptions({
-      disableBack: true
-    });
-    $state.go('app.post-report')
+    redirectUser()
   });
 
   var redirectUser = function() {
