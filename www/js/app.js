@@ -38,8 +38,6 @@ var elephant = angular.module('elephant',
 // })
 
 .run(function($ionicPlatform, $ionicAnalytics, $localStorage) {
-  $localStorage.$reset()
-
   $ionicPlatform.ready(function() {
     //Register ionic analytics
     //$ionicAnalytics.register();
@@ -72,26 +70,24 @@ var elephant = angular.module('elephant',
     controller: 'MenuController'
   })
 
-  // .state('app.userguide', {
-  //   url: '/userguide',
-  //   views: {
-  //     'menuContent': {
-  //       templateUrl: 'templates/userguide.html',
-  //       controller: 'UserguideController'
-  //     }
-  //   }
-  // })
-  //
+  .state('app.userguide', {
+    url: '/userguide',
+    views: {
+      'menuContent': {
+        templateUrl: 'js/Core/UserGuide/userguide.html',
+        controller: 'UserguideController'
+      }
+    }
+  })
 
-  //
-  // .state('app.recycling-guide', {
-  //   url: '/recyclingguide',
-  //   views: {
-  //     'menuContent': {
-  //       templateUrl: "templates/recyclingguide.html"
-  //     }
-  //   }
-  // });
+  .state('app.recycling-guide', {
+    url: '/recyclingguide',
+    views: {
+      'menuContent': {
+        templateUrl: "js/Core/RecyclingGuide/recyclingguide.html"
+      }
+    }
+  });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/main');
