@@ -50,13 +50,8 @@ Login.controller('LoginViewController', function($stateParams, $scope, $ionicSid
   $rootScope.$on('$onLoginFinished', function (event, response) {
     UIfactory.hideSpinner();
     clearFields();
-    CurrentUserfactory.setStatusAuthenticated();
-    CurrentUserfactory.setUserSecret(
-      response.data.sessid,
-      response.data.session_name,
-      response.data.token
-    );
-    CurrentUserfactory.setCurrentUser(response.data.user);
+    CurrentUserfactory.setAuthenticated();
+    CurrentUserfactory.setUsername(response.data.user.name);
     redirectUser()
   });
 

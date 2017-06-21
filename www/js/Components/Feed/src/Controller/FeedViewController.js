@@ -1,7 +1,7 @@
 elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelperService, ViewsResource, $state, $ionicHistory, $scope, $http, $ionicPlatform,$location, $timeout, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics, $templateCache, $ionicScrollDelegate, $rootScope, CurrentUserfactory) {
   $rootScope.slideHeader = false;
   $rootScope.pixelLimit = 0;
-  $scope.state = CurrentUserfactory.initStorage();
+  $scope.state = CurrentUserfactory.initStorage;
 
   /**
    * Loading spinner

@@ -1,4 +1,4 @@
-Menu.controller('MenuController', function($scope, $location, $localStorage, DrupalApiConstant, $state, AuthenticationService, $ionicSideMenuDelegate, UIfactory, $ionicPush, CurrentUserfactory) {
+Menu.controller('MenuController', function($scope, $location, $localStorage, DrupalApiConstant, $state, AuthenticationService, $ionicSideMenuDelegate, UIfactory, $ionicPush, CurrentUserfactory, $ionicHistory) {
   $ionicPush.register().then(function(t) {
     return $ionicPush.saveToken(t);
   }).then(function(t) {
@@ -9,8 +9,8 @@ Menu.controller('MenuController', function($scope, $location, $localStorage, Dru
   $scope.$on('cloud:push:notification', function(event, data) {
     // Do Something
   });
-  $scope.state = CurrentUserfactory.initStorage();
-  //$scope.userdata = CurrentUserfactory.getCurrentUserObject();
+  $scope.$state = CurrentUserfactory.initStorage;
+  console.log($scope.$state)
 
   $scope.drawerLinks_loggedOut = [
     {title: 'Home', class: 'icon ion-home', href: '#/app/main', id: 0},
@@ -22,7 +22,7 @@ Menu.controller('MenuController', function($scope, $location, $localStorage, Dru
   $scope.drawerLinks_loggedIn = [
     {title: 'Home', class: 'icon ion-home', href: '#/app/main', id: 1},
     {title: 'Post items', class: 'icon ion-upload', href: '#/app/post-item', id: 1},
-    {title: 'My items', class: 'icon ion-folder', href: '#/app/myitems', id: 1},
+    {title: 'My items', class: 'icon ion-folder', href: '#/app/myitem', id: 1},
     {title: 'About us', class: 'icon ion-information-circled', href: '#/app/about', id: 1},
     {title: 'Terms and conditions', class: 'icon ion-document-text', href: '#/app/tc', id: 1},
     {title: 'User guide', class: 'icon ion-ios-book', href: '#/app/userguide', id: 0},
@@ -41,9 +41,10 @@ Menu.controller('MenuController', function($scope, $location, $localStorage, Dru
     AuthenticationService.logout()
       .then(function (res) {
         UIfactory.hideSpinner();
-        CurrentUserfactory.setStatusAnonymous();
+        CurrentUserfactory.setAnonymous();
       });
-    console.log(CurrentUserfactory.initStorage())
+    $ionicHistory.nextViewOptions({disableBack: true});
+    $state.go('app.main');
   };
 
   $scope.login = function () {

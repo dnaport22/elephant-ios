@@ -19,18 +19,18 @@
     </ion-header-bar>
     <ion-content>
 
-      <ion-list ng-if="state.LoggedIn">
+      <ion-list ng-if="$state.authenticated">
         <ion-item>
-          Logged in as {{::userdata['name']}}
+          Logged in as {{::$state.username}}
         </ion-item>
       </ion-list>
-      <ion-list ng-if="state.anonymous">
+      <ion-list ng-if="$state.anonymous">
         <ion-item>
           Log in to view more options
         </ion-item>
       </ion-list>
 
-      <ion-list ng-repeat = "link in drawerLinks_loggedIn" ng-if="state.LoggedIn">
+      <ion-list ng-repeat = "link in drawerLinks_loggedIn" ng-if="$state.authenticated">
         <ion-item menu-close ng-href="{{::link.href}}">
           <i ng-class="{ '{{::link.class}}': 1 }"></i>
           {{::link.title}}
@@ -38,7 +38,7 @@
 
       </ion-list>
 
-      <ion-list ng-repeat = "link in drawerLinks_loggedOut" ng-if="state.anonymous">
+      <ion-list ng-repeat = "link in drawerLinks_loggedOut" ng-if="$state.anonymous">
         <ion-item style="height: 50px;" menu-close ng-href="{{::link.href}}">
           <i ng-class="{ '{{::link.class}}': 1 }"></i>
           {{::link.title}}
@@ -57,12 +57,12 @@
     <ion-footer-bar
         align-title="left"
         ng-class = "{
-        'bar-assertive': state.LoggedIn,
-        'bar-balanced': state.anonymous,
+        'bar-assertive': $state.authenticated,
+        'bar-balanced': $state.anonymous,
       }"
         menu-close>
-      <a href=""><h1 class="title" ng-if = "state.LoggedIn" ng-click="logoutUser()" menu-close>Log out</h1></a>
-      <a href=""><h1 class="title" ng-if="state.anonymous" ng-click="login()">Log in</h1></a>
+      <a href=""><h1 class="title" ng-if = "$state.authenticated" ng-click="logoutUser()" menu-close>Log out</h1></a>
+      <a href=""><h1 class="title" ng-if="$state.anonymous" ng-click="login()">Log in</h1></a>
     </ion-footer-bar>
   </ion-side-menu>
 </ion-side-menus>

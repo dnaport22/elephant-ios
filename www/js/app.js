@@ -13,7 +13,8 @@ var elephant = angular.module('elephant',
   'Menu',
   'Legal',
   'Feed',
-  'PostItem'
+  'PostItem',
+  'MyItem'
 ])
 
 // .config(function ($ionicCloudProvider) {
@@ -37,6 +38,8 @@ var elephant = angular.module('elephant',
 // })
 
 .run(function($ionicPlatform, $ionicAnalytics, $localStorage) {
+  $localStorage.$reset()
+
   $ionicPlatform.ready(function() {
     //Register ionic analytics
     //$ionicAnalytics.register();
