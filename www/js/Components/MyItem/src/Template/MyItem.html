@@ -21,15 +21,15 @@
           {{::item.body.und[0].value}}
         </div>
         <div ng-class="{
-          'bar bar-energized item item-divider': item.status == 0,
-          'bar bar-balanced item item-divider': item.status == 1,
-          'bar bar-royal item item-divider' : item.status == -1
+          'bar bar-energized item item-divider': item.workflow == state.IN_REVIEW,
+          'bar bar-balanced item item-divider': item.workflow == state.APPROVED,
+          'bar bar-assertive item item-divider' : item.workflow == state.DECLINED
         }">
-          <span ng-if="item.status == 0">Pending approval</span>
-          <span ng-if="item.status == 1">Item approved</span>
-          <span ng-if="item.status == -1">Given Away</span>
+          <span ng-if="item.workflow == state.IN_REVIEW">Pending approval</span>
+          <span ng-if="item.workflow == state.APPROVED">Item approved</span>
+          <span ng-if="item.workflow == state.DECLINED">Declined</span>
         </div>
-        <a ng-click="checkStatus(items.id, items)" class="button button-positive button-small button-clear icon-right ion-gear-b" style="float: right;">edit</a>
+        <a ng-click="checkStatus(item)" class="button button-positive button-small button-clear icon-right ion-gear-b" style="float: right;">edit</a>
       </div>
     </div>
     <ion-infinite-scroll

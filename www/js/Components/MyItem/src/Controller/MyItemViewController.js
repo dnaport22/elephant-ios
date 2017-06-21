@@ -1,9 +1,9 @@
-MyItem.controller('MyItemViewController', function($scope, $http, $timeout, $localStorage, $ionicActionSheet, elephantData_URL, UIfactory, $templateCache, MyitemPageNotification, ViewsResource, DrupalHelperService, DrupalApiConstant) {
-
+MyItem.controller('MyItemViewController', function(ITEM_STATES, $scope, $http, $timeout, $localStorage, $ionicActionSheet, elephantData_URL, UIfactory, $templateCache, MyitemPageNotification, ViewsResource, DrupalHelperService, DrupalApiConstant, NodeResource, AuthenticationService) {
   /**
    * Variables and array to store and retrieve items
    */
   $scope.items = [];
+  $scope.state = ITEM_STATES;
   var itemOptions = {
     view_name: 'myitem',
     page: 0,
@@ -45,160 +45,113 @@ MyItem.controller('MyItemViewController', function($scope, $http, $timeout, $loc
     return data;
   }
 
-  // $scope.myitems = [];
-  // var offset = 0;
-  // var limit = 10;
-  // var retrieved = 0;
-  //
-  // $scope.loadMore = function() {
-  //   UIfactory.showSpinner();
-  //   $http({ url: elephantData_URL.GET_USER_ITEM_URL, method: elephantData_URL.GET_USER_ITEM_TYPE, cache: $templateCache,
-  //     params: {
-  //       code: $localStorage.user_activation,
-  //       offset: offset,
-  //       limit: limit
-  //     }}).success(function(response) {
-  //     $scope.processData(response.items)
-  //     retrieved = response.items.length
-  //     offset += retrieved
-  //     $scope.$broadcast('scroll.infiniteScrollComplete');
-  //     UIfactory.hideSpinner();
-  //   });
-  // };
-  //
-  // $scope.processData = function(data) {
-  //   console.log(data)
-  //   for (i = 0; i < data.length; i++) {
-  //     data[i]['image_url'] = 'http://service.myelephant.xyz/images/'+data[i]['image']
-  //     $scope.myitems = $scope.myitems.concat(data[i])
-  //   }
-  // }
-  //
-  // $scope.check = function() {
-  //   return retrieved > 0
-  // }
-  //
-  // //Function checks status of the item
-  // $scope.checkStatus = function(itemid, item){
-  //   if(item.status == 0){
-  //     $scope.onPending(itemid, item);
-  //   }else if(item.status == 1){
-  //     $scope.onApproved(itemid, item);
-  //   }else if(item.status == -1){
-  //     $scope.onGivenAway(itemid, item);
-  //   }else{
-  //     $scope.onDeclined(itemid, item);
-  //   }
-  // }
-  //
-  // //If item is in pending status
-  // $scope.onPending = function(itemid, item){
-  //   var hideSheet = $ionicActionSheet.show({
-  //     buttons: [
-  //       {text: 'Delete'},
-  //     ],
-  //     buttonClicked: function(index){
-  //       if (index == 0) {
-  //         var dataString = {
-  //           code: $localStorage.user_activation,
-  //           itemId: itemid
-  //         }
-  //         $scope.deleteItem(dataString, item);
-  //         hideSheet();
-  //       }
-  //     }
-  //   });
-  //   $timeout(function() {
-  //     hideSheet();
-  //   }, 60000);
-  // }
-  // //If item is in approved state
-  // $scope.onApproved = function(itemid, item){
-  //   var hideSheet = $ionicActionSheet.show({
-  //     buttons: [
-  //       {text: 'Given away'},
-  //       {text: 'Delete'}
-  //     ],
-  //     buttonClicked: function(index) {
-  //       var dataString = {
-  //         code: $localStorage.user_activation,
-  //         itemId: itemid
-  //       }
-  //       if(index == 0){
-  //         $scope.givenAway(dataString);
-  //         hideSheet();
-  //       }else if (index == 1) {
-  //         $scope.deleteItem(dataString, item);
-  //         hideSheet();
-  //       }
-  //     }
-  //   });
-  //   $timeout(function() {
-  //     hideSheet();
-  //   }, 60000);
-  // }
-  // //If item is in declined status
-  // $scope.onDeclined = function(itemid, item){
-  //   var hideSheet = $ionicActionSheet.show({
-  //     buttons: [
-  //       {text: 'Delete'},
-  //     ],
-  //     buttonClicked: function(index) {
-  //       if (index == 0) {
-  //         var dataString = {
-  //           code: $localStorage.user_activation,
-  //           itemId: itemid
-  //         }
-  //         $scope.deleteItem(dataString, item);
-  //         hideSheet();
-  //       }
-  //     }
-  //   });
-  //   $timeout(function() {
-  //     hideSheet();
-  //   }, 60000);
-  // }
-  //
-  // $scope.onGivenAway = function(itemid, item){
-  //   var hideSheet = $ionicActionSheet.show({
-  //     buttons: [
-  //       {text: 'Re-post'},
-  //       {text: 'Delete'}
-  //     ],
-  //     buttonClicked: function(index){
-  //       var dataString = {
-  //         code: $localStorage.user_activation,
-  //         itemId: itemid
-  //       }
-  //       if(index == 0){
-  //         $scope.reApprove(dataString);
-  //         hideSheet();
-  //       }else if(index == 1){
-  //         $scope.deleteItem(dataString, item);
-  //         hideSheet();
-  //       }
-  //     }
-  //   });
-  //   $timeout(function() {
-  //     hideSheet();
-  //   }, 60000);
-  // }
-  //
+  //Function checks status of the item
+  $scope.checkStatus = function(item){
+    if(item.workflow == $scope.IN_REVIEW){
+      $scope.onPending(item);
+    }else if(item.workflow == $scope.APPROVED){
+      $scope.onApproved(item);
+    }else if(item.workflow == $scope.DECLINED){
+      $scope.onGivenAway(item);
+    }else{
+      $scope.onDeclined(item);
+    }
+  };
+
+  //If item is in pending status
+  $scope.onPending = function(item){
+    var hideSheet = $ionicActionSheet.show({
+      buttons: [
+        {text: 'Delete'}
+      ],
+      buttonClicked: function(index){
+        if (index == 0) {
+          $scope.deleteItem(item);
+          hideSheet();
+        }
+      }
+    });
+    $timeout(function() {
+      hideSheet();
+    }, 60000);
+  };
+  //If item is in approved state
+  $scope.onApproved = function(item){
+    var hideSheet = $ionicActionSheet.show({
+      buttons: [
+        {text: 'Given away'},
+        {text: 'Delete'}
+      ],
+      buttonClicked: function(index) {
+        if(index == 0){
+          $scope.givenAway(item);
+          hideSheet();
+        }else if (index == 1) {
+          $scope.deleteItem(item);
+          hideSheet();
+        }
+      }
+    });
+    $timeout(function() {
+      hideSheet();
+    }, 60000);
+  };
+  //If item is in declined status
+  $scope.onDeclined = function(item){
+    var hideSheet = $ionicActionSheet.show({
+      buttons: [
+        {text: 'Delete'}
+      ],
+      buttonClicked: function(index) {
+        if (index == 0) {
+          $scope.deleteItem(item);
+          hideSheet();
+        }
+      }
+    });
+    $timeout(function() {
+      hideSheet();
+    }, 60000);
+  };
+
+  $scope.onGivenAway = function(item){
+    var hideSheet = $ionicActionSheet.show({
+      buttons: [
+        {text: 'Re-post'},
+        {text: 'Delete'}
+      ],
+      buttonClicked: function(index){
+        if(index == 0){
+          $scope.reApprove(item);
+          hideSheet();
+        }else if(index == 1){
+          $scope.deleteItem(item);
+          hideSheet();
+        }
+      }
+    });
+    $timeout(function() {
+      hideSheet();
+    }, 60000);
+  };
+
   // //Function which removes item
-  // $scope.deleteItem = function(dataString, item){
-  //   var deleteItemSubmit = new Submitform(elephantData_URL.DELETE_USER_ITEM_TYPE,elephantData_URL.DELETE_USER_ITEM_URL,dataString,false);
-  //   deleteItemSubmit.ajaxSubmit(this);
-  //
-  //   $scope.onSuccess = function(response){
-  //     console.log(dataString);
-  //     var index = $scope.myitems.indexOf(item);
-  //     $scope.myitems.splice(index, 1);
-  //   }
-  //
-  //   $scope.onError = function(response){
-  //     UIfactory.showAlert('Success', 'Item have been deleted');
-  //   }
-  // }
+  $scope.deleteItem = function(item){
+    console.log(item)
+    var data = {nid: item.nid, workflow:2};
+    AuthenticationService.refreshConnection()
+      .then(function (res) {
+        NodeResource.update(data)
+        .then(function (res) {
+          console.log(res);
+          // var index = $scope.items.indexOf(item);
+          // $scope.items.splice(index, 1);
+        }, function (err) {
+          console.log(err)
+          UIfactory.showAlert('Success', 'Item have been deleted');
+        });
+      });
+  };
   //
   //
   // $scope.givenAway = function(dataString){
