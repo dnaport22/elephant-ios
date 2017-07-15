@@ -25,9 +25,6 @@
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "com.elephant.app"
         },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.elephant.app"
-        },
         "ionic-plugin-deploy": {
             "PACKAGE_NAME": "com.elephant.app"
         },
@@ -37,11 +34,13 @@
         "phonegap-plugin-push": {
             "SENDER_ID": "519341329763",
             "PACKAGE_NAME": "com.elephant.app"
-        }
-    },
-    "dependent_plugins": {
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.elephant.app"
+        },
         "cordova-plugin-compat": {
             "PACKAGE_NAME": "com.elephant.app"
         }
-    }
+    },
+    "dependent_plugins": {}
 }

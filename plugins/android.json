@@ -1,0 +1,44 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.elephantv2.app"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.elephantv2.app"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.elephantv2.app"
+        },
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.elephantv2.app"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.elephantv2.app"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.elephantv2.app"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.elephantv2.app"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.elephantv2.app"
+        },
+        "phonegap-plugin-push": {
+            "SENDER_ID": "519341329763",
+            "PACKAGE_NAME": "com.elephantv2.app"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.elephantv2.app"
+        }
+    }
+}
