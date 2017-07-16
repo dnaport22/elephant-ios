@@ -14,8 +14,8 @@
       <label class="item-input-wrapper" style="background-color:grey;">
         <i class="icon ion-search placeholder-icon" style="color:white;"></i>
         <input id="search" type="text" placeholder="Search for items"
-               ng-change="search()"
                ng-model="searchValue"
+               ng-change="search(this.searchValue)"
                style="color:white;">
       </label>
       <button class="button button-small" ng-click="clearInput()" ng-if="inputVal == true">Clear</button>

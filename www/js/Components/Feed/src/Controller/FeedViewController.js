@@ -1,4 +1,4 @@
-elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelperService, ViewsResource, $state, $ionicHistory, $scope, $http, $ionicPlatform,$location, $timeout, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics, $templateCache, $ionicScrollDelegate, $rootScope, CurrentUserfactory) {
+elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelperService, ViewsResource, $state, $ionicHistory, $scope, $http, $ionicPlatform,$location, $timeout, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics, $templateCache, $ionicScrollDelegate, $rootScope, CurrentUserfactory, AuthenticationService) {
   $rootScope.slideHeader = false;
   $rootScope.pixelLimit = 0;
   $scope.state = CurrentUserfactory.initStorage;
@@ -39,10 +39,12 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
    * Variables and array to store and retrieve items
    */
   $scope.items = [];
-  $scope.DOMFeeds = [];
+  var DOMFeeds = [];
   $scope.NewFeeds = [];
+  var preservedFeed = DOMFeeds;
+  var searchFeeds = [];
   var retrieved = 0;
-  var page = 0;
+  $scope.searchValue = null;
 
   /**
    * Description: loadMore() function is used to retrieve items from the server.
@@ -65,6 +67,9 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
             return handleInfiniteScroll(response.data);
           case 'initial':
             return handleInitialLoad(response.data);
+            break;
+          case 'search':
+            return handleSearchLoad(response.data);
             break;
           default:
             return true;
@@ -94,11 +99,10 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
    * Initial loadMore() call handler.
    */
   var handleInitialLoad = function(data) {
-    //console.log(data)
     for (var i = 0; i < data.length; i++) {
-      $scope.DOMFeeds = $scope.DOMFeeds.concat(prepareFeed(data[i]));
+      DOMFeeds = DOMFeeds.concat(prepareFeed(data[i]));
     }
-    console.log($scope.DOMFeeds)
+    $scope.DOMFeeds = DOMFeeds;
   };
 
   //prepare article after fetched from server
@@ -132,9 +136,22 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
   $scope.inputVal = false;
   $scope.search = function(filter) {
     $scope.inputVal = true;
-    $scope.items = [];
-    offset = 0;
-    $scope.loadMore();
+    $scope.DOMFeeds = [];
+    viewOptions.title = filter;
+    $scope.loadMore('search');
+  };
+
+  var handleSearchLoad = function (data) {
+    pollingFeeds(data);
+  };
+
+  /**
+   * Description: clears input field and hide clear button.
+   */
+  $scope.clearInput = function() {
+    inputVal.setValue('search', '');
+    $scope.inputVal = false;
+    $scope.DOMFeeds = DOMFeeds;
   };
 
   /**
@@ -241,17 +258,6 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
   $scope.reloadData = function() {
     $state.go($state.current, {reload: true, inherit: false})
     $scope.$broadcast('scroll.refreshComplete');
-  };
-
-  /**
-   * Description: clears input field and hide clear button.
-   */
-  $scope.clearInput = function() {
-    inputVal.setValue('search', '');
-    $scope.inputVal = false;
-    $scope.items = [];
-    offset = 0;
-    $scope.loadMore();
   };
 
   $scope.fullView = function (feed_data) {
