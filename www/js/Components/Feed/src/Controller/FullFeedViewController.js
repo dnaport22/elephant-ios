@@ -1,15 +1,6 @@
-Feed.controller('FullFeedViewController', function($scope, $stateParams, $location, $localStorage, UIfactory, DrupalHelperService, DrupalApiConstant, CommentResource) {
-  $scope.item_name = $stateParams.itemName;
-  $scope.item_description = $stateParams.itemDesc;
-  $scope.item_date = $stateParams.itemDate;
-  $scope.item_img = 'http://service.myelephant.xyz/images/'+$stateParams.itemImg;
-
-  $scope.$storage = $localStorage.$default({
-    user_email: null,
-    user_username: null,
-  });
-
+Feed.controller('FullFeedViewController', function($http, $scope, $stateParams, $location, CurrentUserfactory, $localStorage, UIfactory, DrupalHelperService, DrupalApiConstant, CommentResource) {
   $scope.item = prepareFeed($stateParams.feed);
+  console.log($scope.item)
 
   function prepareFeed(data) {
     if("field_item_image" in data && "und" in data.field_item_image) {
@@ -27,18 +18,26 @@ Feed.controller('FullFeedViewController', function($scope, $stateParams, $locati
 
   $scope.messageCheck = function() {
     UIfactory.showSpinner();
-    if ($localStorage.user_login_id == 1) {
-      var item_uid = $stateParams.itemUid;
-      var email = $localStorage.user_email;
-      var username = $localStorage.user_username;
-      var itemRequest = MessageService;
-      itemRequest.constructor(item_uid, $scope.item_name, email, username)
-      itemRequest.processInput();
+    var data = {
+      sender_mail: $localStorage.email,
+      reciever_mail: $scope.item.field_user_mail.und[0].value,
+      item_name: $scope.item.title,
+      message: inputVal.getValue('user_message')
+    };
+    if ($localStorage.authenticated) {
+      $http.post('https://us-central1-elephant-app-c68a7.cloudfunctions.net/sendMail', data)
+      .then(function (res) {
+        UIfactory.hideSpinner();
+        console.log(res)
+      }, function (err) {
+        UIfactory.hideSpinner();
+        console.log(err)
+      })
     }
     else {
       $location.path("/app/login/getitem")
     }
-  }
+  };
 
 
   $scope.checkMaxLength = function() {

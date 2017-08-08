@@ -1,13 +1,14 @@
-Register.factory('RegisterDataFactory', function (UserResource, RegisterNotifications, UIfactory, $rootScope,  AuthenticationService, $ionicHistory) {
+Register.factory('RegisterDataFactory', function (UserResource, RegisterNotifications, UIfactory, $rootScope,  AuthenticationService, $ionicHistory, $firebaseAuth) {
   var executeRegister = function (data) {
-    UserResource.register(data)
-    .then(function (response) {
-      if (response.status === 200 || statusText === 'OK') {
-        UIfactory.hideSpinner();
-        $rootScope.$emit('$onUserRegisterFinished');
-        UIfactory.showAlert('Registration pending approval', RegisterNotifications.COMPLETE_REGISTER);
-        $ionicHistory.goBack();
-      }
+    var auth = $firebaseAuth();
+    auth.$createUserWithEmailAndPassword(data['mail'], data['pass'])
+    .then(function (firebaseUser) {
+      UIfactory.hideSpinner()
+      console.log(firebaseUser);
+      firebaseUser.sendEmailVerification();
+      $rootScope.$emit('$onUserRegisterFinished');
+      UIfactory.showAlert('Registration pending approval', RegisterNotifications.COMPLETE_REGISTER);
+      $ionicHistory.goBack();
     }, function (error) {
       console.log(error.statusText);
       UIfactory.hideSpinner();

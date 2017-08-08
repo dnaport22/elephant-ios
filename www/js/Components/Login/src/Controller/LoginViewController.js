@@ -1,4 +1,4 @@
-Login.controller('LoginViewController', function($stateParams, $scope, $ionicSideMenuDelegate, UIfactory, AuthenticationService, $state, $ionicHistory, $rootScope, CurrentUserfactory) {
+Login.controller('LoginViewController', function($stateParams, $scope, $ionicSideMenuDelegate, UIfactory, AuthenticationService, $state, $ionicHistory, $rootScope, CurrentUserfactory, $firebaseAuth) {
   UIfactory.hideSpinner();
   $scope.loginData = {username: null, password: null};
   $scope.loginMessage = null;
@@ -37,12 +37,18 @@ Login.controller('LoginViewController', function($stateParams, $scope, $ionicSid
   };
 
   var executeLogin = function () {
-    AuthenticationService.login($scope.loginData)
+    var auth = $firebaseAuth();
+    auth.$signInWithEmailAndPassword($scope.loginData.username, $scope.loginData.password)
     .then(function (response) {
-      $rootScope.$emit('$onLoginFinished', response);
+      if (response.emailVerified) {
+        $rootScope.$emit('$onLoginFinished', response);
+      } else {
+        UIfactory.hideSpinner();
+        UIfactory.showAlert('Alert', 'Account not verified.')
+      }
     }, function (error) {
       UIfactory.hideSpinner();
-      var statusText = error.statusText || "Error while log in";
+      var statusText = error.message || "Error while log in";
       UIfactory.showAlert('Alert', statusText);
     });
   };
@@ -51,7 +57,7 @@ Login.controller('LoginViewController', function($stateParams, $scope, $ionicSid
     UIfactory.hideSpinner();
     clearFields();
     CurrentUserfactory.setAuthenticated();
-    CurrentUserfactory.setUsername(response.data.user.name);
+    CurrentUserfactory.setEmail(response.email);
     redirectUser()
   });
 

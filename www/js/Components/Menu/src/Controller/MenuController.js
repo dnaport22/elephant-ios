@@ -1,4 +1,4 @@
-Menu.controller('MenuController', function($scope, $location, $localStorage, DrupalApiConstant, $state, AuthenticationService, $ionicSideMenuDelegate, UIfactory, $ionicPush, CurrentUserfactory, $ionicHistory) {
+Menu.controller('MenuController', function($scope, $location, $localStorage, DrupalApiConstant, $state, AuthenticationService, $ionicSideMenuDelegate, UIfactory, $ionicPush, CurrentUserfactory, $ionicHistory, $firebaseAuth) {
   $ionicPush.register().then(function(t) {
     return $ionicPush.saveToken(t);
   }).then(function(t) {
@@ -10,7 +10,6 @@ Menu.controller('MenuController', function($scope, $location, $localStorage, Dru
     // Do Something
   });
   $scope.$state = CurrentUserfactory.initStorage;
-  console.log($scope.$state)
 
   $scope.drawerLinks_loggedOut = [
     {title: 'Home', class: 'icon ion-home', href: '#/app/main', id: 0},
@@ -31,18 +30,14 @@ Menu.controller('MenuController', function($scope, $location, $localStorage, Dru
 
   $scope.logoutUser = function () {
     UIfactory.showSpinner();
-    AuthenticationService.refreshConnection()
-      .then(function (res) {
-        executeLogout()
-      });
+    executeLogout();
   };
 
   var executeLogout = function () {
-    AuthenticationService.logout()
-      .then(function (res) {
-        UIfactory.hideSpinner();
-        CurrentUserfactory.setAnonymous();
-      });
+    var auth = $firebaseAuth();
+    auth.$signOut();
+    UIfactory.hideSpinner();
+    CurrentUserfactory.setAnonymous();
     $ionicHistory.nextViewOptions({disableBack: true});
     $state.go('app.main');
   };

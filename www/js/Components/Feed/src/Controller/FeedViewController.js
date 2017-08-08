@@ -83,7 +83,6 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
    * Called on infinte scroll
    */
   $scope.loadInfiniteScroll = function () {
-    console.log('infinte scroll')
     if (paginationOptions.maxPage === undefined) {
       //start initial with 0
       paginationOptions.pageLast = (paginationOptions.pageLast === undefined) ? 0 : paginationOptions.pageLast + 1,
@@ -231,7 +230,7 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
    */
   $scope.trafficLight = function(route, item_name, item_desc, item_date, item_uid, item_img) {
     if (route == 'getitem') {
-      if(typeof analytics !== "undefined") { analytics.trackEvent("Category", "Action", "Label", 25); }
+      // if(typeof analytics !== "undefined") { analytics.trackEvent("Category", "Action", "Label", 25); }
       $location.path("/app/getitem/" + item_name + "/" + item_desc + "/" + item_date + "/" + item_uid + "/" + item_img )
     }
     else if (route == 'login') {

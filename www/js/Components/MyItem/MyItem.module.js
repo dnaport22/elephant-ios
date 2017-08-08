@@ -14,10 +14,10 @@ var MyItem = angular.module('MyItem', ['d7-services'])
 
 })
 .constant('ITEM_STATES', {
+  APPROVED: "1",
   IN_REVIEW: "2",
-  APPROVED: "3",
-  DECLINED: "4",
-  DONATED: "5",
-  DELETED: "6"
+  DONATED: "3",
+  DELETED: "4",
+  DECLINED: "5"
 });
 

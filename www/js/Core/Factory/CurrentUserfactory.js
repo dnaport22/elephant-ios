@@ -6,6 +6,7 @@ elephant.factory('CurrentUserfactory', function ($localStorage) {
     initStorage: $localStorage.$default({
       anonymous: true,
       username: null,
+      email: null,
       authenticated: false
     }),
     setAuthenticated: function () {
@@ -18,6 +19,9 @@ elephant.factory('CurrentUserfactory', function ($localStorage) {
     },
     setUsername: function (name) {
      $localStorage.username = name;
+    },
+    setEmail: function (email) {
+      $localStorage.email = email;
     }
   }
 });

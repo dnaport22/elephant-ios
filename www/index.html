@@ -20,6 +20,25 @@
     <script src="lib/ngStorage.min.js"></script>
     <script src="lib/drupal7-services/dist/ng-drupal-7-services.js"></script>
 
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyCRSQ3NSZ6U2O6A1ynqYD9baByDfMwdw-E",
+        authDomain: "elephant-app-c68a7.firebaseapp.com",
+        databaseURL: "https://elephant-app-c68a7.firebaseio.com",
+        projectId: "elephant-app-c68a7",
+        storageBucket: "",
+        messagingSenderId: "837210030750"
+      };
+      firebase.initializeApp(config);
+    </script>
+
     <!-- elephant Controller -->
     <script src="js/app.js"></script>
     <script src="js/data.js"></script>

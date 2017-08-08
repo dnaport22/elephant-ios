@@ -1,12 +1,14 @@
-PasswordReset.controller('RequestResetPasswordController', function($scope, UIfactory, UserFactory, UserResource, DrupalHelperService, AuthenticationService, $http, $ionicHistory) {
-  $scope.resetPass = {name: null};
+PasswordReset.controller('RequestResetPasswordController', function($scope, UIfactory, UserFactory, UserResource, DrupalHelperService, AuthenticationService, $http, $ionicHistory, $firebaseAuth) {
   var ResetFactory = new UserFactory();
+  var resetPass = '';
+  const BASE_URL = 'http://developv2.myelephant.xyz/';
 
   $scope.doResetRequest = function () {
     readyToRequest();
   };
 
   var readyToRequest = function () {
+   resetPass = inputVal.getValue('reset_email');
    if (validateField()) {
      if (checkEmail()) {
        finaliseResetRequest()
@@ -15,7 +17,7 @@ PasswordReset.controller('RequestResetPasswordController', function($scope, UIfa
   };
 
   var validateField = function () {
-    if ($scope.resetPass.name === null) {
+    if (resetPass === " ") {
       UIfactory.showAlert('Alert', 'Enter your email!');
       return false;
     } else {
@@ -24,15 +26,12 @@ PasswordReset.controller('RequestResetPasswordController', function($scope, UIfa
   };
 
   var checkEmail = function () {
-    return ResetFactory.validateEmail($scope.resetPass.name);
+    return ResetFactory.validateEmail(resetPass);
   };
 
   var finaliseResetRequest = function () {
-    $http({
-      url: BASE_URL + '?q=api/user/request_new_password',
-      method: "POST",
-      data: $scope.resetPass
-    })
+    var auth = $firebaseAuth();
+    auth.$sendPasswordResetEmail(resetPass)
     .then(function(response) {
       UIfactory.hideSpinner();
       UIfactory.showAlert('Success', 'Check your email!');
@@ -45,7 +44,7 @@ PasswordReset.controller('RequestResetPasswordController', function($scope, UIfa
   };
 
   var resetForm = function () {
-    $scope.resetPass.name = null;
+    inputVal.setValue('reset_email', '');
   };
 
 });

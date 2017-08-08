@@ -7,6 +7,7 @@ var elephant = angular.module('elephant',
   'ngCookies',
   'ionic.service.core',
   'ionic.service.analytics',
+  'firebase',
   'Login',
   'Register',
   'PasswordReset',
@@ -37,8 +38,12 @@ var elephant = angular.module('elephant',
 //
 // })
 
-.run(function($ionicPlatform, $ionicAnalytics, $localStorage) {
+.run(function($ionicPlatform, $ionicAnalytics, $localStorage, AuthenticationService) {
   $ionicPlatform.ready(function() {
+    AuthenticationService.login({username: 'elephant app', password: 'admin'})
+    .then(function (res) {
+      console.log('app logged in')
+    });
     //Register ionic analytics
     //$ionicAnalytics.register();
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -55,7 +60,7 @@ var elephant = angular.module('elephant',
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, DrupalApiConstant) {
-  DrupalApiConstant.drupal_instance = "http://elev2dev.sytes.net/";
+  DrupalApiConstant.drupal_instance = "http://developv2.myelephant.xyz/";
   DrupalApiConstant.api_endpoint = "api/elev2/";
   //$ionicConfigProvider.views.transition('android');
   $ionicConfigProvider.scrolling.jsScrolling(false);

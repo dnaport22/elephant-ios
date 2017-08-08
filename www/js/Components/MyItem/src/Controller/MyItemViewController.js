@@ -8,7 +8,8 @@ MyItem.controller('MyItemViewController', function(ITEM_STATES, $scope, $http, $
     view_name: 'myitem',
     page: 0,
     pagesize: 5,
-    format_output: 0
+    format_output: 0,
+    field_user_mail_value: $localStorage.email
   };
 
   $scope.loadItems = function () {
@@ -24,10 +25,11 @@ MyItem.controller('MyItemViewController', function(ITEM_STATES, $scope, $http, $
    * Initial loadMore() call handler.
    */
   var handleItemFeed = function(data) {
-    //console.log(data)
+    console.log(data)
     for (var i = 0; i < data.length; i++) {
       $scope.items = $scope.items.concat(prepareFeed(data[i]));
     }
+    console.log($scope.items)
   };
 
   //prepare article after fetched from server
@@ -47,11 +49,11 @@ MyItem.controller('MyItemViewController', function(ITEM_STATES, $scope, $http, $
 
   //Function checks status of the item
   $scope.checkStatus = function(item){
-    if(item.workflow == $scope.IN_REVIEW){
+    if(item.workflow == ITEM_STATES.IN_REVIEW){
       $scope.onPending(item);
-    }else if(item.workflow == $scope.APPROVED){
+    }else if(item.workflow == ITEM_STATES.APPROVED){
       $scope.onApproved(item);
-    }else if(item.workflow == $scope.DECLINED){
+    }else if(item.workflow == ITEM_STATES.DECLINED){
       $scope.onGivenAway(item);
     }else{
       $scope.onDeclined(item);
@@ -137,8 +139,7 @@ MyItem.controller('MyItemViewController', function(ITEM_STATES, $scope, $http, $
 
   // //Function which removes item
   $scope.deleteItem = function(item){
-    console.log(item)
-    var data = {nid: item.nid, workflow:2};
+    var data = {nid: item.nid, field_publishing_state: {und: {tid: 4}}};
     AuthenticationService.refreshConnection()
       .then(function (res) {
         NodeResource.update(data)
@@ -152,43 +153,43 @@ MyItem.controller('MyItemViewController', function(ITEM_STATES, $scope, $http, $
         });
       });
   };
-  //
-  //
-  // $scope.givenAway = function(dataString){
-  //
-  //   var giveAwaySubmit = new Submitform(elephantData_URL.GIVEN_AWAY_TYPE,elephantData_URL.GIVEN_AWAY_ITEM,dataString, false);
-  //   giveAwaySubmit.ajaxSubmit(this);
-  //
-  //   $scope.onSuccess = function(response){
-  //     UIfactory.showAlert('Success', 'Item have been marked as given away')
-  //     .then(function(res){
-  //       window.location.reload();
-  //     });
-  //   }
-  //
-  //   $scope.onError = function(response){
-  //     console.log(response);
-  //     UIfactory.showAlert('Error occured', 'An error occured while changing status to given away');
-  //   }
-  // }
-  //
-  // $scope.reApprove = function(dataString){
-  //
-  //   var reApproveSubmit = new Submitform(elephantData_URL.RE_APPROVE_TYPE, elephantData_URL.RE_APPROVE_ITEM, dataString, false)
-  //   reApproveSubmit.ajaxSubmit(this);
-  //
-  //   $scope.onSuccess = function(response){
-  //     UIfactory.showAlert('Success', 'Item have been marked as approved')
-  //     .then(function(){
-  //       window.location.reload();
-  //     });
-  //   }
-  //
-  //   $scope.onError = function(response){
-  //     UIfactory.showAlert('Error occured', 'An error occured while changing status to approved');
-  //   }
-  // }
-  //
+
+
+  $scope.givenAway = function(dataString){
+
+    var giveAwaySubmit = new Submitform(elephantData_URL.GIVEN_AWAY_TYPE,elephantData_URL.GIVEN_AWAY_ITEM,dataString, false);
+    giveAwaySubmit.ajaxSubmit(this);
+
+    $scope.onSuccess = function(response){
+      UIfactory.showAlert('Success', 'Item have been marked as given away')
+      .then(function(res){
+        window.location.reload();
+      });
+    };
+
+    $scope.onError = function(response){
+      console.log(response);
+      UIfactory.showAlert('Error occured', 'An error occured while changing status to given away');
+    }
+  };
+
+  $scope.reApprove = function(dataString){
+
+    var reApproveSubmit = new Submitform(elephantData_URL.RE_APPROVE_TYPE, elephantData_URL.RE_APPROVE_ITEM, dataString, false)
+    reApproveSubmit.ajaxSubmit(this);
+
+    $scope.onSuccess = function(response){
+      UIfactory.showAlert('Success', 'Item have been marked as approved')
+      .then(function(){
+        window.location.reload();
+      });
+    };
+
+    $scope.onError = function(response){
+      UIfactory.showAlert('Error occured', 'An error occured while changing status to approved');
+    }
+  };
+
   $scope.$on('$ionicView.beforeEnter', function() {
     $scope.items = [];
     $scope.loadItems();

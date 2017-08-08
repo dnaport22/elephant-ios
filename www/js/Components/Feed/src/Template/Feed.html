@@ -35,7 +35,7 @@
       </div>
       <!-- Card view of the items -->
       <div class="grid-two-to-three-to-four-col" ng-repeat="item in DOMFeeds" ng-if="viewType == 'grid'">
-        <div href="#" class="list card" ng-click="trafficLight(item)">
+        <div href="#" class="list card" ng-click="fullView(item)">
           <div class="item item-image" style="background-image: url('{{item.field_item_image.und[0].imgPath}}')"></div>
           <a class="item item-icon-right">
             {{::item.title}}
