@@ -57,7 +57,6 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
     ViewsResource.retrieve(viewOptions)
       .then(function (response) {
         UIfactory.hideSpinner();
-
         // Navigate to call specific handler
         switch (callback) {
           case 'refresh':

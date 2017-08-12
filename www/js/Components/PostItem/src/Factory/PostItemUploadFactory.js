@@ -46,7 +46,7 @@ PostReport.factory('PostItemUploadFactory', function ($q, $cordovaFileTransfer, 
       .then(function (res) {
         $rootScope.$emit('$onUploadFinished');
         UIfactory.hideSpinner();
-        UIfactory.showAlert('Success', 'Report uploaded');
+        UIfactory.showAlert('Item uploaded', 'Your item will be displayed in the app soon after approval!');
       }, function (err) {
         UIfactory.hideSpinner();
         UIfactory.showAlert('Alert', 'Error occurred while uploading report!');

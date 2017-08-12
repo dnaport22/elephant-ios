@@ -21,7 +21,7 @@
 
       <ion-list ng-if="$state.authenticated">
         <ion-item>
-          Logged in using {{::$state.email}}
+          Logged in as {{::$state.email | split:'@':0}}
         </ion-item>
       </ion-list>
       <ion-list ng-if="$state.anonymous">

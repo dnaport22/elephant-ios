@@ -1,4 +1,4 @@
-PostReport.factory('PostItemDataFactory', function ($cordovaCamera, $rootScope, UIfactory, PostItemUploadFactory, DrupalHelperService) {
+PostReport.factory('PostItemDataFactory', function ($cordovaCamera, $rootScope, UIfactory, PostItemUploadFactory) {
 
   var IMAGE_URI = null;
 

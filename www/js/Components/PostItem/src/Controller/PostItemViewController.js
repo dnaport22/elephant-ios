@@ -80,7 +80,8 @@ PostReport.controller('PostItemViewController', function($timeout, $state, $scop
       return false;
     }
     PostItemDataFactory.newPostData.title = title;
-    PostItemDataFactory.newPostData.field_user_mail = $localStorage.email;
+    PostItemDataFactory.newPostData.body = DrupalHelperService.structureField({value: body});
+    PostItemDataFactory.newPostData.field_user_mail = DrupalHelperService.structureField({value:  $localStorage.email});
     PostItemDataFactory.newPostData.field_item_image.base64 = IMAGE_URI;
     return true;
   };

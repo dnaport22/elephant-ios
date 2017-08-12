@@ -18,32 +18,38 @@ var elephant = angular.module('elephant',
   'MyItem'
 ])
 
-// .config(function ($ionicCloudProvider) {
-//   // This initialise ionic cloud provider, this should be moved into a separate directory.
-//   $ionicCloudProvider.init({
-//     "core": {
-//       "app_id": "e2fc4a7c"
-//     },
-//     "push": {
-//       "sender_id": "519341329763",
-//       "pluginConfig": {
-//         "ios": {
-//           "badge": true,
-//           "sound": true,
-//           "gcmSandbox": true
-//         }
-//       }
-//     }
-//   });
-//
-// })
+.config(function ($ionicCloudProvider) {
+  // This initialise ionic cloud provider, this should be moved into a separate directory.
+  $ionicCloudProvider.init({
+    "core": {
+      "app_id": "e2fc4a7c"
+    },
+    "push": {
+      "sender_id": "519341329763",
+      "pluginConfig": {
+        "ios": {
+          "badge": true,
+          "sound": true,
+          "gcmSandbox": true
+        }
+      }
+    }
+  });
 
-.run(function($ionicPlatform, $ionicAnalytics, $localStorage, AuthenticationService) {
+})
+
+.run(function($ionicPlatform, $ionicAnalytics, $localStorage, AuthenticationService, UIfactory) {
   $ionicPlatform.ready(function() {
-    AuthenticationService.login({username: 'elephant app', password: 'admin'})
-    .then(function (res) {
-      console.log('app logged in')
-    });
+    UIfactory.showSpinner();
+    AuthenticationService.refreshConnection()
+      .then(function (res) {
+				AuthenticationService.login({username: 'elephant app', password: 'admin'})
+					.then(function (res) {
+						UIfactory.hideSpinner();
+					}, function (err) {
+						UIfactory.hideSpinner();
+					});
+			});
     //Register ionic analytics
     //$ionicAnalytics.register();
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -59,7 +65,7 @@ var elephant = angular.module('elephant',
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, DrupalApiConstant) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, DrupalApiConstant, $ionicCloudProvider) {
   DrupalApiConstant.drupal_instance = "http://developv2.myelephant.xyz/";
   DrupalApiConstant.api_endpoint = "api/elev2/";
   //$ionicConfigProvider.views.transition('android');
