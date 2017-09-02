@@ -133,13 +133,15 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
    */
   $scope.inputVal = false;
   $scope.search = function(filter) {
+    UIfactory.showSpinner();
     $scope.inputVal = true;
     $scope.DOMFeeds = [];
-    viewOptions.title = filter;
+    viewOptions.combine = filter;
     $scope.loadMore('search');
   };
 
   var handleSearchLoad = function (data) {
+    UIfactory.hideSpinner();
     pollingFeeds(data);
   };
 
