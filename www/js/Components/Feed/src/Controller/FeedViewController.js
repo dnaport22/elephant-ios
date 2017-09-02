@@ -109,7 +109,7 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
       angular.forEach(data.field_item_image.und, function (value, key) {
 
         var imgPath = data.field_item_image.und[key].uri.split('//')[1].replace(/^\/+/, "");
-        data.field_item_image.und[key].imgPath = DrupalHelperService.getPathToImgByStyle(DrupalApiConstant.imageStyles.thumbnail) + imgPath;
+        data.field_item_image.und[key].imgPath = DrupalHelperService.getPathToImgByStyle(DrupalApiConstant.imageStyles.medium) + imgPath;
         data.nid = parseInt(data.nid);
       });
 
