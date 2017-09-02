@@ -45,7 +45,7 @@ Register.controller('RegisterViewController', function($scope, UserFactory, User
 
   var matchPass = function () {
     if (inputVal.getValue('pass1') !== inputVal.getValue('pass2')) {
-      UIfactory.showAlert('Alert', 'Password do not match.');
+      UIfactory.showAlert('Alert', 'Passwords do not match.');
       return false;
     } else {
       return true;
