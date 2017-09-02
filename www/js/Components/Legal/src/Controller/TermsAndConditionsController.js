@@ -1,4 +1,4 @@
-Legal.controller('TermsAndConditionsController', function($scope, NodeResource, UIfactory) {
+Legal.controller('TermsAndConditionsController', function($scope, NodeResource, UIfactory, $state) {
   // const TC_CONTENT_ID = 19;
   // $scope.tc_content = null;
   // UIfactory.showSpinner();
@@ -10,4 +10,11 @@ Legal.controller('TermsAndConditionsController', function($scope, NodeResource, 
   //     UIfactory.hideSpinner();
   //     UIfactory.showAlert('Error', 'Error while retrieving content');
   //   });
+
+	$scope.goToPP = function() {
+		$state.go('app.pp')
+	};
+	$scope.goToEULA = function() {
+		$state.go('app.eula')
+	};
 });

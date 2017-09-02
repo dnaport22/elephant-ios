@@ -23,11 +23,13 @@
         <div ng-class="{
           'bar bar-energized item item-divider': item.field_publishing_state.und[0].tid == state.IN_REVIEW,
           'bar bar-balanced item item-divider': item.field_publishing_state.und[0].tid == state.APPROVED,
-          'bar bar-assertive item item-divider' : item.field_publishing_state.und[0].tid == state.DECLINED
+          'bar bar-assertive item item-divider' : item.field_publishing_state.und[0].tid == state.DECLINED,
+          'bar bar-royal item item-divider' : item.field_publishing_state.und[0].tid == state.DONATED
         }">
           <span ng-if="item.field_publishing_state.und[0].tid == state.IN_REVIEW">Pending approval</span>
           <span ng-if="item.field_publishing_state.und[0].tid == state.APPROVED">Item approved</span>
           <span ng-if="item.field_publishing_state.und[0].tid == state.DECLINED">Declined</span>
+          <span ng-if="item.field_publishing_state.und[0].tid == state.DONATED">Donated</span>
         </div>
         <a ng-click="checkStatus(item)" class="button button-positive button-small button-clear icon-right ion-gear-b" style="float: right;">edit</a>
       </div>

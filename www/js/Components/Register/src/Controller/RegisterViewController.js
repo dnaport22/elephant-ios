@@ -45,7 +45,7 @@ Register.controller('RegisterViewController', function($scope, UserFactory, User
 
   var matchPass = function () {
     if (inputVal.getValue('pass1') !== inputVal.getValue('pass2')) {
-      UIfactory.showAlert('Alert', 'Password not matching');
+      UIfactory.showAlert('Alert', 'Password do not match.');
       return false;
     } else {
       return true;
@@ -56,14 +56,13 @@ Register.controller('RegisterViewController', function($scope, UserFactory, User
     if ($scope.registerData.isChecked) {
       return true;
     } else {
-      UIfactory.showAlert('Alert', 'Agree terms and conditions or I WILL HUNT YOU DOWN!');
+      UIfactory.showAlert('Alert', 'Please confirm you accept the terms and conditions.');
       return false;
     }
   };
 
   var prepareData = function () {
     try {
-      RegisterDataFactory.newUserData.name = inputVal.getValue('name');
       RegisterDataFactory.newUserData.mail = inputVal.getValue('mail');
       RegisterDataFactory.newUserData.pass = inputVal.getValue('pass1');
       return true;
@@ -73,7 +72,6 @@ Register.controller('RegisterViewController', function($scope, UserFactory, User
   };
 
   var reloadForm = function () {
-    inputVal.setValue('name', '');
     inputVal.setValue('mail', '');
     inputVal.setValue('pass1', '');
     inputVal.setValue('pass2', '');

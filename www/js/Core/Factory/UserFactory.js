@@ -101,11 +101,17 @@ elephant.factory('UserFactory', function(UIfactory, UserfactoryNotification) {
    */
   UserFactory.prototype.validateEmail = function(cleanEmail) {
     var emailMatching = emailFormat.test(cleanEmail);
+		var ext = cleanEmail.split("@");
     if (!emailMatching) {
       UIfactory.hideSpinner();
       UIfactory.showAlert('Alert', UserfactoryNotification.INVALID_EMAIL);
       return false;
     }
+		if (ext[1] !== 'lsbu.ac.uk') {
+			UIfactory.hideSpinner();
+			UIfactory.showAlert('Alert', UserfactoryNotification.EMAIL_NOT_LSBU);
+			return false;
+		}
     return true;
   };
 
