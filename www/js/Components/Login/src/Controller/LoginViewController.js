@@ -1,5 +1,6 @@
-Login.controller('LoginViewController', function($stateParams, $scope, $ionicSideMenuDelegate, UIfactory, AuthenticationService, $state, $ionicHistory, $rootScope, CurrentUserfactory, $firebaseAuth) {
+Login.controller('LoginViewController', function($stateParams, $scope, $ionicSideMenuDelegate, UIfactory, AuthenticationService, $state, $ionicHistory, $rootScope, CurrentUserfactory, $firebaseAuth, UserFactory) {
   UIfactory.hideSpinner();
+	var LoginFactory = new UserFactory;
   $scope.loginData = {username: null, password: null};
   $scope.loginMessage = null;
 
@@ -16,12 +17,13 @@ Login.controller('LoginViewController', function($stateParams, $scope, $ionicSid
   };
 
   var validateField = function () {
-    if ($scope.loginData.username !== null || $scope.loginData.password !== null) {
-      return true;
+    if ($scope.loginData.username.length > 0 || $scope.loginData.password.length > 0) {
+			return LoginFactory.validateEmail($scope.loginData.username);
+    } else {
+			UIfactory.hideSpinner();
+			UIfactory.showAlert('Alert', 'Please complete all fields.');
+			return false;
     }
-    UIfactory.hideSpinner();
-    UIfactory.showAlert('Alert', 'Fill all fields.');
-    return false;
   };
 
   var clearFields = function () {
@@ -38,18 +40,26 @@ Login.controller('LoginViewController', function($stateParams, $scope, $ionicSid
 
   var executeLogin = function () {
     var auth = $firebaseAuth();
+    UIfactory.showSpinner();
     auth.$signInWithEmailAndPassword($scope.loginData.username, $scope.loginData.password)
     .then(function (response) {
       if (response.emailVerified) {
         $rootScope.$emit('$onLoginFinished', response);
       } else {
         UIfactory.hideSpinner();
-        UIfactory.showAlert('Alert', 'Account not verified.')
+				UIfactory.resendVerificationMail()
       }
     }, function (error) {
-      UIfactory.hideSpinner();
       var statusText = error.message || "Error while log in";
-      UIfactory.showAlert('Alert', statusText);
+      switch (statusText) {
+        case "The password is invalid or the user does not have a password.":
+					UIfactory.hideSpinner();
+					UIfactory.showAlert('Alert', "Incorrect password");
+					break;
+        case "There is no user record corresponding to this identifier. The user may have been deleted.":
+					UIfactory.hideSpinner();
+					UIfactory.noAccountAlert();
+      }
     });
   };
 
