@@ -18,7 +18,7 @@
         <textarea rows="5" id="user_message" ng-model="defaultMessagevalue" maxlength="200" ng-change="checkMaxLength()" placeholder="Please type your message here."></textarea>
       </label>
       <div id="user_message-warning" class="character-limit-warning" style="display: none;">Message character limit reached</div>
-      <button class="button button-calm button-full icon-center ion-paper-airplane" ng-click="messageCheck()">
+      <button class="button button-calm button-full icon-center ion-paper-airplane" ng-click="onSendMessage()">
         Message
       </button>
     </div>

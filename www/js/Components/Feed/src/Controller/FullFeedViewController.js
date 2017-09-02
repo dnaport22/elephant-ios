@@ -15,8 +15,17 @@ Feed.controller('FullFeedViewController', function($http, $scope, $stateParams, 
     return data;
   }
 
-  $scope.messageCheck = function() {
-    UIfactory.showSpinner();
+  $scope.onSendMessage = function () {
+		UIfactory.showSpinner();
+    if (inputVal.getValue('user_message') === "") {
+      UIfactory.hideSpinner();
+      UIfactory.showAlert("Alert", "Message field cannot be empty.");
+    } else {
+      sendMessage();
+    }
+	};
+
+  var sendMessage = function() {
     var data = {
       sender_mail: $localStorage.email,
       reciever_mail: $scope.item.field_user_mail.und[0].value,
@@ -50,7 +59,7 @@ Feed.controller('FullFeedViewController', function($http, $scope, $stateParams, 
     var mesageNameMaxLength = document.getElementById("user_message").maxLength;
     var mesageNameWarning = document.getElementById("user_message-warning");
 
-    if (mesageName.value.length == mesageNameMaxLength) {
+    if (mesageName.value.length === mesageNameMaxLength) {
       mesageName.style.color = "red";
       mesageNameWarning.style.display = "block";
     } else {
