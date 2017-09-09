@@ -45,6 +45,7 @@ Feed.controller('FullFeedViewController', function($http, $scope, $stateParams, 
       })
     }
     else {
+			UIfactory.hideSpinner();
       $location.path("/app/login/getitem");
     }
   };

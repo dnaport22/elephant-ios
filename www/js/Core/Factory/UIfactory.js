@@ -12,17 +12,6 @@ elephant.factory('UIfactory', function($http, $ionicPopup, $ionicLoading, $q, $i
 		});
 	};
 
-	var ionicSpinner = function () {
-    return $ionicLoading.show({
-			template: '<ion-spinner icon="spiral" class="spinner-dark"></ion-spinner>',
-			content: 'Loading',
-			animation: 'fade-in',
-			showBackdrop: true,
-			maxWidth: 200,
-			showDelay: 0
-		});
-	};
-
 	var noAccountPopup = function () {
     return $ionicPopup.alert({
 			title: 'Alert',
@@ -61,8 +50,14 @@ elephant.factory('UIfactory', function($http, $ionicPopup, $ionicLoading, $q, $i
       return alertPopup(title, template);
     },
     showSpinner: function() {
-
-      return ionicSpinner;
+			return $ionicLoading.show({
+				template: '<ion-spinner icon="spiral" class="spinner-dark"></ion-spinner>',
+				content: 'Loading',
+				animation: 'fade-in',
+				showBackdrop: true,
+				maxWidth: 200,
+				showDelay: 0
+			});
     },
     hideSpinner: function() {
       return $ionicLoading.hide();

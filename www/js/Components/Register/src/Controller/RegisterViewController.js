@@ -8,6 +8,7 @@ Register.controller('RegisterViewController', function($scope, UserFactory, User
   });
 
   $scope.doRegister = function () {
+    UIfactory.showSpinner();
     readyToRegister();
   };
 
@@ -32,6 +33,7 @@ Register.controller('RegisterViewController', function($scope, UserFactory, User
   var validateField = function () {
     for (var value in RegisterDataFactory.newUserData) {
       if (RegisterDataFactory.newUserData[value] == "") {
+        UIfactory.hideSpinner();
         UIfactory.showAlert('Alert', 'Fill all the fields');
         return false;
       }
@@ -45,6 +47,7 @@ Register.controller('RegisterViewController', function($scope, UserFactory, User
 
   var matchPass = function () {
     if (inputVal.getValue('pass1') !== inputVal.getValue('pass2')) {
+      UIfactory.hideSpinner();
       UIfactory.showAlert('Alert', 'Passwords do not match.');
       return false;
     } else {
@@ -56,6 +59,7 @@ Register.controller('RegisterViewController', function($scope, UserFactory, User
     if ($scope.registerData.isChecked) {
       return true;
     } else {
+      UIfactory.hideSpinner();
       UIfactory.showAlert('Alert', 'Please confirm you accept the terms and conditions.');
       return false;
     }

@@ -2,7 +2,6 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
   $rootScope.slideHeader = false;
   $rootScope.pixelLimit = 0;
   $scope.state = CurrentUserfactory.initStorage;
-
   /**
    * Loading spinner
    */
@@ -101,6 +100,7 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
       DOMFeeds = DOMFeeds.concat(prepareFeed(data[i]));
     }
     $scope.DOMFeeds = DOMFeeds;
+    UIfactory.hideSpinner();
   };
 
   //prepare article after fetched from server
@@ -175,6 +175,7 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
     }
 		$scope.DOMFeeds = DOMFeeds;
     $scope.$broadcast('scroll.infiniteScrollComplete');
+    UIfactory.hideSpinner();
   };
 
 
