@@ -8,7 +8,7 @@ elephant.constant('LoginNotifications', {
 
 elephant.constant('RegisterNotifications', {
   ACCEPT_TC: 'Please confirm you accept the terms and conditions.',
-  COMPLETE_REGISTER: 'Your registration details are being reviewed. After we approve your account you will receive an email confirming your registration. This should take no more than 24 hours.',
+  COMPLETE_REGISTER: 'A validation email has been sent to your LSBU email account. Please validate your email to start using your account.',
   DUPLICATE_ACCOUNT: 'There is already an account registered with this email address.',
   ERROR: 'An error occured while sending your data, make sure you have connection or contact our support team.'
 });

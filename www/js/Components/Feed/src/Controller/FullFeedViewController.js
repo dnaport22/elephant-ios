@@ -11,7 +11,6 @@ Feed.controller('FullFeedViewController', function($http, $scope, $stateParams, 
       });
 
     }
-
     return data;
   }
 
@@ -26,14 +25,15 @@ Feed.controller('FullFeedViewController', function($http, $scope, $stateParams, 
 	};
 
   var sendMessage = function() {
-    var data = {
-      sender_mail: $localStorage.email,
-      reciever_mail: $scope.item.field_user_mail.und[0].value,
-      sender_name: $localStorage.email.split('@')[0],
-      item_name: $scope.item.title,
-      message: inputVal.getValue('user_message')
-    };
     if ($localStorage.authenticated) {
+			var data = {
+				sender_mail: $localStorage.email,
+				reciever_mail: $scope.item.field_user_mail.und[0].value,
+				sender_name: $localStorage.email.split('@')[0],
+				item_name: $scope.item.title,
+				item_image: $scope.item.field_item_image.und[0].imgPath,
+				message: inputVal.getValue('user_message')
+			};
       $http.post('https://us-central1-elephant-app-c68a7.cloudfunctions.net/sendMail', data)
       .then(function (res) {
         UIfactory.hideSpinner();

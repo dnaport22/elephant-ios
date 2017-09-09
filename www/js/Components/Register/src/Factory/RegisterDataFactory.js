@@ -6,7 +6,7 @@ Register.factory('RegisterDataFactory', function (UserResource, RegisterNotifica
       UIfactory.hideSpinner();
       firebaseUser.sendEmailVerification();
       $rootScope.$emit('$onUserRegisterFinished');
-      UIfactory.showAlert('Registration pending approval', RegisterNotifications.COMPLETE_REGISTER);
+      UIfactory.showAlert('Registered successfully', RegisterNotifications.COMPLETE_REGISTER);
       $ionicHistory.goBack();
     }, function (error) {
       var statusMessage = error.message;

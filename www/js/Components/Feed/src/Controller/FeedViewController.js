@@ -54,11 +54,13 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
    * @return items from the server $scope.items[]
    */
   $scope.loadMore = function(callback) {
+    UIfactory.showSpinner();
+    var that = $scope;
+    var call = callback;
     ViewsResource.retrieve(viewOptions)
       .then(function (response) {
-        UIfactory.hideSpinner();
         // Navigate to call specific handler
-        switch (callback) {
+        switch (call) {
           case 'refresh':
             return handlePullToRefresh(response.data);
             break;
@@ -74,7 +76,7 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
             return true;
         }
       }, function (err) {
-          console.log(err)
+          that.loadMore(call);
         });
   };
 
@@ -82,6 +84,7 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
    * Called on infinte scroll
    */
   $scope.loadInfiniteScroll = function () {
+    console.log('infinite')
     if (paginationOptions.maxPage === undefined) {
       //start initial with 0
       paginationOptions.pageLast = (paginationOptions.pageLast === undefined) ? 0 : paginationOptions.pageLast + 1,
@@ -90,6 +93,10 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
     return $scope.loadMore('scroll');
     }
 
+  };
+
+  $scope.check = function() {
+    return $scope.DOMFeeds > 0;
   };
 
 
@@ -114,7 +121,6 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
       });
 
     }
-
     return data;
   }
 
@@ -217,6 +223,7 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
         $scope.DOMFeeds = $scope.NewFeeds.concat($scope.DOMFeeds);
       }
     }
+    UIfactory.hideSpinner();
   };
   /**
    * Description: check() function is called by infinite scroll to check if there
@@ -231,7 +238,6 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
    */
   $scope.trafficLight = function(route, item_name, item_desc, item_date, item_uid, item_img) {
     if (route == 'getitem') {
-      // if(typeof analytics !== "undefined") { analytics.trackEvent("Category", "Action", "Label", 25); }
       $location.path("/app/getitem/" + item_name + "/" + item_desc + "/" + item_date + "/" + item_uid + "/" + item_img )
     }
     else if (route == 'login') {
@@ -240,19 +246,19 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
     }
   };
 
-  // /**
-  //  * This loads the items before user enters the page.
-  //  */
-  // if($localStorage.app_launch_activity == 0) {
-  //   $scope.$on('$ionicView.beforeEnter', function() {
-  //     $scope.loadMore();
-  //   });
-  // }
-  // else {
-  //   $scope.$on('$stateChangeSuccess', function() {
-  //     $scope.loadMore();
-  //   });
-  // }
+  /**
+   * This loads the items before user enters the page.
+   */
+  if(!$localStorage.app_launch_activity) {
+    $scope.$on('$ionicView.beforeEnter', function() {
+      $scope.loadMore();
+    });
+  }
+  else {
+    $scope.$on('$stateChangeSuccess', function() {
+      $scope.loadMore();
+    });
+  }
 
 
   $scope.reloadData = function() {
@@ -264,14 +270,14 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
     $state.go('app.feedview', {feed: feed_data});
   };
 
-  // /**
-  //  * This is redirect the user to app.userguide state,
-  //  * if the user has open the app for first time.
-  //  */
-  // if($localStorage.app_launch_activity == 0) {
-  //   UIfactory.showSpinner();
-  //   $state.go('app.userguide');
-  // }
+  /**
+   * This is redirect the user to app.userguide state,
+   * if the user has open the app for first time.
+   */
+  if(!$localStorage.app_launch_activity) {
+    UIfactory.showSpinner();
+    $state.go('app.userguide');
+  }
 
 
 });

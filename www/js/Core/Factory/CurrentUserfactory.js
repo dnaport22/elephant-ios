@@ -7,7 +7,8 @@ elephant.factory('CurrentUserfactory', function ($localStorage) {
       anonymous: true,
       username: null,
       email: null,
-      authenticated: false
+      authenticated: false,
+			app_launch_activity: false
     }),
     setAuthenticated: function () {
       $localStorage.authenticated = true;
