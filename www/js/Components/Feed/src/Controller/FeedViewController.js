@@ -6,7 +6,6 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
   /**
    * Loading spinner
    */
-  //UIfactory.showSpinner();
 
   //pagination options
   var paginationOptions = {};
@@ -81,10 +80,9 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
   };
 
   /**
-   * Called on infinte scroll
+   * Called on infinite scroll
    */
   $scope.loadInfiniteScroll = function () {
-    console.log('infinite')
     if (paginationOptions.maxPage === undefined) {
       //start initial with 0
       paginationOptions.pageLast = (paginationOptions.pageLast === undefined) ? 0 : paginationOptions.pageLast + 1,
@@ -94,11 +92,6 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
     }
 
   };
-
-  $scope.check = function() {
-    return $scope.DOMFeeds > 0;
-  };
-
 
   /**
    * Initial loadMore() call handler.
@@ -112,15 +105,16 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
 
   //prepare article after fetched from server
   function prepareFeed(data) {
+    data.created = new Date(data.created*1000);
     if("field_item_image" in data && "und" in data.field_item_image) {
       angular.forEach(data.field_item_image.und, function (value, key) {
-
         var imgPath = data.field_item_image.und[key].uri.split('//')[1].replace(/^\/+/, "");
         data.field_item_image.und[key].imgPath = DrupalHelperService.getPathToImgByStyle(DrupalApiConstant.imageStyles.medium) + imgPath;
         data.nid = parseInt(data.nid);
       });
 
     }
+
     return data;
   }
 
@@ -161,21 +155,6 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
   };
 
   /**
-   * Description: check() function is called by infinite scroll to check if there
-   * are items in the $scope.items array.
-   */
-  $scope.check = function() {
-    return $scope.DOMFeeds.length > 0;
-  };
-
-  /**
-   * Executing loadMore() with initial state when view is loaded.
-   */
-  $scope.$on('$ionicView.loaded', function() {
-    $scope.loadMore('initial');
-  });
-
-  /**
    * Executing infinite scroll.
    */
   $scope.reloadData = function() {
@@ -187,7 +166,14 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
    * Broadcasting infinite scroll changes.
    */
   var handleInfiniteScroll = function (data) {
-    pollingFeeds(data);
+    if (data.length === 0) {
+      $scope.itemsFinished = true;
+    } else {
+			for (var i = 0; i < data.length; i++) {
+				DOMFeeds = DOMFeeds.concat(prepareFeed(data[i]));
+			}
+    }
+		$scope.DOMFeeds = DOMFeeds;
     $scope.$broadcast('scroll.infiniteScrollComplete');
   };
 
@@ -251,12 +237,12 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
    */
   if(!$localStorage.app_launch_activity) {
     $scope.$on('$ionicView.beforeEnter', function() {
-      $scope.loadMore();
+      $scope.loadMore('initial');
     });
   }
   else {
     $scope.$on('$stateChangeSuccess', function() {
-      $scope.loadMore();
+      $scope.loadMore('initial');
     });
   }
 

@@ -49,14 +49,18 @@
                   ng-click="fullView(item)">
           <img ng-src="{{item.field_item_image.und[0].imgPath}}">
           <h2>{{::item.title}}</h2>
-          <p>{{::item.body.und[0].value}}<p>
+          <p>{{::item.body.und[0].value}}</p>
+        </ion-item>
+        <ion-item ng-show="itemsFinished">Sorry no more items!</ion-item>
       </ion-list>
     </div>
     <!-- End Main grid -->
     <!-- Infinite scroll directive -->
     <ion-infinite-scroll
-        ng-if="check()"
+        ng-if="DOMFeeds.length"
+        icon="ion-loading-c"
         on-infinite="loadInfiniteScroll()"
+        immediate-check="false"
         distance="10%">
     </ion-infinite-scroll>
   </ion-content>
