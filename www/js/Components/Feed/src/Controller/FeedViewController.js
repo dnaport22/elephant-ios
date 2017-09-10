@@ -115,7 +115,6 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
 
   var prepareSlides = function (data) {
 		if("field_image" in data && "und" in data.field_image) {
-		  console.log(data)
 			angular.forEach(data.field_image.und, function (value, key) {
 				var imgPath = data.field_image.und[key].uri.split('//')[1].replace(/^\/+/, "");
 				data.field_image.und[key].imgPath = DrupalHelperService.getPathToImgByStyle(DrupalApiConstant.imageStyles.large) + imgPath;

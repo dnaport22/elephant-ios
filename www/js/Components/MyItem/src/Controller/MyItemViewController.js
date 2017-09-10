@@ -145,7 +145,7 @@ MyItem.controller('MyItemViewController', function(ITEM_STATES, $scope, $http, $
           var index = $scope.items.indexOf(item);
           $scope.items.splice(index, 1);
         }, function (err) {
-          UIfactory.showAlert('Success', 'Item have been deleted');
+          UIfactory.showAlert('Ooops!', 'Error while deleting item');
         });
       });
   };
@@ -160,7 +160,7 @@ MyItem.controller('MyItemViewController', function(ITEM_STATES, $scope, $http, $
 						var index = $scope.items.indexOf(item);
 						$scope.items.splice(index, 1);
 					}, function (err) {
-						UIfactory.showAlert('Success', 'Item have been deleted');
+						UIfactory.showAlert('Ooops!', 'Error while marking item as Given Away');
 					});
 			});
   };
