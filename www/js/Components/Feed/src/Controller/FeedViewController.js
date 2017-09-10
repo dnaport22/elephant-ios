@@ -4,6 +4,7 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
   $scope.state = CurrentUserfactory.initStorage;
   var slideShowItems = [];
   $scope.showSlides = true;
+  $scope.slideShow = false;
 	setTimeout(function(){
 		$ionicSlideBoxDelegate.update();
 	},1000);
@@ -95,7 +96,9 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
       .then(function (response) {
         if (response.data.length === 0) {
           $scope.showSlides = false;
+          $scope.slideShow = false;
         } else {
+          $scope.slideShow = true;
 					handleSlideShowData(response.data);
         }
 			})
@@ -185,9 +188,11 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
    */
   $scope.inputVal = false;
   $scope.search = function(filter) {
+		if ($scope.slideShow) {
+			$scope.showSlides = false;
+		}
     UIfactory.showSpinner();
 		document.getElementById('search').style.color = "white";
-    $scope.showSlides = false;
     $scope.inputVal = true;
     $scope.DOMFeeds = [];
     viewOptions.combine = filter;
@@ -203,10 +208,13 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
    * Description: clears input field and hide clear button.
    */
   $scope.clearInput = function() {
-    $scope.showSlides = false;
+    if ($scope.slideShow) {
+			$scope.showSlides = true;
+    }
     document.getElementById('search').style.color = "transparent";
     inputVal.setValue('search', '');
     $scope.inputVal = false;
+    delete viewOptions['combine'];
     $scope.DOMFeeds = DOMFeeds;
   };
 
