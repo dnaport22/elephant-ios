@@ -87,6 +87,7 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
           that.loadMore(call);
         });
   };
+  $scope.loadMore('initial');
 
   $scope.loadSlideShow = function () {
     UIfactory.showSpinner();
@@ -99,6 +100,7 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
         }
 			})
 	};
+  $scope.loadSlideShow();
 
   var handleSlideShowData = function (data) {
 		for (var i = 0; i < data.length; i++) {
@@ -295,13 +297,6 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
       $scope.loadMore('initial');
     });
   }
-  else {
-    $scope.$on('$stateChangeSuccess', function() {
-      $scope.loadMore('initial');
-      $scope.loadSlideShow();
-    });
-  }
-
 
   $scope.reloadData = function() {
     $state.go($state.current, {reload: true, inherit: false})
