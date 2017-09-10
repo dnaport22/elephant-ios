@@ -1,13 +1,24 @@
 <ion-view view-title="Post Item" class="post-item">
   <ion-content overflow-scroll="false">
-    <!-- LSA-121 -->
-    <div class="list-inset">
-      <button ng-click="imageOptions()" id="select-image-button" class="button button-block icon-left ion-camera button-positive">Select image</button>
+
+    <div class="list" id="upload-image-container" style="width: 100vw; margin-left: -0.5px">
+      <div class="item item-image" id="upImage"
+           style="background-image: url('./');
+           background-color: #11c1f3; height: 180px;">
+        <div id="select-image-button-container" style="width: 100%; height: 150px; display: flex; align-items: center; justify-content: center">
+        <button
+                ng-click="imageOptions()"
+                id="select-image-button"
+                class="button icon ion-camera button-calm"
+                style="border-radius: 50%; box-shadow: 1px 1px 1px #4c4c4c;">
+        </button>
+        </div>
+      </div>
     </div>
-    <div class="list card" id="upload-image-container" style="display: none;">
-      <div class="item item-image" id="upImage" style="background-image: url('./../img/ionic.png')"></div>
+
+    <div class="list list-inset">
+      <button ng-click="imageOptions()" id="reselect-image-button" class="button button-block icon-left ion-camera button-calm" style="display: none;">Reselect image</button>
     </div>
-    <!-- /LSA-121 -->
 
     <div class="list list-inset">
       <label class="item item-input">

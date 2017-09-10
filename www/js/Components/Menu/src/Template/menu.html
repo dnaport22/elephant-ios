@@ -18,6 +18,7 @@
     </ion-header-bar>
     <ion-content>
 
+      <div style="margin-top: 30px;">
       <ion-list ng-if="$state.authenticated">
         <ion-item>
           Logged in as {{::$state.email | split:'@':0}}
@@ -28,6 +29,7 @@
           Log in to view more options
         </ion-item>
       </ion-list>
+      </div>
 
       <ion-list ng-repeat = "link in drawerLinks_loggedIn" ng-if="$state.authenticated">
         <ion-item menu-close ng-href="{{::link.href}}">
