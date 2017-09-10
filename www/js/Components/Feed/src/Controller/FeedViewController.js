@@ -1,7 +1,12 @@
-elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelperService, ViewsResource, $state, $ionicHistory, $scope, $http, $ionicPlatform,$location, $timeout, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics, $templateCache, $ionicScrollDelegate, $rootScope, CurrentUserfactory, AuthenticationService) {
+elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelegate, DrupalApiConstant, DrupalHelperService, ViewsResource, $state, $ionicHistory, $scope, $http, $ionicPlatform,$location, $timeout, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics, $templateCache, $ionicScrollDelegate, $rootScope, CurrentUserfactory, AuthenticationService) {
   $rootScope.slideHeader = false;
   $rootScope.pixelLimit = 0;
   $scope.state = CurrentUserfactory.initStorage;
+  var slideShowItems = [];
+  $scope.showSlides = true;
+	setTimeout(function(){
+		$ionicSlideBoxDelegate.update();
+	},1000);
   /**
    * Loading spinner
    */
@@ -11,6 +16,7 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
   paginationOptions.pageFirst = 0;
   paginationOptions.pageLast = undefined;
   paginationOptions.maxPage = undefined;
+  $scope.slideLimit = 3;
 
   var viewOptions = {
     view_name: 'item_feed',
@@ -19,6 +25,10 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
     format_output: '0'
   };
 
+  var slideViewOptions = {
+    view_name: 'in_app_slideshow',
+    page: 0
+  };
 
   /**
    * Home page view list & grid
@@ -78,6 +88,42 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
         });
   };
 
+  $scope.loadSlideShow = function () {
+    UIfactory.showSpinner();
+    ViewsResource.retrieve(slideViewOptions)
+      .then(function (response) {
+        if (response.data.length === 0) {
+          $scope.showSlides = false;
+        } else {
+					handleSlideShowData(response.data);
+        }
+			})
+	};
+
+  var handleSlideShowData = function (data) {
+		for (var i = 0; i < data.length; i++) {
+			slideShowItems = slideShowItems.concat(prepareSlides(data[i]));
+		}
+		$scope.slideShowItems = slideShowItems;
+		UIfactory.hideSpinner();
+	};
+
+  var prepareSlides = function (data) {
+		if("field_image" in data && "und" in data.field_image) {
+		  console.log(data)
+			angular.forEach(data.field_image.und, function (value, key) {
+				var imgPath = data.field_image.und[key].uri.split('//')[1].replace(/^\/+/, "");
+				data.field_image.und[key].imgPath = DrupalHelperService.getPathToImgByStyle(DrupalApiConstant.imageStyles.large) + imgPath;
+			});
+
+		}
+		return data;
+	};
+
+  $scope.onSlideClick = function (url) {
+		window.open(url, '_system', 'location=no,clearsessioncache=no,clearcache=no');
+	};
+
   /**
    * Called on infinite scroll
    */
@@ -102,6 +148,10 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
     $scope.DOMFeeds = DOMFeeds;
     UIfactory.hideSpinner();
   };
+
+	Array.prototype.random = function () {
+		return this[Math.floor((Math.random()*this.length))];
+	};
 
   //prepare article after fetched from server
   function prepareFeed(data) {
@@ -134,6 +184,8 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
   $scope.inputVal = false;
   $scope.search = function(filter) {
     UIfactory.showSpinner();
+		document.getElementById('search').style.color = "white";
+    $scope.showSlides = false;
     $scope.inputVal = true;
     $scope.DOMFeeds = [];
     viewOptions.combine = filter;
@@ -149,6 +201,8 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
    * Description: clears input field and hide clear button.
    */
   $scope.clearInput = function() {
+    $scope.showSlides = false;
+    document.getElementById('search').style.color = "transparent";
     inputVal.setValue('search', '');
     $scope.inputVal = false;
     $scope.DOMFeeds = DOMFeeds;
@@ -244,6 +298,7 @@ elephant.controller('FeedViewController', function(DrupalApiConstant, DrupalHelp
   else {
     $scope.$on('$stateChangeSuccess', function() {
       $scope.loadMore('initial');
+      $scope.loadSlideShow();
     });
   }
 

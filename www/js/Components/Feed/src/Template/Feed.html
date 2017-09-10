@@ -33,6 +33,22 @@
           No items found for {{searchValue}}
         </div>
       </div>
+
+      <div id="slide-panel" ng-if="showSlides">
+      <ion-slide-box>
+        <ion-slide ng-repeat="item in slideShowItems" ng-click="onSlideClick(item.field_url.und[0].value)">
+            <div class="box text-center">
+              <img href="#" src="{{item.field_image.und[0].imgPath}}">
+            </div>
+        </ion-slide>
+      </ion-slide-box>
+      <ion-list>
+        <ion-item>
+          More to freecycle
+        </ion-item>
+      </ion-list>
+      </div>
+
       <!-- Card view of the items -->
       <div class="grid-two-to-three-to-four-col" ng-repeat="item in DOMFeeds" ng-if="viewType == 'grid'">
         <div href="#" class="list card" ng-click="fullView(item)">
