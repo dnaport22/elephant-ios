@@ -4,16 +4,24 @@ MyItem.controller('MyItemViewController', function(ITEM_STATES, $scope, $http, $
    */
   $scope.items = [];
   $scope.state = ITEM_STATES;
-  var itemOptions = {
+  $scope.itemsFinished = false;
+  var items = [];
+  var viewOptions = {
     view_name: 'myitem',
     page: 0,
-    pagesize: 5,
+    pagesize: 10,
     format_output: 0,
     field_user_mail_value: $localStorage.email
   };
 
+	//pagination options
+	var paginationOptions = {};
+	paginationOptions.pageFirst = 0;
+	paginationOptions.pageLast = 0;
+	paginationOptions.maxPage = undefined;
+
   $scope.loadItems = function () {
-    ViewsResource.retrieve(itemOptions)
+    ViewsResource.retrieve(viewOptions)
       .then(function (res) {
         handleItemFeed(res.data)
       }, function (err) {
@@ -21,13 +29,35 @@ MyItem.controller('MyItemViewController', function(ITEM_STATES, $scope, $http, $
       })
   };
 
+	/**
+	 * Called on infinite scroll
+	 */
+	$scope.loadInfiniteScroll = function () {
+		if (!$scope.itemsFinished) {
+			if (paginationOptions.maxPage === undefined) {
+				//start initial with 0
+				paginationOptions.pageLast = (paginationOptions.pageLast === undefined) ? 0 : paginationOptions.pageLast + 1,
+					viewOptions.page = paginationOptions.pageLast;
+				$scope.loadItems();
+			}
+		}
+		return false;
+	};
+
   /**
    * Initial loadMore() call handler.
    */
   var handleItemFeed = function(data) {
-    for (var i = 0; i < data.length; i++) {
-      $scope.items = $scope.items.concat(prepareFeed(data[i]));
-    }
+		if (data.length === 0) {
+			$scope.itemsFinished = true;
+		} else {
+			for (var i = 0; i < data.length; i++) {
+				items = items.concat(prepareFeed(data[i]));
+			}
+			$scope.items = items;
+		}
+		$scope.$broadcast('scroll.infiniteScrollComplete');
+		UIfactory.hideSpinner();
   };
 
   //prepare article after fetched from server

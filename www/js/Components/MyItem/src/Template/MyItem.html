@@ -35,9 +35,11 @@
       </div>
     </div>
     <ion-infinite-scroll
-        ng-if="check()"
-        on-infinite="loadMore()"
-        distance="1%">
+            ng-if="items.length"
+            icon="ion-loading-c"
+            on-infinite="loadInfiniteScroll()"
+            immediate-check="false"
+            distance="1%">
     </ion-infinite-scroll>
   </ion-content>
 </ion-view>

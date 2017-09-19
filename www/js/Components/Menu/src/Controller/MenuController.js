@@ -38,10 +38,7 @@ Menu.controller('MenuController', function($scope, $location, $localStorage, Dru
     auth.$signOut();
     UIfactory.hideSpinner();
     CurrentUserfactory.setAnonymous();
+    CurrentUserfactory.setEmail(null);
   };
-
-  $scope.login = function () {
-    $location.path("/app/login/main");
-  }
   
 });
