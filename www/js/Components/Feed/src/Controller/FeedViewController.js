@@ -3,11 +3,13 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
   $rootScope.pixelLimit = 0;
   $scope.state = CurrentUserfactory.initStorage;
   var slideShowItems = [];
-  $scope.showSlides = true;
+  $scope.showSlides = false;
   $scope.slideShow = false;
+  $scope.searchItemsFinished = false;
 	setTimeout(function(){
 		$ionicSlideBoxDelegate.update();
 	},1000);
+	$scope.searchActive = false;
   /**
    * Loading spinner
    */
@@ -15,15 +17,27 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
   //pagination options
   var paginationOptions = {};
   paginationOptions.pageFirst = 0;
-  paginationOptions.pageLast = undefined;
+  paginationOptions.pageLast = 0;
   paginationOptions.maxPage = undefined;
   $scope.slideLimit = 3;
+
+  var searchPaginationOptions = {};
+	searchPaginationOptions.pageFirst = 0;
+	searchPaginationOptions.pageLast = 0;
+	searchPaginationOptions.maxPage = undefined;
 
   var viewOptions = {
     view_name: 'item_feed',
     page: 0,
-    pagesize: 5,
+    pagesize: 10,
     format_output: '0'
+  };
+
+  var searchViewOptions = {
+		view_name: 'item_feed',
+		page: 0,
+		pagesize: 10,
+		format_output: '0'
   };
 
   var slideViewOptions = {
@@ -49,9 +63,8 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
    */
   $scope.items = [];
   var DOMFeeds = [];
+  $scope.DOMFeeds = [];
   $scope.NewFeeds = [];
-  var preservedFeed = DOMFeeds;
-  var searchFeeds = [];
   var retrieved = 0;
   $scope.searchValue = null;
 
@@ -62,11 +75,11 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
    *         filter => serach input
    * @return items from the server $scope.items[]
    */
-  $scope.loadMore = function(callback) {
+  $scope.loadMore = function(callback, options) {
     UIfactory.showSpinner();
     var that = $scope;
     var call = callback;
-    ViewsResource.retrieve(viewOptions)
+    ViewsResource.retrieve(options)
       .then(function (response) {
         // Navigate to call specific handler
         switch (call) {
@@ -88,7 +101,7 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
           that.loadMore(call);
         });
   };
-  $scope.loadMore('initial');
+  $scope.loadMore('initial', viewOptions);
 
   $scope.loadSlideShow = function () {
     UIfactory.showSpinner();
@@ -98,6 +111,7 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
           $scope.showSlides = false;
           $scope.slideShow = false;
         } else {
+          $scope.showSlides = true;
           $scope.slideShow = true;
 					handleSlideShowData(response.data);
         }
@@ -132,14 +146,15 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
    * Called on infinite scroll
    */
   $scope.loadInfiniteScroll = function () {
-    if (paginationOptions.maxPage === undefined) {
-      //start initial with 0
-      paginationOptions.pageLast = (paginationOptions.pageLast === undefined) ? 0 : paginationOptions.pageLast + 1,
-        viewOptions.page = paginationOptions.pageLast;
-
-    return $scope.loadMore('scroll');
-    }
-
+		if (!$scope.itemsFinished) {
+			if (paginationOptions.maxPage === undefined) {
+				//start initial with 0
+				paginationOptions.pageLast = (paginationOptions.pageLast === undefined) ? 0 : paginationOptions.pageLast + 1,
+					viewOptions.page = paginationOptions.pageLast;
+				$scope.loadMore('scroll', viewOptions);
+			}
+		}
+    return false;
   };
 
   /**
@@ -177,7 +192,7 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
    */
   $scope.pullToRefresh = function() {
     viewOptions.page = 0;
-    $scope.loadMore('refresh');
+    $scope.loadMore('refresh', viewOptions);
   };
 
 
@@ -190,12 +205,16 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
 		if ($scope.slideShow) {
 			$scope.showSlides = false;
 		}
-    UIfactory.showSpinner();
+		$scope.searchActive = true;
 		document.getElementById('search').style.color = "white";
     $scope.inputVal = true;
-    $scope.DOMFeeds = [];
-    viewOptions.combine = filter;
-    $scope.loadMore('search');
+    if (filter.length > 3) {
+			UIfactory.showSpinner();
+			$scope.DOMFeeds = [];
+			searchPaginationOptions.pageLast = 0;
+			searchViewOptions.combine = filter;
+			$scope.loadMore('search', searchViewOptions);
+    }
   };
 
   var handleSearchLoad = function (data) {
@@ -213,7 +232,9 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
     document.getElementById('search').style.color = "transparent";
     inputVal.setValue('search', '');
     $scope.inputVal = false;
-    delete viewOptions['combine'];
+    searchViewOptions.page = 0;
+    $scope.searchActive = false;
+    $scope.searchItemsFinished = false;
     $scope.DOMFeeds = DOMFeeds;
   };
 
@@ -230,13 +251,13 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
    */
   var handleInfiniteScroll = function (data) {
     if (data.length === 0) {
-      $scope.itemsFinished = true;
+			$scope.itemsFinished = true;
     } else {
 			for (var i = 0; i < data.length; i++) {
 				DOMFeeds = DOMFeeds.concat(prepareFeed(data[i]));
 			}
+			$scope.DOMFeeds = DOMFeeds;
     }
-		$scope.DOMFeeds = DOMFeeds;
     $scope.$broadcast('scroll.infiniteScrollComplete');
     UIfactory.hideSpinner();
   };
@@ -280,7 +301,7 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
    * are items in the $scope.items array.
    */
   $scope.check = function() {
-    return retrieved > 0
+    return true;
   };
 
   /**

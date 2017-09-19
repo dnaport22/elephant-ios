@@ -22,17 +22,12 @@
     </div>
 
     <ion-refresher
+        ng-if="searchActive == false"
         pulling-text="Pull to load new items..."
         on-refresh="pullToRefresh()">
     </ion-refresher>
     <!-- Main grid to display items -->
     <div class="grid-container">
-      <!-- Search text displayed on input in search field -->
-      <div class="row" ng-show="DOMFeeds.length == 0">
-        <div class="col col-center text-center">
-          No items found for {{searchValue}}
-        </div>
-      </div>
 
       <div id="slide-panel" ng-if="showSlides">
       <ion-slide-box>
@@ -72,13 +67,15 @@
     </div>
     <!-- End Main grid -->
     <!-- Infinite scroll directive -->
-    <ion-infinite-scroll
-        ng-if="DOMFeeds.length"
-        icon="ion-loading-c"
-        on-infinite="loadInfiniteScroll()"
-        immediate-check="false"
-        distance="10%">
-    </ion-infinite-scroll>
+    <div ng-if="searchActive == false">
+      <ion-infinite-scroll
+              ng-if="check()"
+              icon="ion-loading-c"
+              on-infinite="loadInfiniteScroll()"
+              immediate-check="false"
+              distance="1%">
+      </ion-infinite-scroll>
+    </div>
   </ion-content>
   <!-- Footer tabs -->
   <div class="tab-striped  tabs-background-calm">
