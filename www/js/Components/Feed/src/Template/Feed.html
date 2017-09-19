@@ -67,10 +67,9 @@
     </div>
     <!-- End Main grid -->
     <!-- Infinite scroll directive -->
-    <div ng-if="searchActive == false">
+    <div>
       <ion-infinite-scroll
               ng-if="check()"
-              icon="ion-loading-c"
               on-infinite="loadInfiniteScroll()"
               immediate-check="false"
               distance="1%">

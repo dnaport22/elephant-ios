@@ -99,8 +99,8 @@ PostReport.controller('PostItemViewController', function($timeout, $state, $scop
     inputVal.setValue('name', '');
     inputVal.setValue('desc', '');
     IMAGE_URI = null;
-    document.getElementById("upload-image-container").style.display = "none";
-    document.getElementById("select-image-button-container").style.display = "flex";
+		document.getElementById("select-image-button-container").style.display = "block";
+		document.getElementById("reselect-image-button").style.display = "none"
   };
 
   /**

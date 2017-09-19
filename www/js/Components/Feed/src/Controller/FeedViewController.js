@@ -1,5 +1,6 @@
 elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelegate, DrupalApiConstant, DrupalHelperService, ViewsResource, $state, $ionicHistory, $scope, $http, $ionicPlatform,$location, $timeout, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics, $templateCache, $ionicScrollDelegate, $rootScope, CurrentUserfactory, AuthenticationService) {
-  $rootScope.slideHeader = false;
+  UIfactory.showSpinner();
+	$rootScope.slideHeader = false;
   $rootScope.pixelLimit = 0;
   $scope.state = CurrentUserfactory.initStorage;
   var slideShowItems = [];
@@ -75,7 +76,6 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
    * @return items from the server $scope.items[]
    */
   $scope.loadMore = function(callback, options) {
-    UIfactory.showSpinner();
     var that = $scope;
     var call = callback;
     ViewsResource.retrieve(options)
@@ -97,7 +97,7 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
             return true;
         }
       }, function (err) {
-          that.loadMore(call);
+          that.loadMore(call, options);
         });
   };
   $scope.loadMore('initial', viewOptions);
@@ -146,15 +146,35 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
    */
   $scope.loadInfiniteScroll = function () {
 		if (!$scope.itemsFinished) {
-			if (paginationOptions.maxPage === undefined) {
-				//start initial with 0
-				paginationOptions.pageLast = (paginationOptions.pageLast === undefined) ? 0 : paginationOptions.pageLast + 1,
-					viewOptions.page = paginationOptions.pageLast;
-				$scope.loadMore('scroll', viewOptions);
+			if (!$scope.searchActive) {
+				return initialInfinite();
+			}
+		}
+		if ($scope.searchActive) {
+			if (!$scope.searchItemsFinished) {
+				return searchPageInfinite();
 			}
 		}
     return false;
   };
+
+  var initialInfinite = function () {
+		if (paginationOptions.maxPage === undefined) {
+			//start initial with 0
+			paginationOptions.pageLast = (paginationOptions.pageLast === undefined) ? 0 : paginationOptions.pageLast + 1,
+				viewOptions.page = paginationOptions.pageLast;
+			$scope.loadMore('scroll', viewOptions);
+		}
+	};
+
+	var searchPageInfinite = function () {
+		if (searchPaginationOptions.maxPage === undefined) {
+			//start initial with 0
+			searchPaginationOptions.pageLast = (searchPaginationOptions.pageLast === undefined) ? 0 : searchPaginationOptions.pageLast + 1,
+				searchViewOptions.page = searchPaginationOptions.pageLast;
+			$scope.loadMore('scroll', searchViewOptions);
+		}
+	};
 
   /**
    * Initial loadMore() call handler.
@@ -250,14 +270,17 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
    */
   var handleInfiniteScroll = function (data) {
     if (data.length === 0) {
-			$scope.itemsFinished = true;
+    	if (!$scope.searchActive) {
+				$scope.itemsFinished = true;
+			}
     } else {
 			for (var i = 0; i < data.length; i++) {
 				DOMFeeds = DOMFeeds.concat(prepareFeed(data[i]));
 			}
 			$scope.DOMFeeds = DOMFeeds;
     }
-    $scope.$broadcast('scroll.infiniteScrollComplete');
+
+		$scope.$broadcast('scroll.infiniteScrollComplete');
     UIfactory.hideSpinner();
   };
 
