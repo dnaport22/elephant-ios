@@ -38,8 +38,6 @@ Menu.controller('MenuController', function($scope, $location, $localStorage, Dru
     auth.$signOut();
     UIfactory.hideSpinner();
     CurrentUserfactory.setAnonymous();
-    $ionicHistory.nextViewOptions({disableBack: true});
-    $state.go('app.main');
   };
 
   $scope.login = function () {

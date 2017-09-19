@@ -65,7 +65,6 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
   var DOMFeeds = [];
   $scope.DOMFeeds = [];
   $scope.NewFeeds = [];
-  var retrieved = 0;
   $scope.searchValue = null;
 
   /**
@@ -208,7 +207,7 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
 		$scope.searchActive = true;
 		document.getElementById('search').style.color = "white";
     $scope.inputVal = true;
-    if (filter.length > 3) {
+    if (filter.length > 2) {
 			UIfactory.showSpinner();
 			$scope.DOMFeeds = [];
 			searchPaginationOptions.pageLast = 0;

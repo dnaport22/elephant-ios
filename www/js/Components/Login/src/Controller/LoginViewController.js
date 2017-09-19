@@ -85,7 +85,7 @@ Login.controller('LoginViewController', function($stateParams, $scope, $ionicSid
     }
     else if (path == 'postitem') {
       UIfactory.hideSpinner();
-      $ionicHistory.goBack();
+			$state.go('app.main');
     }
   };
 
