@@ -40,19 +40,17 @@ var elephant = angular.module('elephant',
 
 .run(function($ionicPlatform, $ionicAnalytics, $localStorage, AuthenticationService, UIfactory) {
   $ionicPlatform.ready(function() {
-    if (!$localStorage.bot_status) {
-			AuthenticationService.refreshConnection()
-				.then(function (res) {
-					AuthenticationService.login({username: 'elephant app', password: 'admin'})
-						.then(function (res) {
-							$localStorage.bot_status = true;
-						}, function (err) {
-							if (err.status = 406) {
-								return null;
-							}
-						});
-				});
-    }
+		AuthenticationService.refreshConnection()
+			.then(function (res) {
+				AuthenticationService.login({username: 'elephant app', password: 'admin'})
+					.then(function (res) {
+						$localStorage.bot_status = true;
+					}, function (err) {
+						if (err.status = 406) {
+							return null;
+						}
+					});
+			});
     //Register ionic analytics
     //$ionicAnalytics.register();
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
