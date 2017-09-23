@@ -99,7 +99,10 @@ PostReport.controller('PostItemViewController', function($timeout, $state, $scop
     inputVal.setValue('name', '');
     inputVal.setValue('desc', '');
     IMAGE_URI = null;
-    document.getElementById("upload-image-container").style.display = "none";
+		var image = document.getElementById('upImage');
+		image.style.backgroundImage = "url('./')";
+		image.style.height = "180px";
+		image.style.backgroundColor = "#11c1f3";
 		document.getElementById("reselect-image-button").style.display = "none";
     document.getElementById("select-image-button-container").style.display = "flex";
   };
