@@ -40,5 +40,9 @@ Menu.controller('MenuController', function($scope, $location, $localStorage, Dru
     CurrentUserfactory.setAnonymous();
     CurrentUserfactory.setEmail(null);
   };
+
+  $scope.login = function () {
+    $location.path("/app/login/main");
+  }
   
 });

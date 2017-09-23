@@ -20,14 +20,33 @@ MyItem.controller('MyItemViewController', function(ITEM_STATES, $scope, $http, $
 	paginationOptions.pageLast = 0;
 	paginationOptions.maxPage = undefined;
 
-  $scope.loadItems = function () {
+  $scope.loadItems = function (call) {
     ViewsResource.retrieve(viewOptions)
       .then(function (res) {
-        handleItemFeed(res.data)
+      	switch (call) {
+					case 'initial':
+						return handleInitialLoad(res.data);
+						break;
+					case 'infinite':
+						return handleInfiniteLoad(res.data);
+						break;
+				}
+
       }, function (err) {
         //TODO: handle my items fetch error
       })
   };
+
+	/**
+	 * Initial loadMore() call handler.
+	 */
+	var handleInitialLoad = function(data) {
+		for (var i = 0; i < data.length; i++) {
+			items = items.concat(prepareFeed(data[i]));
+		}
+		$scope.items = items;
+		UIfactory.hideSpinner();
+	};
 
 	/**
 	 * Called on infinite scroll
@@ -38,7 +57,7 @@ MyItem.controller('MyItemViewController', function(ITEM_STATES, $scope, $http, $
 				//start initial with 0
 				paginationOptions.pageLast = (paginationOptions.pageLast === undefined) ? 0 : paginationOptions.pageLast + 1,
 					viewOptions.page = paginationOptions.pageLast;
-				$scope.loadItems();
+				$scope.loadItems('infinite');
 			}
 		}
 		return false;
@@ -47,7 +66,7 @@ MyItem.controller('MyItemViewController', function(ITEM_STATES, $scope, $http, $
   /**
    * Initial loadMore() call handler.
    */
-  var handleItemFeed = function(data) {
+  var handleInfiniteLoad = function(data) {
 		if (data.length === 0) {
 			$scope.itemsFinished = true;
 		} else {
@@ -74,6 +93,32 @@ MyItem.controller('MyItemViewController', function(ITEM_STATES, $scope, $http, $
 
     return data;
   }
+
+	/**
+	 * Polling feeds.
+	 *
+	 * It compare the new feeds with the ones already in viewport and add new ones (if any).
+	 * If the content type is News the it passes the data to notificationRequestLoader after appending to viewport.
+	 */
+	var pollingFeeds = function (data) {
+		for (var i = 0; i < data.length; i++) {
+			var match = false;
+			for (var j = 0; j < $scope.items.length; j++) {
+				if ($scope.items[j]['nid'] == data[i]['nid']) {
+					// Ignore if content is already in the DOM.
+					match = true;
+					break;
+				}
+			}
+			if (!match) {
+				// Add new content into DOM.
+				$scope.NewFeeds = [];
+				$scope.NewFeeds = $scope.NewFeeds.concat(prepareFeed(data[i]));
+				$scope.items = $scope.NewFeeds.concat($scope.DOMFeeds);
+			}
+		}
+		UIfactory.hideSpinner();
+	};
 
   //Function checks status of the item
   $scope.checkStatus = function(item){
@@ -197,7 +242,7 @@ MyItem.controller('MyItemViewController', function(ITEM_STATES, $scope, $http, $
 
   $scope.$on('$ionicView.beforeEnter', function() {
     $scope.items = [];
-    $scope.loadItems();
+    $scope.loadItems('initial');
   });
 
 });

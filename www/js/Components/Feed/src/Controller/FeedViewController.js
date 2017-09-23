@@ -65,6 +65,8 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
   $scope.items = [];
   var DOMFeeds = [];
   $scope.DOMFeeds = [];
+  var initialFeed = [];
+  var searchFeed = [];
   $scope.NewFeeds = [];
   $scope.searchValue = null;
 
@@ -144,19 +146,22 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
   /**
    * Called on infinite scroll
    */
-  $scope.loadInfiniteScroll = function () {
+  $scope.loadInitialInfiniteScroll = function () {
 		if (!$scope.itemsFinished) {
-			if (!$scope.searchActive) {
-				return initialInfinite();
-			}
-		}
-		if ($scope.searchActive) {
-			if (!$scope.searchItemsFinished) {
-				return searchPageInfinite();
-			}
+			return initialInfinite();
 		}
     return false;
   };
+
+	/**
+	 * Called on infinite scroll
+	 */
+	$scope.loadSearchInfiniteScroll = function () {
+		if (!$scope.searchItemsFinished) {
+			return searchPageInfinite();
+		}
+		return false;
+	};
 
   var initialInfinite = function () {
 		if (paginationOptions.maxPage === undefined) {
@@ -181,9 +186,9 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
    */
   var handleInitialLoad = function(data) {
     for (var i = 0; i < data.length; i++) {
-      DOMFeeds = DOMFeeds.concat(prepareFeed(data[i]));
+      initialFeed = initialFeed.concat(prepareFeed(data[i]));
     }
-    $scope.DOMFeeds = DOMFeeds;
+    $scope.DOMFeeds = initialFeed;
     UIfactory.hideSpinner();
   };
 
@@ -226,19 +231,27 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
 		}
 		$scope.searchActive = true;
 		document.getElementById('search').style.color = "white";
+		searchPaginationOptions.pageLast = undefined;
     $scope.inputVal = true;
     if (filter.length > 2) {
 			UIfactory.showSpinner();
-			$scope.DOMFeeds = [];
-			searchPaginationOptions.pageLast = 0;
+			searchFeed = [];
 			searchViewOptions.combine = filter;
 			$scope.loadMore('search', searchViewOptions);
     }
   };
 
   var handleSearchLoad = function (data) {
-    UIfactory.hideSpinner();
-    pollingFeeds(data);
+		if (data.length === 0) {
+			$scope.searchItemsFinished = true;
+		} else {
+			for (var i = 0; i < data.length; i++) {
+				searchFeed = searchFeed.concat(prepareFeed(data[i]));
+			}
+			$scope.DOMFeeds = searchFeed;
+		}
+		$scope.$broadcast('scroll.infiniteScrollComplete');
+		UIfactory.hideSpinner();
   };
 
   /**
@@ -252,9 +265,10 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
     inputVal.setValue('search', '');
     $scope.inputVal = false;
     searchViewOptions.page = 0;
+    searchPaginationOptions.pageLast = undefined;
     $scope.searchActive = false;
     $scope.searchItemsFinished = false;
-    $scope.DOMFeeds = DOMFeeds;
+    $scope.DOMFeeds = initialFeed;
   };
 
   /**
@@ -275,9 +289,10 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
 			}
     } else {
 			for (var i = 0; i < data.length; i++) {
-				DOMFeeds = DOMFeeds.concat(prepareFeed(data[i]));
+				initialFeed = initialFeed.concat(prepareFeed(data[i]));
 			}
-			$scope.DOMFeeds = DOMFeeds;
+			$scope.DOMFeeds = initialFeed;
+
     }
 
 		$scope.$broadcast('scroll.infiniteScrollComplete');
@@ -322,9 +337,17 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
    * Description: check() function is called by infinite scroll to check if there
    * are items in the $scope.items array.
    */
-  $scope.check = function() {
+  $scope.checkInitial = function() {
     return true;
   };
+
+	/**
+	 * Description: check() function is called by infinite scroll to check if there
+	 * are items in the $scope.items array.
+	 */
+	$scope.checkSearch = function() {
+		return true;
+	};
 
   /**
    * Description: used for navigating user to getitem and login/post item page.
