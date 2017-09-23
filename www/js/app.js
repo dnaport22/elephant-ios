@@ -4,8 +4,18 @@ var elephant = angular.module('elephant',
   'ionic.cloud',
   'ngCordova',
   'ngStorage',
+  'ngCookies',
   'ionic.service.core',
-  'ionic.service.analytics'
+  'ionic.service.analytics',
+  'firebase',
+  'Login',
+  'Register',
+  'PasswordReset',
+  'Menu',
+  'Legal',
+  'Feed',
+  'PostItem',
+  'MyItem'
 ])
 
 .config(function ($ionicCloudProvider) {
@@ -28,10 +38,23 @@ var elephant = angular.module('elephant',
 
 })
 
-.run(function($ionicPlatform, $ionicAnalytics) {
+.run(function($ionicPlatform, $ionicAnalytics, $localStorage, AuthenticationService, UIfactory) {
   $ionicPlatform.ready(function() {
+    if (!$localStorage.bot_status) {
+			AuthenticationService.refreshConnection()
+				.then(function (res) {
+					AuthenticationService.login({username: 'elephant app', password: 'admin'})
+						.then(function (res) {
+							$localStorage.bot_status = true;
+						}, function (err) {
+							if (err.status = 406) {
+								return null;
+							}
+						});
+				});
+    }
     //Register ionic analytics
-    $ionicAnalytics.register();
+    //$ionicAnalytics.register();
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -45,142 +68,28 @@ var elephant = angular.module('elephant',
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, DrupalApiConstant, $ionicCloudProvider) {
+  DrupalApiConstant.drupal_instance = "http://developv2.myelephant.xyz/";
+  DrupalApiConstant.api_endpoint = "api/elev2/";
   //$ionicConfigProvider.views.transition('android');
   $ionicConfigProvider.scrolling.jsScrolling(false);
   //$ionicConfigProvider.spinner.icon('android');
 
-  // Routes needs to be moved into different file as service or a factory.
+  const TEMPLATE_DIR = 'js/Components/';
   $stateProvider
-
-    .state('app', {
+  .state('app', {
     url: '/app',
     abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'DrawerController'
-  })
-
-    .state('app.menu', {
-    url: '/app',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'DrawerController'
-  })
-
-  .state('app.main', {
-    url: '/main',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/main.html',
-        controller: 'MainpageCtrl'
-      }
-    }
-  })
-
-  .state('app.login', {
-    url: '/login/:path',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/login.html',
-        controller: 'LoginController'
-      }
-    }
-  })
-
-  .state('app.register', {
-    url: '/register',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/register.html',
-        controller: 'RegisterController'
-      }
-    }
-  })
-
-  .state('app.getitem', {
-    url: '/getitem/:itemName/:itemDesc/:itemDate/:itemUid/:itemImg',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/getitem.html',
-        controller: 'ViewController'
-      }
-    }
-  })
-
-  .state('app.requestreset', {
-    url: '/requestreset',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/requestreset.html',
-        controller: 'RequestResetController'
-      }
-    }
-  })
-
-  .state('app.myitems', {
-    url: '/myitems',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/myitems.html',
-        controller: 'MyitemsController'
-      }
-    }
-  })
-
-  .state('app.aboutus', {
-    url: '/aboutus',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/aboutus.html'
-      }
-    }
-  })
-
-  .state('app.terms', {
-    url: '/terms',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/terms.html'
-      }
-    }
+    templateUrl: TEMPLATE_DIR + 'Menu/src/Template/menu.html',
+    controller: 'MenuController'
   })
 
   .state('app.userguide', {
     url: '/userguide',
     views: {
       'menuContent': {
-        templateUrl: 'templates/userguide.html',
+        templateUrl: 'js/Core/UserGuide/userguide.html',
         controller: 'UserguideController'
-      }
-    }
-  })
-
-  .state('app.eula', {
-    url: '/eula',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/eula.html',
-        controller: 'DrawerController'
-      }
-    }
-  })
-
-  .state('app.pp', {
-    url: '/pp',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/pp.html',
-        controller: 'DrawerController'
-      }
-    }
-  })
-
-  .state('app.postitem', {
-    url: '/postitem',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/postitem.html',
-        controller: 'PostitemController'
       }
     }
   })
@@ -189,7 +98,7 @@ var elephant = angular.module('elephant',
     url: '/recyclingguide',
     views: {
       'menuContent': {
-        templateUrl: "templates/recyclingguide.html"
+        templateUrl: "js/Core/RecyclingGuide/recyclingguide.html"
       }
     }
   });

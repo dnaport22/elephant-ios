@@ -1,0 +1,83 @@
+<ion-view>
+  <ion-content class="background-gradient">
+  	<div class="list list-transparent">
+
+        <label class="item list-divider">
+          <span>Account details</span>
+        </label>
+
+        <label class="item item-input list-field">
+          <i class="material-icons">email</i>
+          <span class="label-transparent" ng-bind="userData.mail"></span>
+        </label>
+
+        <label class="item item-input list-field">
+          <i class="material-icons">perm_identity</i>
+          <span class="label-transparent" ng-bind="userData.name"></span>
+        </label>
+
+        <label class="item item-input list-field">
+          <i class="material-icons">phone</i>
+          <span class="label-transparent" ng-bind="userData.phone['und'][0]['safe_value']"></span>
+        </label>
+
+        <label class="item item-input list-field">
+          <i class="material-icons">location_city</i>
+          <span class="label-transparent" ng-bind="userData.institute['und'][0]['safe_value']"></span>
+        </label>
+
+        <label class="item item-input list-field">
+          <i class="material-icons">assignment</i>
+          <span class="label-transparent" ng-bind="userData.discipline['und'][0]['safe_value']"></span>
+        </label>
+
+        <label class="item item-input list-field">
+          <i class="material-icons">grade</i>
+          <span class="label-transparent" ng-bind="userData.grade['und'][0]['safe_value']"></span>
+        </label>
+
+        <label class="item list-divider">
+          <span>Additional</span>
+        </label>
+
+        <label class="item item-input list-field">
+          <i class="material-icons">location_city</i>
+          <span class="label-transparent" ng-bind="userData.company['und'][0]['safe_value']"></span>
+        </label>
+
+        <label class="item item-input list-field">
+          <i class="material-icons">card_travel</i>
+          <span class="label-transparent" ng-bind="userData.position['und'][0]['safe_value']"></span>
+        </label>
+
+        <label class="item item-input list-field">
+          <i class="material-icons">store</i>
+          <span class="label-transparent" ng-bind="userData.address['und'][0]['safe_value']"></span>
+        </label>
+
+        <label class="item list-divider">
+          <span>Other</span>
+        </label>
+
+        <a href="#/app/about" class="list-field list-link">
+          <span class="no-icon-label">About</span> 
+        </a>
+
+        <a href="#/app/tc" class="list-field list-link">
+          <span class="no-icon-label">Terms and Conditions</span> 
+        </a>
+
+        <a href="#/app/eula" class="list-field list-link">
+          <span class="no-icon-label">EULA</span> 
+        </a>
+
+        <a href="#/app/pp" class="list-field list-link">
+          <span class="no-icon-label">Privacy Policy</span> 
+        </a>
+
+        <label class="item item-text-wrap bottom-note">
+          <p>If you wish to change any details, please contact hello@quizslides.com</p>
+        </label>
+  	</div>
+  </ion-content>
+</ion-view>

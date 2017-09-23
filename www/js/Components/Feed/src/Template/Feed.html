@@ -1,0 +1,103 @@
+<ion-view view-title="Home" class="main">
+  <!-- [START] Header button to change view -->
+  <ion-nav-buttons side="right">
+    <button class="button icon ion-navigation" ng-click="changeToGrid(viewType)">
+      <i class="icon ion-ios-grid-view-outline" ng-if="viewType == 'list'"></i>
+      <i class="icon ion-ios-list-outline" ng-if="viewType == 'grid'"></i>
+    </button>
+  </ion-nav-buttons>
+
+  <ion-content>
+    <!-- Pull to refresh direvctive -->
+
+    <div class="item item-input-inset" scroll="false">
+      <label class="item-input-wrapper" style="background-color:grey;">
+        <i class="icon ion-search placeholder-icon" style="color:white;"></i>
+        <input id="search" type="text" placeholder="Search for items"
+               ng-model="searchValue"
+               ng-change="search(this.searchValue)"
+               style="color:white;">
+      </label>
+      <button class="button button-small" ng-click="clearInput()" ng-if="inputVal == true">Clear</button>
+    </div>
+
+    <ion-refresher
+        ng-if="searchActive == false"
+        pulling-text="Pull to load new items..."
+        on-refresh="pullToRefresh()">
+    </ion-refresher>
+    <!-- Main grid to display items -->
+    <div class="grid-container">
+
+      <div id="slide-panel" ng-if="showSlides">
+      <ion-slide-box>
+        <ion-slide ng-repeat="item in slideShowItems" ng-click="onSlideClick(item.field_url.und[0].value)">
+            <div class="box text-center">
+              <img href="#" src="{{item.field_image.und[0].imgPath}}">
+            </div>
+        </ion-slide>
+      </ion-slide-box>
+      <ion-list>
+        <ion-item>
+          More to freecycle
+        </ion-item>
+      </ion-list>
+      </div>
+
+      <!-- Card view of the items -->
+      <div class="grid-two-to-three-to-four-col" ng-repeat="item in DOMFeeds" ng-if="viewType == 'grid'">
+        <div href="#" class="list card" ng-click="fullView(item)">
+          <div class="item item-image" style="background-image: url('{{item.field_item_image.und[0].imgPath}}')"></div>
+          <a class="item item-icon-right">
+            {{::item.title}}
+          </a>
+        </div>
+      </div>
+      <!-- List view of the items -->
+      <ion-list>
+        <ion-item ng-repeat="item in DOMFeeds"
+                  class="item-thumbnail-left" ng-if="viewType == 'list'"
+                  ng-click="fullView(item)">
+          <img ng-src="{{item.field_item_image.und[0].imgPath}}">
+          <h2>{{::item.title}}</h2>
+          <p>{{::item.body.und[0].value}}</p>
+        </ion-item>
+        <ion-item ng-show="itemsFinished">Sorry no more items!</ion-item>
+      </ion-list>
+    </div>
+    <!-- End Main grid -->
+    <!-- Infinite scroll directive -->
+    <div ng-if="searchActive == false">
+      <ion-infinite-scroll
+              ng-if="checkInitial()"
+              on-infinite="loadInitialInfiniteScroll()"
+              immediate-check="false"
+              distance="1%">
+      </ion-infinite-scroll>
+    </div>
+    <div ng-if="searchActive == true">
+      <ion-infinite-scroll
+              ng-if="checkSearch()"
+              on-infinite="loadSearchInfiniteScroll()"
+              immediate-check="false"
+              distance="1%">
+      </ion-infinite-scroll>
+    </div>
+  </ion-content>
+  <!-- Footer tabs -->
+  <div class="tab-striped  tabs-background-calm">
+    <div class="tabs tabs-icon-top tabs-color-light">
+      <!-- Show if the user is logged in -->
+      <a  class="tab-item active" ng-href="#/app/post-item" ng-if="state.authenticated">
+        <i class="icon ion-upload"></i>
+        Post item
+      </a>
+      <!-- Show if the user is logged out -->
+      <a  class="tab-item active" ng-href="#/app/login/postitem" ng-if="state.anonymous">
+        <i class="icon ion-log-in"></i>
+        Log in to post item
+      </a>
+    </div>
+  </div>
+  <!-- End Footer tabs -->
+</ion-view>

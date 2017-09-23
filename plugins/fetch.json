@@ -69,7 +69,9 @@
             "id": "cordova-plugin-camera"
         },
         "is_top_level": true,
-        "variables": {}
+        "variables": {
+            "CAMERA_USAGE_DESCRIPTION": "To post item in the app"
+        }
     },
     "ionic-plugin-deploy": {
         "source": {
@@ -88,5 +90,13 @@
         "variables": {
             "SENDER_ID": "519341329763"
         }
+    },
+    "cordova-plugin-inappbrowser": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-inappbrowser@1.7.1"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

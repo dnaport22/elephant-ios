@@ -1,0 +1,45 @@
+<ion-view view-title="My items" class="my-items">
+  <ion-content>
+    <div class="row" ng-if="items.length == 0">
+      <div class="col col-center text-center" style="padding-top:100px;padding-bottom:40px">
+        <i class="icon ion-sad-outline" style="font-size: 90px;"></i>
+      </div>
+    </div>
+    <div class="row" ng-if="items.length == 0">
+      <div class="col col-center text-center" style="padding-top:40px;padding-bottom:40px">
+        <h3>No items here...</h3>
+      </div>
+    </div>
+
+    <div class="grid-two-to-three-to-four-col" ng-repeat="item in items">
+      <div href="#" class="list card">
+        <div class="item item-image" style="background-image: url('{{::item.field_item_image.und[0].imgPath}}')"></div>
+        <div class="item">
+          {{::item.title}}
+        </div>
+        <div class="item item-body">
+          {{::item.body.und[0].value}}
+        </div>
+        <div id="item_status-color" ng-class="{
+          'bar bar-energized item item-divider': item.field_publishing_state.und[0].tid == state.IN_REVIEW,
+          'bar bar-balanced item item-divider': item.field_publishing_state.und[0].tid == state.APPROVED,
+          'bar bar-assertive item item-divider' : item.field_publishing_state.und[0].tid == state.DECLINED,
+          'bar bar-royal item item-divider' : item.field_publishing_state.und[0].tid == state.DONATED
+        }">
+          <span id="item_status-pending" ng-if="item.field_publishing_state.und[0].tid == state.IN_REVIEW">Pending approval</span>
+          <span id="item_status-approved" ng-if="item.field_publishing_state.und[0].tid == state.APPROVED">Item approved</span>
+          <span id="item_status-declined" ng-if="item.field_publishing_state.und[0].tid == state.DECLINED">Declined</span>
+          <span id="item_status-donated" ng-if="item.field_publishing_state.und[0].tid == state.DONATED">Donated</span>
+        </div>
+        <a ng-click="checkStatus(item)" class="button button-positive button-small button-clear icon-right ion-gear-b" style="float: right;">edit</a>
+      </div>
+    </div>
+    <ion-infinite-scroll
+            ng-if="items.length"
+            icon="ion-loading-c"
+            on-infinite="loadInfiniteScroll()"
+            immediate-check="false"
+            distance="1%">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>
