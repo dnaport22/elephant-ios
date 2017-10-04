@@ -17,9 +17,6 @@
         <div class="item">
           {{::item.title}}
         </div>
-        <div class="item item-body">
-          {{::item.body.und[0].value}}
-        </div>
         <div id="item_status-color" ng-class="{
           'bar bar-energized item item-divider': item.field_publishing_state.und[0].tid == state.IN_REVIEW,
           'bar bar-balanced item item-divider': item.field_publishing_state.und[0].tid == state.APPROVED,
