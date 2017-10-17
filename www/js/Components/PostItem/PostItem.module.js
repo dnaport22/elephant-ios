@@ -13,4 +13,7 @@ var PostReport = angular.module('PostItem', ['d7-services'])
     }
   })
 
-});
+})
+.constant('CATEGORIES', {
+  field_category:["Books, Stationary", "Home & Garden", "Fashion & Beauty", "Electronics", "Sport & Leisure", "Skills"]
+})

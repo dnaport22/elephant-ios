@@ -28,8 +28,22 @@
       <label class="item item-input">
         <textarea rows="5" placeholder="Describe your item in few words" id="desc" ng-model="desc" maxlength="200" ng-change="checkMaxLength()"></textarea>
       </label>
+      <label class = "item item-input item-select">
+        <div class = "input-label">
+          Category
+        </div>
+        <select ng-model="category">
+          <option>Books</option>
+          <option>Stationary</option>
+          <option>Home & Garden</option>
+          <option>Fashion & Beauty</option>
+          <option>Electronics</option>
+          <option>Sport & Leisure</option>
+          <option>Skills</option>
+        </select>
+      </label>
       <div id="desc-warning" class="character-limit-warning" style="display: none;">Character limit reached</div>
-      <button class="button button-calm button-block icon-center ion-upload" ng-click="onPostItem()">
+      <button class="button button-calm button-block icon-center ion-upload" ng-click="onPostItem(category)">
         Post
       </button>
     </div>

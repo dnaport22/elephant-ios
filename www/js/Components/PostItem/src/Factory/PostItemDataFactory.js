@@ -9,7 +9,8 @@ PostReport.factory('PostItemDataFactory', function ($cordovaCamera, $rootScope, 
       body: null,
       field_user_mail: null,
       field_publishing_state: {und: {tid: 2}},
-      field_item_image: {base64: null}
+      field_item_image: {base64: null},
+      field_category: null,
     },
     prepareCameraOptions: function (source, quality) {
       return options = {

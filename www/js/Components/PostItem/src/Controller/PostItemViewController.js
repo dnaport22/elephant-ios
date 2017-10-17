@@ -72,26 +72,30 @@ PostReport.controller('PostItemViewController', function($timeout, $state, $scop
   /**
    * Executed by Post button in the viewport.
    */
-  $scope.onPostItem = function () {
-    if (validateMandatoryFields()) {
-      PostItemDataFactory.postReportData();
+  $scope.onPostItem = function (category) {
+    if (validateMandatoryFields(category)) {
+      console.log(PostItemDataFactory.newPostData)
+      // PostItemDataFactory.postReportData();
     }
   };
 
-  var validateMandatoryFields = function () {
+  var validateMandatoryFields = function (category) {
     var title = inputVal.getValue('name');
     var body  = inputVal.getValue('desc');
-    if (title === "" || body === "" || IMAGE_URI === null) {
+    if (title === "" || body === "" || IMAGE_URI === null || category === null) {
       UIfactory.hideSpinner();
       UIfactory.showAlert('Alert', 'Please complete all fields and select an image.');
       return false;
     }
-    PostItemDataFactory.newPostData.title = title;
-    PostItemDataFactory.newPostData.body = DrupalHelperService.structureField({value: body});
-    PostItemDataFactory.newPostData.field_user_mail = DrupalHelperService.structureField({value:  $localStorage.email});
-    PostItemDataFactory.newPostData.field_item_image.base64 = IMAGE_URI;
+		PostItemDataFactory.newPostData.title = title;
+		PostItemDataFactory.newPostData.body = DrupalHelperService.structureField({value: body});
+		PostItemDataFactory.newPostData.field_user_mail = DrupalHelperService.structureField({value: $localStorage.email});
+		PostItemDataFactory.newPostData.field_item_image.base64 = IMAGE_URI;
+		PostItemDataFactory.newPostData.field_category = DrupalHelperService.structureField({value: category});
+
     return true;
   };
+
   /**
    * Clear fields in the form.
    */
