@@ -9,5 +9,7 @@
     "!www/lib/**/*",
     "!www/**/*.map"
   ],
-  "app_id": "e2fc4a7c"
+  "app_id": "e2fc4a7c",
+  "integrations": {},
+  "type": "ionic1"
 }
