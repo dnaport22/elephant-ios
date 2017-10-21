@@ -3,7 +3,11 @@
         <div class="list" ng-repeat="(key, value) in categories">
             <div class="item item-divider">
                 {{key | clean}}
+                <span class="item-note">
+                <a ng-click="goToFullPage(key)">View all</a>
+            </span>
             </div>
+
             <hscroller>
                 <hcard ng-repeat="cat in value" desc="{{cat.title}}" image="{{cat.field_item_image.und[0].imgPath}}}" ng-click="fullView(cat)"></hcard>
             </hscroller>

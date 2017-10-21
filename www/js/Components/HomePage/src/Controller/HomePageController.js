@@ -41,7 +41,8 @@ HomePage.controller('HomePageController', function ($window, $ionicSlideBoxDeleg
 					"field_item_image": {und:[{imgPath: data[i]["image"]}]},
 					"created": data[i]["created"],
 					"body": {und:[{value: data[i]["body"]}]},
-					"field_user_mail": {und:[{value: data[i]["mail"]}]}
+					"field_user_mail": {und:[{value: data[i]["mail"]}]},
+					"tid": data[i]["tid"]
 				})
 			}
 		}
@@ -58,6 +59,10 @@ HomePage.controller('HomePageController', function ($window, $ionicSlideBoxDeleg
 
 	$scope.fullView = function (feed_data) {
 		$state.go('app.feedview', {feed: feed_data});
+	};
+
+	$scope.goToFullPage = function (category) {
+		$state.go('app.fullfeed', {cat: category});
 	};
 
 

@@ -3,7 +3,10 @@ var Feed = angular.module('Feed', [])
   const TEMPLATE_DIR = 'js/Components/';
   $stateProvider
   .state('app.fullfeed', {
-    url: '/fullfeed',
+    url: '/fullfeed/',
+    params: {
+      cat: null
+    },
     views: {
       'menuContent': {
         templateUrl: TEMPLATE_DIR + 'Feed/src/Template/Feed.html',

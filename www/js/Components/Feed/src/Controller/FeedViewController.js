@@ -1,5 +1,6 @@
-elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelegate, DrupalApiConstant, DrupalHelperService, ViewsResource, $state, $ionicHistory, $scope, $http, $ionicPlatform,$location, $timeout, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics, $templateCache, $ionicScrollDelegate, $rootScope, CurrentUserfactory, AuthenticationService) {
+elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelegate, DrupalApiConstant, DrupalHelperService, ViewsResource, $state, $ionicHistory, $scope, $http, $ionicPlatform,$location, $timeout, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics, $templateCache, $ionicScrollDelegate, $rootScope, CurrentUserfactory, $stateParams) {
   UIfactory.showSpinner();
+  $scope.page = $stateParams.cat;
 	$rootScope.slideHeader = false;
   $rootScope.pixelLimit = 0;
   $scope.state = CurrentUserfactory.initStorage;
@@ -31,14 +32,16 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
     view_name: 'item_feed',
     page: 0,
     pagesize: 10,
-    format_output: '0'
+    format_output: '0',
+		tid_1: $scope.page.replace(/&amp;/g,'%26')
   };
 
   var searchViewOptions = {
 		view_name: 'item_feed',
 		page: 0,
 		pagesize: 10,
-		format_output: '0'
+		format_output: '0',
+		tid_1: $scope.page.replace(/&amp;/g,'%26')
   };
 
   var slideViewOptions = {
