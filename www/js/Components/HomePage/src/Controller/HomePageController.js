@@ -1,17 +1,57 @@
-HomePage.controller('HomePageController', function ($scope) {
+HomePage.controller('HomePageController', function ($window, $ionicSlideBoxDelegate, DrupalApiConstant, DrupalHelperService, ViewsResource, $state, $ionicHistory, $scope, $http, $ionicPlatform,$location, $timeout, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics, $templateCache, $ionicScrollDelegate, $rootScope, CurrentUserfactory, AuthenticationService) {
 
-	$scope.items = [];
+	UIfactory.showSpinner();
 
-	for (var i = 0; i <= 5; i++) {
-		var tmp = [
-			{desc: 'The Ramones', image:'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSulfJcjBhxxW2NBBn9KbE3B4BSeh0R7mQ38wUi_zpJlQrMoDWh_qFcMelE_tjtAERUPTc'},
-			{desc: 'The Beatles', image:'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTGpH07f9zeucoOs_stZyIFtBncU-Z8TDYmJgoFnlnxYmXjJEaitmxZNDkNvYnCzwWTySM'},
-			{desc: 'Pink Floyd', image:'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT-FbU5dD_Wz472srRIvoZAhyGTEytx9HWGusbhYgSc2h0N6AqqRrDwzApmyxZoIlyxDcU'},
-			{desc: 'The Rolling Stones', image:'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT6uwPPBnHfAAUcSzxr3iq9ou1CZ4f_Zc2O76i5A4IyoymIVwjOMXwUFTGSrVGcdGT9vQY'},
-			{desc: 'The Jimi Hendrix Experience', image:'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRA3jz0uhVypONAKWUve80Q6HASvuvZiohl4Sru5ZihkAsjWiaGjocfxd0aC3H7EeFk5-I'},
-			{desc: 'Van Halen', image:'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRIslVN9cJJ6YuV0y7JihAyA63JDhXGhkCVxHIRE-IoaF-rpefjIXO5osA24QvN9iCptC8'}
-		];
-		$scope.items = $scope.items.concat(tmp);
+	$scope.categories = [];
+	var dataset = {}
+
+	var categoryViewOptions = {
+		view_name: 'categories',
+		page: 0,
+		format_output: '0'
 	};
+
+	/**
+	 * Description: loadMore() function is used to retrieve items from the server.
+	 * Params: offset => last position of the items fetched,
+	 *         limit => number of items to be fetched (default = 10),
+	 *         filter => serach input
+	 * @return items from the server $scope.items[]
+	 *
+	 */
+	var loadCategories = function(options) {
+		ViewsResource.retrieve(options)
+			.then(function (response) {
+				handleCategories(response.data)
+			}, function (err) {
+				loadCategories(options);
+			});
+	};
+	loadCategories(categoryViewOptions);
+
+	var handleCategories = function (data) {
+		var cats = []
+
+		for(var i = 0; i < data.length; i++){
+			dataset[data[i]["taxonomy_term_data_name"]] = []
+		}
+		for(var i = 0; i < data.length; i++){
+			if (hasCategory(data[i]["taxonomy_term_data_name"])) {
+				dataset[data[i]["taxonomy_term_data_name"]].push({
+					"name": (data[i]["node_taxonomy_index_title"]),
+					"img": (data[i]["node_taxonomy_index_nid"])
+				})
+			}
+		}
+		$scope.categories = dataset;
+		UIfactory.hideSpinner()
+	}
+
+	var hasCategory = function(newCat) {
+		for (var cat in dataset) {
+			return cat = newCat;
+		}
+	}
+
 
 });
