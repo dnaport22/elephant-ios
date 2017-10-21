@@ -1,25 +1,32 @@
 <ion-view view-title="{{page}}" class="main">
   <!-- [START] Header button to change view -->
   <ion-nav-buttons side="right">
-    <button class="button icon ion-navigation" ng-click="changeToGrid(viewType)">
-      <i class="icon ion-ios-grid-view-outline" ng-if="viewType == 'list'"></i>
-      <i class="icon ion-ios-list-outline" ng-if="viewType == 'grid'"></i>
+
+    <button style="padding-right: 5px;" class="button icon ion-navigation" ng-click="searchCategory()">
+      <i class="icon ion-ios-search"></i>
     </button>
   </ion-nav-buttons>
 
   <ion-content>
     <!-- Pull to refresh direvctive -->
 
-    <div class="item item-input-inset" scroll="false">
-      <label class="item-input-wrapper" style="background-color:grey;">
-        <i class="icon ion-search placeholder-icon" style="color:white;"></i>
-        <input id="search" type="text" placeholder="Search for {{page}}"
-               ng-model="searchValue"
-               ng-change="search(this.searchValue)"
-               style="color:white;">
-      </label>
-      <button class="button button-small" ng-click="clearInput()" ng-if="inputVal == true">Clear</button>
-    </div>
+    <!--<div class="item item-input-inset" scroll="false">-->
+      <!--<label class="item-input-wrapper" style="background-color:grey;">-->
+        <!--<i class="icon ion-search placeholder-icon" style="color:white;"></i>-->
+        <!--<input id="search" type="text" placeholder="Search for {{page}}"-->
+               <!--ng-model="searchValue"-->
+               <!--ng-change="search(this.searchValue)"-->
+               <!--style="color:white;">-->
+      <!--</label>-->
+      <!--<button class="button button-small" ng-click="clearInput()" ng-if="inputVal == true">Clear</button>-->
+    <!--</div>-->
+
+    <!--<div class="item item-input-inset" scroll="false">-->
+      <!--<button class="button icon ion-navigation" ng-click="changeToGrid(viewType)">-->
+        <!--<i class="icon ion-ios-grid-view-outline" ng-if="viewType == 'list'"></i>-->
+        <!--<i class="icon ion-ios-list-outline" ng-if="viewType == 'grid'"></i>-->
+      <!--</button>-->
+    <!--</div>-->
 
     <!--<ion-refresher-->
         <!--ng-if="searchActive == false"-->
@@ -84,20 +91,5 @@
       </ion-infinite-scroll>
     </div>
   </ion-content>
-  <!-- Footer tabs -->
-  <div class="tab-striped  tabs-background-calm">
-    <div class="tabs tabs-icon-top tabs-color-light">
-      <!-- Show if the user is logged in -->
-      <a  class="tab-item active" ng-href="#/app/post-item" ng-if="state.authenticated">
-        <i class="icon ion-upload"></i>
-        Post item
-      </a>
-      <!-- Show if the user is logged out -->
-      <a  class="tab-item active" ng-href="#/app/login/postitem" ng-if="state.anonymous">
-        <i class="icon ion-log-in"></i>
-        Log in to post item
-      </a>
-    </div>
-  </div>
-  <!-- End Footer tabs -->
+
 </ion-view>

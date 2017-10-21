@@ -1,14 +1,64 @@
-HomePage.controller('HomePageController', function ($window, $ionicSlideBoxDelegate, DrupalApiConstant, DrupalHelperService, ViewsResource, $state, $ionicHistory, $scope, $http, $ionicPlatform,$location, $timeout, $localStorage, UIfactory, elephantData_URL, $ionicAnalytics, $templateCache, $ionicScrollDelegate, $rootScope, CurrentUserfactory, AuthenticationService) {
+HomePage.controller('HomePageController', function ($window, $ionicSlideBoxDelegate, DrupalApiConstant, DrupalHelperService, ViewsResource, $state, $ionicHistory, $scope, $http, $ionicPlatform,$location, $timeout, $localStorage, UIfactory) {
 
 	UIfactory.showSpinner();
 
 	$scope.categories = [];
 	var dataset = {};
+	$scope.showSlides = false;
+	$scope.slideShow = false;
+	$scope.slideShowItems = [];
+	setTimeout(function(){
+		$ionicSlideBoxDelegate.update();
+	},1000);
 
 	var categoryViewOptions = {
 		view_name: 'categories',
 		page: 0,
 		format_output: '0'
+	};
+
+	var slideViewOptions = {
+		view_name: 'in_app_slideshow',
+		page: 0
+	};
+
+	$scope.loadSlideShow = function () {
+		UIfactory.showSpinner();
+		ViewsResource.retrieve(slideViewOptions)
+			.then(function (response) {
+				if (response.data.length === 0) {
+					$scope.showSlides = false;
+					$scope.slideShow = false;
+				} else {
+					$scope.showSlides = true;
+					$scope.slideShow = true;
+					handleSlideShowData(response.data);
+				}
+			})
+	};
+	$scope.loadSlideShow();
+
+	var handleSlideShowData = function (data) {
+		for (var i = 0; i < data.length; i++) {
+			slideShowItems = slideShowItems.concat(prepareSlides(data[i]));
+		}
+		$scope.slideShowItems = slideShowItems;
+		UIfactory.hideSpinner();
+	};
+
+	var prepareSlides = function (data) {
+		if("field_image" in data && "und" in data.field_image) {
+			angular.forEach(data.field_image.und, function (value, key) {
+				var imgPath = data.field_image.und[key].uri.split('//')[1].replace(/^\/+/, "");
+				data.field_image.und[key].imgPath = DrupalHelperService.getPathToImgByStyle(DrupalApiConstant.imageStyles.large) + imgPath;
+			});
+
+		}
+		return data;
+	};
+
+	$scope.onSlideClick = function (url) {
+		window.open(url, '_system', 'location=no,clearsessioncache=no,clearcache=no');
 	};
 
 	/**
@@ -45,8 +95,7 @@ HomePage.controller('HomePageController', function ($window, $ionicSlideBoxDeleg
 					"tid": data[i]["tid"]
 				})
 			}
-		}
-		console.log(dataset)
+		};
 		$scope.categories = dataset;
 		UIfactory.hideSpinner()
 	};
@@ -64,6 +113,28 @@ HomePage.controller('HomePageController', function ($window, $ionicSlideBoxDeleg
 	$scope.goToFullPage = function (category) {
 		$state.go('app.fullfeed', {cat: category});
 	};
+
+	$scope.goToSearchPage = function () {
+		$state.go('app.search', {type: 'all'});
+	};
+
+	/**
+	 * This is redirect the user to app.userguide state,
+	 * if the user has open the app for first time.
+	 */
+	if(!$localStorage.app_launch_activity) {
+		UIfactory.showSpinner();
+		$state.go('app.userguide');
+	};
+
+	/**
+	 * This loads the items before user enters the page.
+	 */
+	if(!$localStorage.app_launch_activity) {
+		$scope.$on('$ionicView.beforeEnter', function() {
+			$scope.loadMore('initial');
+		});
+	}
 
 
 });

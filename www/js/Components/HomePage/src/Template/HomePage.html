@@ -1,5 +1,19 @@
 <ion-view view-title="elephant">
+    <ion-nav-buttons side="right">
+        <button class="button icon ion-navigation" ng-click="goToSearchPage()">
+            <i class="icon ion-ios-search"></i>
+        </button>
+    </ion-nav-buttons>
     <ion-content>
+        <div id="slide-panel" ng-if="showSlides">
+            <ion-slide-box>
+                <ion-slide ng-repeat="item in slideShowItems" ng-click="onSlideClick(item.field_url.und[0].value)">
+                    <div class="box text-center"
+                        <img href="#" src="{{item.field_image.und[0].imgPath}}">
+                    </div>
+                </ion-slide>
+            </ion-slide-box>
+        </div>
         <div class="list" ng-repeat="(key, value) in categories">
             <div class="item item-divider">
                 {{key | clean}}
@@ -13,4 +27,20 @@
             </hscroller>
         </div>
     </ion-content>
+    <!-- Footer tabs -->
+    <div class="tab-striped  tabs-background-calm">
+        <div class="tabs tabs-icon-top tabs-color-light">
+            <!-- Show if the user is logged in -->
+            <a  class="tab-item active" ng-href="#/app/post-item" ng-if="state.authenticated">
+                <i class="icon ion-upload"></i>
+                Post item
+            </a>
+            <!-- Show if the user is logged out -->
+            <a  class="tab-item active" ng-href="#/app/login/postitem" ng-if="state.anonymous">
+                <i class="icon ion-log-in"></i>
+                Log in to post item
+            </a>
+        </div>
+    </div>
+    <!-- End Footer tabs -->
 </ion-view>

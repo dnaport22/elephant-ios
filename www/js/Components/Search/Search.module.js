@@ -2,7 +2,7 @@ var Search = angular.module('Search', ['d7-services'])
 	.config(function($stateProvider, $urlRouterProvider) {
 		const TEMPLATE_DIR = 'js/Components/';
 		$stateProvider
-			.state('app.login', {
+			.state('app.search', {
 				url: '/search',
 				params: {
 					type: null

@@ -10,6 +10,8 @@
     "!www/**/*.map"
   ],
   "app_id": "e2fc4a7c",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic1"
 }

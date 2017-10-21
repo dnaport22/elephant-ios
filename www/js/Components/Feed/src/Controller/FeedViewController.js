@@ -365,15 +365,6 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
     }
   };
 
-  /**
-   * This loads the items before user enters the page.
-   */
-  if(!$localStorage.app_launch_activity) {
-    $scope.$on('$ionicView.beforeEnter', function() {
-      $scope.loadMore('initial');
-    });
-  }
-
   $scope.reloadData = function() {
     $state.go($state.current, {reload: true, inherit: false})
     $scope.$broadcast('scroll.refreshComplete');
@@ -384,14 +375,9 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
     $state.go('app.feedview', {feed: feed_data});
   };
 
-  /**
-   * This is redirect the user to app.userguide state,
-   * if the user has open the app for first time.
-   */
-  if(!$localStorage.app_launch_activity) {
-    UIfactory.showSpinner();
-    $state.go('app.userguide');
-  }
+  $scope.searchCategory = function () {
+		$state.go('app.search', {type: $scope.page})
+	}
 
 
 });
