@@ -1,5 +1,5 @@
 Feed.controller('FullFeedViewController', function($http, $scope, $stateParams, $location, CurrentUserfactory, $localStorage, UIfactory, DrupalHelperService, DrupalApiConstant, CommentResource) {
-  $scope.item = prepareFeed($stateParams.feed);
+  $scope.item = $stateParams.feed;
 
   function prepareFeed(data) {
     if("field_item_image" in data && "und" in data.field_item_image) {

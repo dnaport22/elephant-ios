@@ -2,8 +2,8 @@ var Feed = angular.module('Feed', [])
 .config(function($stateProvider, $urlRouterProvider) {
   const TEMPLATE_DIR = 'js/Components/';
   $stateProvider
-  .state('app.main', {
-    url: '/main',
+  .state('app.fullfeed', {
+    url: '/fullfeed',
     views: {
       'menuContent': {
         templateUrl: TEMPLATE_DIR + 'Feed/src/Template/Feed.html',

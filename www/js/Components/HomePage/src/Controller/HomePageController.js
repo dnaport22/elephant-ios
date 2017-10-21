@@ -3,7 +3,7 @@ HomePage.controller('HomePageController', function ($window, $ionicSlideBoxDeleg
 	UIfactory.showSpinner();
 
 	$scope.categories = [];
-	var dataset = {}
+	var dataset = {};
 
 	var categoryViewOptions = {
 		view_name: 'categories',
@@ -30,28 +30,35 @@ HomePage.controller('HomePageController', function ($window, $ionicSlideBoxDeleg
 	loadCategories(categoryViewOptions);
 
 	var handleCategories = function (data) {
-		var cats = []
-
+		var cats = [];
 		for(var i = 0; i < data.length; i++){
-			dataset[data[i]["taxonomy_term_data_name"]] = []
+			dataset[data[i]["category"]] = []
 		}
 		for(var i = 0; i < data.length; i++){
-			if (hasCategory(data[i]["taxonomy_term_data_name"])) {
-				dataset[data[i]["taxonomy_term_data_name"]].push({
-					"name": (data[i]["node_taxonomy_index_title"]),
-					"img": (data[i]["node_taxonomy_index_nid"])
+			if (hasCategory(data[i]["category"])) {
+				dataset[data[i]["category"]].push({
+					"title": data[i]["title"],
+					"field_item_image": {und:[{imgPath: data[i]["image"]}]},
+					"created": data[i]["created"],
+					"body": {und:[{value: data[i]["body"]}]},
+					"field_user_mail": {und:[{value: data[i]["mail"]}]}
 				})
 			}
 		}
+		console.log(dataset)
 		$scope.categories = dataset;
 		UIfactory.hideSpinner()
-	}
+	};
 
 	var hasCategory = function(newCat) {
 		for (var cat in dataset) {
 			return cat = newCat;
 		}
 	}
+
+	$scope.fullView = function (feed_data) {
+		$state.go('app.feedview', {feed: feed_data});
+	};
 
 
 });

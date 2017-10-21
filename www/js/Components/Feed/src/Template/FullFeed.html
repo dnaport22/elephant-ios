@@ -3,10 +3,10 @@
     <div class="list card">
       <div class="item item-image" style="background-image: url('{{::item.field_item_image.und[0].imgPath}}')"></div>
       <div class="item item-body">
-        {{::item.title}} <br> Posted on: {{::item.created | date:'medium'}}
+        <h2 ng-bind-html="item.title"></h2><p ng-bind-html="item.created | date:'medium'"></p>
       </div>
       <div class="item item-body">
-        Description: <br> {{::item.body.und[0].value}}
+        <b>Description</b> <br> <p ng-bind-html="item.body.und[0].value"></p>
       </div>
     </div>
 

@@ -2,8 +2,8 @@ var HomePage = angular.module('HomePage', [])
 	.config(function($stateProvider, $urlRouterProvider) {
 		const TEMPLATE_DIR = 'js/Components/';
 		$stateProvider
-			.state('app.homepage', {
-				url: '/homepage',
+			.state('app.main', {
+				url: '/main',
 				views: {
 					'menuContent': {
 						templateUrl: TEMPLATE_DIR + 'HomePage/src/Template/HomePage.html',
@@ -12,3 +12,9 @@ var HomePage = angular.module('HomePage', [])
 				}
 			})
 	})
+	.filter('clean', function() {
+		return function(input) {
+			// do some bounds checking here to ensure it has that index
+			return input.replace(/&amp;/g, '&');
+		}
+	});

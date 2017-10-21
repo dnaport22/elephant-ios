@@ -2,10 +2,10 @@
     <ion-content>
         <div class="list" ng-repeat="(key, value) in categories">
             <div class="item item-divider">
-                {{key}}
+                {{key | clean}}
             </div>
             <hscroller>
-                <hcard ng-repeat="cat in value" desc="{{cat.name}}" image="{{cat.img}}"></hcard>
+                <hcard ng-repeat="cat in value" desc="{{cat.title}}" image="{{cat.field_item_image.und[0].imgPath}}}" ng-click="fullView(cat)"></hcard>
             </hscroller>
         </div>
     </ion-content>
