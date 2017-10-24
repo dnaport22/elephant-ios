@@ -1,12 +1,13 @@
-HomePage.controller('HomePageController', function ($window, $ionicSlideBoxDelegate, DrupalApiConstant, DrupalHelperService, ViewsResource, $state, $ionicHistory, $scope, $http, $ionicPlatform,$location, $timeout, $localStorage, UIfactory) {
+HomePage.controller('HomePageController', function ($window, $ionicSlideBoxDelegate, DrupalApiConstant, DrupalHelperService, ViewsResource, $state, $ionicHistory, $scope, $http, $ionicPlatform,$location, $timeout, $localStorage, UIfactory, CurrentUserfactory) {
 
 	UIfactory.showSpinner();
+	$scope.state = CurrentUserfactory.initStorage;
 
 	$scope.categories = [];
 	var dataset = {};
 	$scope.showSlides = false;
 	$scope.slideShow = false;
-	$scope.slideShowItems = [];
+	var slideShowItems = [];
 	setTimeout(function(){
 		$ionicSlideBoxDelegate.update();
 	},1000);

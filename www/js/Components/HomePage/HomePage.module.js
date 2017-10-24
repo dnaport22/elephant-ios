@@ -1,6 +1,9 @@
 var HomePage = angular.module('HomePage', [])
-	.config(function($stateProvider, $urlRouterProvider) {
+	.config(function($stateProvider, $sceDelegateProvider) {
 		const TEMPLATE_DIR = 'js/Components/';
+		$sceDelegateProvider.resourceUrlWhitelist([
+			'self', 'http://developv2.myelephant.xyz/**'
+		])
 		$stateProvider
 			.state('app.main', {
 				url: '/main',

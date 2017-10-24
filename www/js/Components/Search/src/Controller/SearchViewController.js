@@ -1,5 +1,11 @@
 Search.controller('SearchViewController', function ($scope, $stateParams, UIfactory, ViewsResource, DrupalHelperService, DrupalApiConstant) {
+	var previousTitle = document.getElementsByClassName('title-left');
+	previousTitle[1].innerHTML = ""
+	previousTitle[1].style.display = 'none';
+	previousTitle[2].innerHTML = ""
+	previousTitle[2].style.display = 'none';
 
+	console.log(previousTitle)
 	$scope.type = $stateParams.type;
 	$scope.DOMFeeds = [];
 	var searchFeed = [];
@@ -84,7 +90,6 @@ Search.controller('SearchViewController', function ($scope, $stateParams, UIfact
 				searchFeed = searchFeed.concat(prepareFeed(data[i]));
 			}
 			$scope.DOMFeeds = searchFeed;
-			console.log($scope.DOMFeeds);
 		}
 		$scope.$broadcast('scroll.infiniteScrollComplete');
 		UIfactory.hideSpinner();
