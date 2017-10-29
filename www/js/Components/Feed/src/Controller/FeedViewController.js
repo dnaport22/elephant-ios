@@ -211,21 +211,6 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
     }
     UIfactory.hideSpinner();
   };
-  /**
-   * Description: check() function is called by infinite scroll to check if there
-   * are items in the $scope.items array.
-   */
-  $scope.checkInitial = function() {
-    return true;
-  };
-
-	/**
-	 * Description: check() function is called by infinite scroll to check if there
-	 * are items in the $scope.items array.
-	 */
-	$scope.checkSearch = function() {
-		return true;
-	};
 
   /**
    * Description: used for navigating user to getitem and login/post item page.

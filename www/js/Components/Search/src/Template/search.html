@@ -28,22 +28,12 @@
         </div>
         <!-- End Main grid -->
         <!-- Infinite scroll directive -->
-        <div ng-if="searchActive == false">
-            <ion-infinite-scroll
-                    ng-if="checkInitial()"
-                    on-infinite="loadInitialInfiniteScroll()"
-                    immediate-check="false"
-                    distance="1%">
-            </ion-infinite-scroll>
-        </div>
-        <div ng-if="searchActive == true">
-            <ion-infinite-scroll
-                    ng-if="checkSearch()"
-                    on-infinite="loadSearchInfiniteScroll()"
-                    immediate-check="false"
-                    distance="1%">
-            </ion-infinite-scroll>
-        </div>
+        <ion-infinite-scroll
+                ng-if="checkSearch()"
+                on-infinite="loadSearchInfiniteScroll()"
+                immediate-check="false"
+                distance="1%">
+        </ion-infinite-scroll>
     </ion-content>
 
 </ion-view>

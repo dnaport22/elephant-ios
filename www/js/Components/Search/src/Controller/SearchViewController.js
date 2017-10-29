@@ -119,5 +119,13 @@ Search.controller('SearchViewController', function ($scope, $stateParams, UIfact
 
 		return data;
 	}
+
+	/**
+	 * Description: check() function is called by infinite scroll to check if there
+	 * are items in the $scope.items array.
+	 */
+	$scope.checkSearch = function() {
+		return true;
+	};
 	
 })
