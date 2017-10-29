@@ -4,7 +4,7 @@
             <i class="icon ion-ios-search"></i>
         </button>
     </ion-nav-buttons>
-    <ion-content style="background-color:#f1f1f1">
+    <ion-content class="has-footer" style="background-color:#f1f1f1">
         <div id="slide-panel" ng-if="slideShow">
             <ion-slide-box class="card">
                 <ion-slide style="position: relative; z-index:0" ng-repeat="item in slideShowItems" ng-click="onSlideClick(item.field_url.und[0].value)">
