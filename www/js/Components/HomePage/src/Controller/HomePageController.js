@@ -1,5 +1,7 @@
 HomePage.controller('HomePageController', function ($window, $ionicSlideBoxDelegate, DrupalApiConstant, DrupalHelperService, ViewsResource, $state, $ionicHistory, $scope, $http, $ionicPlatform,$location, $timeout, $localStorage, UIfactory, CurrentUserfactory) {
-
+	setTimeout(function(){
+		$ionicSlideBoxDelegate.update();
+	},1000);
 	UIfactory.showSpinner();
 	$scope.state = CurrentUserfactory.initStorage;
 
