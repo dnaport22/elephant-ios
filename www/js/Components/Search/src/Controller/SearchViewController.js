@@ -97,17 +97,13 @@ Search.controller('SearchViewController', function ($scope, $stateParams, UIfact
 	 * Description: clears input field and hide clear button.
 	 */
 	$scope.clearInput = function() {
-		if ($scope.slideShow) {
-			$scope.showSlides = true;
-		}
 		document.getElementById('search').style.color = "transparent";
 		inputVal.setValue('search', '');
-		$scope.inputVal = false;
 		searchViewOptions.page = 0;
 		searchPaginationOptions.pageLast = undefined;
 		$scope.searchActive = false;
 		$scope.searchItemsFinished = false;
-		$scope.DOMFeeds = initialFeed;
+		$scope.DOMFeeds = [];
 	};
 
 	function prepareFeed(data) {
