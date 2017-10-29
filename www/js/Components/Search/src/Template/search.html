@@ -1,4 +1,7 @@
-<ion-view>
+<ion-view hide-back-button="true" view-title="">
+    <ion-nav-buttons side="left">
+        <button class="icon ion-chevron-left" style="color: white;" ng-click="back()"></button>
+    </ion-nav-buttons>
     <ion-nav-buttons side="right">
         <input placeholder="Search"
                style="width:250px; background-color: inherit; color: white; border:none;"
@@ -41,6 +44,5 @@
             </ion-infinite-scroll>
         </div>
     </ion-content>
-
 
 </ion-view>

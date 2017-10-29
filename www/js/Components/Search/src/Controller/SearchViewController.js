@@ -1,14 +1,12 @@
-Search.controller('SearchViewController', function ($scope, $stateParams, UIfactory, ViewsResource, DrupalHelperService, DrupalApiConstant) {
-	var previousTitle = document.getElementsByClassName('title-left');
-	previousTitle[1].innerHTML = ""
-	previousTitle[1].style.display = 'none';
-	previousTitle[2].innerHTML = ""
-	previousTitle[2].style.display = 'none';
-
-	console.log(previousTitle)
+Search.controller('SearchViewController', function ($scope, $stateParams, UIfactory, ViewsResource, DrupalHelperService, DrupalApiConstant, $ionicNavBarDelegate, $ionicHistory) {
 	$scope.type = $stateParams.type;
 	$scope.DOMFeeds = [];
 	var searchFeed = [];
+
+	$scope.back = function () {
+		$ionicHistory.goBack();
+		$ionicHistory.clearCache();
+	};
 
 	var searchViewOptions = {
 		view_name: 'item_feed',
