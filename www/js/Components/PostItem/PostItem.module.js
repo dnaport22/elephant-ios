@@ -15,5 +15,14 @@ var PostReport = angular.module('PostItem', ['d7-services'])
 
 })
 .constant('CATEGORIES', {
-  field_category:["Books, Stationary", "Home & Garden", "Fashion & Beauty", "Electronics", "Sport & Leisure", "Skills"]
+  model: null,
+  field_category:[
+    {name:"Books", id: 6},
+    {name:"Stationary", id:7},
+    {name:"Home & Garden", id:8},
+    {name:"Fashion & Beauty", id:9},
+    {name:"Electronics", id:10},
+    {name:"Sport & Leisure", id:11},
+    {name:"Skills", id:12},
+  ]
 })

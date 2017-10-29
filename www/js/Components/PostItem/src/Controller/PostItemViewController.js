@@ -1,6 +1,7 @@
-PostReport.controller('PostItemViewController', function($timeout, $state, $scope, $ionicHistory, $localStorage ,$ionicActionSheet, UIfactory, DrupalHelperService, $rootScope, PostItemDataFactory, PostItemUploadFactory) {
+PostReport.controller('PostItemViewController', function($timeout, $state, $scope, $ionicHistory, $localStorage ,$ionicActionSheet, UIfactory, DrupalHelperService, $rootScope, PostItemDataFactory, PostItemUploadFactory, CATEGORIES) {
   $scope.data = null;
   var IMAGE_URI = null;
+  $scope.categories  = CATEGORIES;
 
   // Listens for image data ready event
   $rootScope.$on('$imageUriReady', function (event, data) {
@@ -79,9 +80,10 @@ PostReport.controller('PostItemViewController', function($timeout, $state, $scop
     }
   };
 
-  var validateMandatoryFields = function (category) {
+  var validateMandatoryFields = function () {
     var title = inputVal.getValue('name');
     var body  = inputVal.getValue('desc');
+    var category = inputVal.getValue('category');
     if (title === "" || body === "" || IMAGE_URI === null || category === null) {
       UIfactory.hideSpinner();
       UIfactory.showAlert('Alert', 'Please complete all fields and select an image.');
@@ -91,7 +93,7 @@ PostReport.controller('PostItemViewController', function($timeout, $state, $scop
 		PostItemDataFactory.newPostData.body = DrupalHelperService.structureField({value: body});
 		PostItemDataFactory.newPostData.field_user_mail = DrupalHelperService.structureField({value: $localStorage.email});
 		PostItemDataFactory.newPostData.field_item_image.base64 = IMAGE_URI;
-		PostItemDataFactory.newPostData.field_category = DrupalHelperService.structureField({value: category});
+		PostItemDataFactory.newPostData.field_category = {und: {tid: category}};
 
     return true;
   };
