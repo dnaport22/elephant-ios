@@ -1,4 +1,4 @@
-Search.controller('SearchViewController', function ($scope, $stateParams, UIfactory, ViewsResource, DrupalHelperService, DrupalApiConstant, $ionicNavBarDelegate, $ionicHistory) {
+Search.controller('SearchViewController', function ($state, $scope, $stateParams, UIfactory, ViewsResource, DrupalHelperService, DrupalApiConstant, $ionicNavBarDelegate, $ionicHistory) {
 	$scope.type = $stateParams.type;
 	$scope.DOMFeeds = [];
 	var searchFeed = [];
@@ -125,6 +125,10 @@ Search.controller('SearchViewController', function ($scope, $stateParams, UIfact
 	 */
 	$scope.checkSearch = function() {
 		return true;
+	};
+
+	$scope.fullView = function (feed_data) {
+		$state.go('app.feedview', {feed: feed_data});
 	};
 	
 })

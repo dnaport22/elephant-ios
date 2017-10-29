@@ -231,7 +231,6 @@ elephant.controller('FeedViewController', function($window, $ionicSlideBoxDelega
   };
 
   $scope.fullView = function (feed_data) {
-  	console.log(feed_data)
     $state.go('app.feedview', {feed: feed_data});
   };
 

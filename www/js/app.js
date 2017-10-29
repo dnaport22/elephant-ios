@@ -72,9 +72,9 @@ var elephant = angular.module('elephant',
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, DrupalApiConstant, $ionicCloudProvider) {
   DrupalApiConstant.drupal_instance = "http://developv2.myelephant.xyz/";
   DrupalApiConstant.api_endpoint = "api/elev2/";
-  //$ionicConfigProvider.views.transition('android');
+  $ionicConfigProvider.views.transition('ios');
   $ionicConfigProvider.scrolling.jsScrolling(false);
-  //$ionicConfigProvider.spinner.icon('android');
+  $ionicConfigProvider.spinner.icon('ios');
 
   const TEMPLATE_DIR = 'js/Components/';
   $stateProvider

@@ -16,6 +16,9 @@
         "cordova-plugin-file-transfer": {
             "PACKAGE_NAME": "com.elephant.app"
         },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.elephant.app"
+        },
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.elephant.app"
         },
@@ -35,19 +38,10 @@
             "SENDER_ID": "519341329763",
             "PACKAGE_NAME": "com.elephant.app"
         },
-        "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "com.elephant.app"
-        },
         "cordova-plugin-ios-camera-permissions": {
-            "CAMERA_USAGE_DESCRIPTION": "This app needs camera access",
-            "MICROPHONE_USAGE_DESCRIPTION": "This app needs microphone access",
-            "PHOTOLIBRARY_ADD_USAGE_DESCRIPTION": "This app needs write-access to photo library",
-            "PHOTOLIBRARY_USAGE_DESCRIPTION": "This app needs read/write-access photo library access",
             "PACKAGE_NAME": "com.elephant.app"
         },
         "cordova-plugin-camera": {
-            "CAMERA_USAGE_DESCRIPTION": "To post item in the app",
-            "PHOTOLIBRARY_USAGE_DESCRIPTION": " ",
             "PACKAGE_NAME": "com.elephant.app"
         }
     },

@@ -47,11 +47,11 @@ PostReport.controller('PostItemViewController', function($timeout, $state, $scop
       buttonClicked: function(index) {
         if (index == 0) {
           hideSheet();
-          $scope.onTakePicture(Camera.PictureSourceType.CAMERA);
+          $scope.onTakePicture(1);
         }
         else if (index == 1) {
           hideSheet();
-          $scope.onTakePicture(Camera.PictureSourceType.PHOTOLIBRARY);
+          $scope.onTakePicture(0);
         }
         else if (index == 2) {
           hideSheet();
@@ -75,8 +75,7 @@ PostReport.controller('PostItemViewController', function($timeout, $state, $scop
    */
   $scope.onPostItem = function (category) {
     if (validateMandatoryFields(category)) {
-      console.log(PostItemDataFactory.newPostData)
-      // PostItemDataFactory.postReportData();
+      PostItemDataFactory.postReportData();
     }
   };
 

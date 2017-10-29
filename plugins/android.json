@@ -9,7 +9,17 @@
     "installed_plugins": {
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.elephant.app"
+        },
+        "cordova-plugin-ios-camera-permissions": {
+            "PACKAGE_NAME": "com.elephant.app"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.elephant.app"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.elephant.app"
+        }
+    }
 }
