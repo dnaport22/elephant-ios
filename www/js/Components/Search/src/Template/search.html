@@ -16,7 +16,7 @@
     <ion-content>
         <!-- List view of the items -->
         <ion-list>
-            <ion-item ng-repeat="item in DOMFeeds"
+            <ion-item ng-repeat="item in DOMFeeds track by item.nid"
                       class="item-thumbnail-left"
                       ng-click="fullView(item)">
                 <img ng-src="{{item.field_item_image.und[0].imgPath}}">

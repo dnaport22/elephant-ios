@@ -72,7 +72,7 @@ Search.controller('SearchViewController', function ($scope, $stateParams, UIfact
 		if (filter.length > 2) {
 			UIfactory.showSpinner();
 			searchFeed = [];
-			searchViewOptions.combine = filter;
+			searchViewOptions.keys = filter;
 			if ($scope.type !== 'all') {
 				searchViewOptions.tid_1 = $scope.type.replace(/&amp;/g,'%26')
 			}
@@ -97,7 +97,6 @@ Search.controller('SearchViewController', function ($scope, $stateParams, UIfact
 	 * Description: clears input field and hide clear button.
 	 */
 	$scope.clearInput = function() {
-		document.getElementById('search').style.color = "transparent";
 		inputVal.setValue('search', '');
 		searchViewOptions.page = 0;
 		searchPaginationOptions.pageLast = undefined;
